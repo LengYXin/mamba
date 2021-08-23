@@ -41,16 +41,11 @@
 </template>
 
 <script lang="ts">
-import {
-  Inject,
-  Component,
-  Prop,
-  Ref,
-  Vue,
-  Provide,
-  Watch,
-} from "vue-property-decorator";
 import lodash from "lodash";
+import {
+Component, Inject, Prop, Provide, Ref,
+Vue
+} from "vue-property-decorator";
 @Component({
   components: {},
 })

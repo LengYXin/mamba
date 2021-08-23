@@ -49,13 +49,8 @@ import { observer } from "mobx-vue";
 import { fromEvent, Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import {
-  Emit,
-  Inject,
-  Component,
-  Prop,
-  Provide,
-  Ref,
-  Vue,
+Component, Emit, InjectReactive, Prop, ProvideReactive, Ref,
+Vue
 } from "vue-property-decorator";
 export type IrangePicker = Array<{ key: string, start: string, end: string, format?: string, showTime?: boolean }>;
 const CONFIG_SPAN_BREAKPOINTS = {
@@ -89,12 +84,12 @@ const BREAKPOINTS = {
   components: {},
 })
 export default class extends Vue {
-  @Inject() readonly PageController: BasesController;
+  @Prop({ required: true }) readonly PageController: BasesController;
   get Pagination() {
     return this.PageController.Pagination;
   }
   /** 表单状态 */
-  @Inject() readonly formState;
+  @InjectReactive() readonly formState;
   /** 表单 ref */
   @Ref("formRef") readonly formRef;
   /** 处理 时间 区间 key */
@@ -103,7 +98,7 @@ export default class extends Vue {
   @Prop({}) readonly rules;
 
   /** 告诉 field 使用 a-col */
-  @Provide() colProps = {
+  @ProvideReactive() colProps = {
     colItem: true,
     colSpan: 6,
   };

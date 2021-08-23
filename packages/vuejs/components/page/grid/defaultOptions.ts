@@ -58,7 +58,6 @@ export default (i18n: VueI18n) => {
  * @param frameworkComponents 
  */
 export function getColumnDefsAction(frameworkComponents): (ColGroupDef | ColDef)[] {
-    console.log("LENG ~ getColumnDefsAction ~ frameworkComponents", frameworkComponents)
     if (lodash.has(frameworkComponents, 'RowAction')) {
         return [{
             minWidth: 0,

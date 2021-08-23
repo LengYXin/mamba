@@ -13,16 +13,15 @@
   
   <script lang="ts">
 import { BasesController, BasesPagination } from "@mamba/clients";
-import { observer } from "mobx-vue";
 import lodash from "lodash";
-import { Component, Inject, Vue, Prop } from "vue-property-decorator";
+import { observer } from "mobx-vue";
+import { Component, Prop, Vue } from "vue-property-decorator";
 @observer
 @Component({
     components: {},
 })
 export default class PageView extends Vue {
-    @Inject()
-    PageController: BasesController;
+    @Prop({ required: true }) PageController: BasesController;
     get Pagination() {
         return this.PageController.Pagination;
     }

@@ -11,12 +11,12 @@
   </page-filter>
 </template>
 <script lang="ts">
-import { Vue, Component, Provide, Inject } from "vue-property-decorator";
-import { PageController } from "../controller";
+import { Component, Provide, Vue } from "vue-property-decorator";
+import PageController from "../controller";
 import { EnumLocaleLabel } from "../locales";
 @Component({ components: {} })
 export default class extends Vue {
-  @Inject() readonly PageController: PageController;
+  readonly PageController = PageController;
   @Provide() readonly formState = {
     name: undefined,
     gender: undefined

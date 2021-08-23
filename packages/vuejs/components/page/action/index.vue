@@ -66,7 +66,7 @@ export default class extends Mixins(ActionBasics) {
   /** 请求参数 */
   @Prop({}) toQuery;
   /** 页面控制器 */
-  @Prop() readonly PageController;
+  @Prop({ required: true }) readonly PageController;
   /**
    * 行 操作需要 aggrid 传入
    * @type {ICellRendererParams}
