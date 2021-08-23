@@ -1,0 +1,31 @@
+{
+	"name": "@mamba/clients",
+	"version": "0.0.1",
+	"description": "> TODO: description",
+	"author": "lengyingxin <lengyingxin8966@gmail.com> (https://github.com/LengYXin)",
+	"homepage": "https://github.com/LengYXin/mamba#readme",
+	"license": "ISC",
+	"main": "index.ts",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"publishConfig": {
+		"registry": "http://registry.npm.taobao.org/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LengYXin/mamba.git"
+	},
+	"bugs": {
+		"url": "https://github.com/LengYXin/mamba/issues"
+	},
+	"devDependencies": {
+		"jest": "^27.0.6",
+		"ts-jest": "^27.0.5",
+		"typescript": "^4.3.5"
+	}
+}

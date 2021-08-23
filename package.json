@@ -1,0 +1,43 @@
+{
+  "name": "mamba",
+  "private": true,
+  "scripts": {
+    "dev": "lerna run dev --stream",
+    "dev:server": "cd packages/server && npm run dev",
+    "dev:mobile": "cd packages/mobile && npm run dev",
+    "dev:reactjs": "cd packages/reactjs && npm run dev",
+    "dev:vuejs": "cd packages/vuejs && npm run dev",
+    "dev:weapp": "cd packages/weapp && npm run dev",
+    "dev:docs": "cd packages/docs && npm run dev",
+    "build": "lerna run build --stream",
+    "build:server": "cd packages/server && npm run build",
+    "build:mobile": "cd packages/mobile && npm run build",
+    "build:reactjs": "cd packages/reactjs && npm run build",
+    "build:vuejs": "cd packages/vuejs && npm run build",
+    "build:weapp": "cd packages/weapp && npm run build",
+    "build:docs": "cd packages/docs && npm run build",
+    "clean": "lerna clean",
+    "clean:all": "npm run clean && rimraf node_modules build_**",
+    "publish": "lerna publish --skip-npm --no-git-tag-version",
+    "postinstall": "lerna bootstrap",
+    "test": "cd packages/clients && npm test"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.6",
+    "lodash": "^4.17.21",
+    "lodash-decorators": "^6.0.1",
+    "mobx": "^5.15.7",
+    "mobx-persist": "^0.4.1",
+    "query-string": "^7.0.1",
+    "rxjs": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.0.2",
+    "@types/jest": "^27.0.1",
+    "@types/lodash": "^4.14.172",
+    "lerna": "^4.0.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.5"
+  }
+}

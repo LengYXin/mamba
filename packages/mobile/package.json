@@ -1,0 +1,50 @@
+{
+  "name": "mobile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@mamba/clients": "^0.0.1",
+    "bowser": "^2.11.0",
+    "core-js": "^3.16.2",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.6",
+    "lodash": "^4.17.21",
+    "lodash-decorators": "^6.0.1",
+    "mobx": "^5.15.7",
+    "mobx-persist": "^0.4.1",
+    "mobx-vue": "^2.0.11",
+    "nprogress": "^0.2.0",
+    "nuxt": "^2.15.8",
+    "query-string": "^7.0.1",
+    "rxjs": "^7.3.0",
+    "vant": "^2.12.26",
+    "vue-class-component": "^7.2.6",
+    "vue-property-decorator": "^9.1.2"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.15.8",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/proxy": "^2.1.0",
+    "@nuxtjs/style-resources": "^1.2.1",
+    "@vue/test-utils": "^1.2.2",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^27.0.6",
+    "babel-plugin-lodash": "^3.3.4",
+    "cross-env": "^7.0.3",
+    "jest": "^27.0.6",
+    "less": "^4.1.1",
+    "less-loader": "^7.3.0",
+    "postcss-px-to-viewport": "^1.1.1",
+    "ts-jest": "^27.0.5",
+    "vconsole-webpack-plugin": "^1.7.1",
+    "vue-jest": "^3.0.7",
+    "webpack-bundle-analyzer": "^4.4.2"
+  }
+}

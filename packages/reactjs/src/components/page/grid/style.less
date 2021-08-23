@@ -1,0 +1,51 @@
+.wt-ag-theme {
+    width: 100%;
+
+    .ag-theme-material,
+    .ag-theme-alpine {
+        transition: height .2s;
+        // min-height: 350px;
+
+        .ag-checkbox-input-wrapper.ag-checked::after {
+            color: @primary-color
+        }
+
+        .ag-rtl .ag-side-bar-left .ag-selected .ag-side-button-button,
+        .ag-ltr .ag-side-bar-right .ag-selected .ag-side-button-button,
+        .ag-tab-selected {
+            border-color: @primary-color
+        }
+
+        >.ant-spin-nested-loading {
+            height: 100%;
+
+            >div>.ant-spin {
+                max-height: 100%;
+            }
+
+            .ant-spin-container {
+                height: 100%;
+            }
+
+            .ant-spin-text {
+                padding-top: 50px;
+            }
+        }
+    }
+
+    .ant-divider-horizontal {
+        margin: 10px 0;
+    }
+
+    .ant-pagination {
+        text-align: right;
+    }
+
+
+
+    .grid-skeleton {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+}
