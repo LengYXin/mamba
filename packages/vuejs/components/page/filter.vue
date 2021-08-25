@@ -49,8 +49,8 @@ import { observer } from "mobx-vue";
 import { fromEvent, Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 import {
-Component, Emit, InjectReactive, Prop, ProvideReactive, Ref,
-Vue
+  Component, Emit, InjectReactive, Prop, ProvideReactive, Ref,
+  Vue
 } from "vue-property-decorator";
 export type IrangePicker = Array<{ key: string, start: string, end: string, format?: string, showTime?: boolean }>;
 const CONFIG_SPAN_BREAKPOINTS = {
@@ -177,11 +177,10 @@ export default class extends Vue {
   onMoreOpen() {
     this.moreOpen = !this.moreOpen;
     this.breakPoint();
-    this.onCollapseChange();
+    this.$nextTick(() => {
+      dispatchEvent(new CustomEvent("resize"));
+    })
   }
-  onCollapseChange = lodash.debounce(() => {
-    dispatchEvent(new CustomEvent("resize"));
-  }, 500);
   /** 回填 url 数据 */
   backfillQuery() {
     lodash.assign(

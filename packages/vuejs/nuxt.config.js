@@ -72,7 +72,11 @@ export default {
     background: '#f7f3f0'
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
+  build: createBuild()
+}
+
+function createBuild() {
+  return {
     postcss: {
       plugins: {
         // 'postcss-px-to-viewport': {

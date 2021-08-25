@@ -1,17 +1,26 @@
 # 介绍
-<!-- ::: tip
+## 基础控制单元
+::: tip 数据存储
+[baseModel](../clients/controller/baseModel.md)  
+这是一个提示
+:::
 
-::: -->
-## 抽离 
-公共的状态管理适合vue&react框架共同使用。
-## 内置 
-[获取列表（分页/瀑布流）](../README.md)  
-[详情](../reference/config.md)  
-[添加](./getting-started.md)  
-[删除](./getting-started.md)  
-[编辑](./getting-started.md)  
-[导入](./getting-started.md)  
-[导出](./getting-started.md)  
+::: tip 控制器
+[basesController](../clients/controller/basesController.md)  
+这是一个提示
+:::
+
+::: tip 单数据
+[basesDetails](../clients/controller/basesDetails.md)  
+这是一个提示
+:::
+
+::: tip 列表
+[basesPagination](../clients/controller/basesPagination.md)  
+这是一个提示
+:::
+
+
 
 <!-- # 配置
 ::: tip

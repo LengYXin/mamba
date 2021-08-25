@@ -16,6 +16,11 @@ export interface IBaseModelOptions {
      * @docs https://github.com/pinqy520/mobx-persist
      * */
     schema?: any;
+    /**
+     * storage 回填过程中是否更新 加载状态
+     * @default true
+     */
+    storageLoading?: boolean;
     /** 持久化存储 回填 成功 事件 */
     // onSuccess?: () => void;
     // /** 持久化存储 回填 失败 事件 */
