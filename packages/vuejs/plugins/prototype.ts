@@ -43,11 +43,13 @@ Vue.prototype.__BackDetails = function (queryKey?) {
  *  记录 参数 到 url query
  */
 Vue.prototype.__ToQuery = function (values) {
-    console.log("LENG ~ values", values)
     const query = lodash.pickBy(
         lodash.assign({}, this.$route.query, values),
         lodash.identity
     );
+    if (lodash.isEqual(query, this.$route.query)) {
+        return
+    }
     return this.$router.replace({ query });
 }
 

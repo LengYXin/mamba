@@ -17,34 +17,34 @@
     "check": "luckyeye"
   },
   "dependencies": {
-    "@midwayjs/bootstrap": "^2.12.0",
-    "@midwayjs/core": "^2.12.0",
-    "@midwayjs/decorator": "^2.11.5",
+    "@midwayjs/bootstrap": "^2.12.7",
+    "@midwayjs/core": "^2.12.7",
+    "@midwayjs/decorator": "^2.12.3",
     "@midwayjs/swagger": "^1.0.7",
-    "@midwayjs/web": "^2.12.0",
+    "@midwayjs/web": "^2.12.7",
     "@types/mockjs": "^1.0.4",
     "dayjs": "^1.10.6",
-    "egg": "^2.29.4",
+    "egg": "^2.30.0",
     "egg-cors": "^2.2.3",
     "egg-scripts": "^2.14.0",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@midwayjs/cli": "^1.2.77",
-    "@midwayjs/egg-ts-helper": "^1.2.0",
+    "@midwayjs/cli": "^1.2.80",
+    "@midwayjs/egg-ts-helper": "^1.2.1",
     "@midwayjs/luckyeye": "^1.0.2",
-    "@midwayjs/mock": "^2.12.0",
+    "@midwayjs/mock": "^2.12.7",
     "@types/fs-extra": "^9.0.12",
     "@types/jest": "^26.0.24",
-    "@types/node": "^14",
+    "@types/node": "^14.17.12",
     "cross-env": "^7.0.3",
     "jest": "^27.0.6",
     "mockjs": "^1.1.0",
     "mwts": "^1.2.2",
-    "swagger-ui-dist": "^3.51.2",
-    "ts-jest": "^27.0.4",
-    "typescript": "^4.3.5"
+    "swagger-ui-dist": "^3.52.0",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2"
   },
   "engines": {
     "node": ">=12.0.0"

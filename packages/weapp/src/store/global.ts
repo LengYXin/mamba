@@ -10,7 +10,7 @@ lodash.set(React, 'Hydrate', (key: string, store: any, initialState?: any) => {
     const config: AppConfig = store instanceof AppConfig ? store : React.AppConfig;
     return Hydrate(config.createStorageKey(key), store, initialState)
 })
-export class AppConfig {
+export class AppConfig extends Mamba.ClientsEnv {
     /**
      * 获取小程序启动时的参数。与 App.onLaunch 的回调参数一致。
      * @memberof AppConfig
@@ -35,22 +35,27 @@ export class AppConfig {
      * 微信 appId
      * @memberof AppGlobal
      */
-    appId = this.MiniProgram.appId;
-    /**
-     * 静态资源地址 使用的时候 @Static/**.*
-     * @memberof AppGlobal
-     */
-    static = process.env.static;
+    readonly appId = this.MiniProgram.appId;
     /**
      * api 地址
      * @memberof AppConfig
      */
-    target = process.env.target;
+    readonly target = lodash.get(process.env.Target, this.MiniProgram.envVersion);
     /**
-     *   localStorage  前缀 
+     * 本地 dev
      * @memberof AppConfig
      */
-    storagePrefix = "_le_";
+    readonly develop = lodash.eq(this.MiniProgram.envVersion, 'develop');
+    /**
+     * 生产环境
+     * @memberof AppConfig
+     */
+    readonly release = lodash.eq(this.MiniProgram.envVersion, 'release');
+    /**
+     * 预览环境
+     * @memberof AppConfig
+     */
+    readonly trial = lodash.eq(this.MiniProgram.envVersion, 'trial');
     /**
      * 创建 Storage key
      * @param key 
@@ -60,6 +65,7 @@ export class AppConfig {
     }
 }
 lodash.set(React, 'AppConfig', new AppConfig())
+React.AppConfig.injectClients()
 Object.defineProperty(React.Component.prototype, 'AppConfig', {
     get: function () { return React.AppConfig }
 })

@@ -5,11 +5,13 @@
  * @modify date 2021-08-06 00:17:45
  * @desc [description]
  */
+ const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const AntdDayjsWebpackPlugin = require("antd-dayjs-webpack-plugin");
 const lodash = require('lodash');
 const path = require('path');
 const dayjs = require("dayjs");
+const appConfig = require('./app.config');
 const development = process.env.NODE_ENV === 'development'
 process.env.REACT_APP_VERSION = process.env.npm_package_version
 process.env.REACT_APP_Timestamp = dayjs().format("YYYY-MM-DD HH:mm")
@@ -28,8 +30,11 @@ module.exports = {
             'lodash-es': require.resolve("lodash").replace('lodash.js', '')
         },
         plugins: [
+            new webpack.DefinePlugin(lodash.mapValues(lodash.mapKeys(appConfig, (value, key) => {
+                return `process.env.${key}`
+            }), value => JSON.stringify(value))),
             new BundleAnalyzerPlugin({
-                openAnalyzer: false,
+                openAnalyzer: true,
                 analyzerMode: development ? 'disabled' : 'static',
             }),
             new AntdDayjsWebpackPlugin()
@@ -75,7 +80,9 @@ function createPlugins() {
  * @return {*} 
  */
 function configure(webpackConfig, { env, paths }) {
+    paths.appBuild = lodash.replace(paths.appBuild, 'build', appConfig.BuildDir)
     const mambaSrc = require.resolve("@mamba/clients").replace('index.ts', '')
+    lodash.set(webpackConfig, 'output.path', paths.appBuild)
     lodash.update(webpackConfig, 'resolve.modules', lodash.reverse)
     lodash.update(webpackConfig, 'module.rules[1].oneOf[2].include', include => ([include, mambaSrc]))
     lodash.update(webpackConfig, 'optimization.splitChunks', splitChunks => lodash.merge(splitChunks, {

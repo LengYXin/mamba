@@ -94,3 +94,23 @@ export default class extends Vue {
   box-sizing: border-box;
 }
 </style>
+<style lang="less">
+  @time: 0.2s;
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity @time;
+  }
+  .page-enter,
+  .page-leave-to {
+    opacity: 0;
+  }
+  
+  .layout-enter-active,
+  .layout-leave-active {
+    transition: opacity @time;
+  }
+  .layout-enter,
+  .layout-leave-to {
+    opacity: 0;
+  }
+  </style>

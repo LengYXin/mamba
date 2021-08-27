@@ -50,7 +50,6 @@ export default class Grid extends Vue {
   isAutoSizeColumn = true;
   pageKey = '';
   get Pagination() {
-    console.log(this)
     return this.PageController.Pagination;
   }
   // get columnDefs() {
@@ -80,7 +79,6 @@ export default class Grid extends Vue {
       gridOptions,
       this.GridEvents
     );
-    console.log("LENG ~ extends ~ getoptions ~ options", options);
     return options;
   }
   get GridEvents(): GridOptions {

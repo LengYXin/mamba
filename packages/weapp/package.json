@@ -10,6 +10,9 @@
   },
   "scripts": {
     "dev": "npm run dev:weapp",
+    "build": "npm run build:weapp",
+    "build": "npm run build:weapp",
+    "build": "npm run build:weapp",
     "dev:weapp": "npm run build:weapp -- --watch",
     "dev:swan": "npm run build:swan -- --watch",
     "dev:alipay": "npm run build:alipay -- --watch",
@@ -18,7 +21,6 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
-    "build": "npm run build:weapp",
     "build:weapp": "taro build --type weapp",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",
@@ -75,7 +77,7 @@
     "fs-extra": "^10.0.0",
     "stylelint": "9.3.0",
     "tslib": "~2.1.0",
-    "typescript": "^4.3.5",
+    "typescript": "^4.4.2",
     "webpack-bundle-analyzer": "^4.4.2"
   }
 }

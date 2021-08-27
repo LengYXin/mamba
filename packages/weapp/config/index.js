@@ -1,4 +1,5 @@
 const path = require('path');
+const appConfig = require('./app.config');
 const webpackChain = require('./webpackChain');
 const config = {
   projectName: 'weapp',
@@ -12,7 +13,9 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: [],
+  env: appConfig,
   defineConstants: {
+
   },
   alias: {
     '~': path.resolve(process.cwd(), 'src'),

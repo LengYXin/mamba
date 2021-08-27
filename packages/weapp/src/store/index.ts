@@ -10,7 +10,7 @@ type TestEntity = {
 };
 export const Store = {
     Test: new React.BasesController<TestEntity>({
-        target: 'http://127.0.0.1:7001/api/mock',
+        target: '/api/mock',
         infinite: true,
         // listModel: { storageKey: React.AppConfig.createStorageKey('Test') }
     })

@@ -19,7 +19,7 @@ module.exports = {
             .plugin("analyzer")
             .use(BundleAnalyzerPlugin, [
                 {
-                    openAnalyzer: false,
+                    openAnalyzer: true,
                     analyzerMode: "static",
                     reportFilename: path.resolve(process.cwd(), "report.html")
                 }

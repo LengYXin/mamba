@@ -3,7 +3,7 @@ export * from './entity';
 export class PageController extends React.BasesController {
     constructor() {
         super({
-            target: 'http://127.0.0.1:7001/api/mock',
+            target: '/api/mock',
             // listModel: { storageKey: '_le_example' }
         })
     }

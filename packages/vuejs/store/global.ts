@@ -6,6 +6,7 @@ import { create, IHydrateResult, persist } from 'mobx-persist';
 import moment from 'moment';
 import Vue from 'vue';
 import { UserAgent } from './userAgent';
+import * as Mamba from '@mamba/clients';
 const Hydrate = create({ storage: window.localStorage, jsonify: true });
 lodash.set(Vue, 'Hydrate', (key: string, store: any, initialState?: any) => {
     const config: AppConfig = store instanceof AppConfig ? store : Vue.AppConfig;
@@ -30,66 +31,16 @@ const AppSettingsDetault = {
     // production: false
 }
 @BindAll()
-export class AppConfig {
-    constructor() {
-        // this.onInspectVersion();
-        Vue.Hydrate('AppConfig', this).then(() => {
-            console.log("LENG ~ AppConfig ~ Vue.Hydrate ~ this")
-            this.onChangeLanguage()
-        })
-    }
+export class AppConfig extends Mamba.ClientsEnv {
     @persist('object')
     @observable
     AppSettings = lodash.cloneDeep(AppSettingsDetault);
     /**
-     * api 地址
-     * @memberof AppConfig
-     */
-    target = process.env.target;
-    /**
      * 环境设备信息
      * @memberof AppConfig
      */
-    userAgent = new UserAgent()
-    /**
-     *   localStorage  前缀 
-     * @memberof AppConfig
-     */
-    storagePrefix = "_le_";
-    /**
-     * 版本信息
-     * @memberof AppConfig
-     */
-    version = process.env.REACT_APP_VERSION;
-    /**
-     * 构建时间戳
-     * @memberof AppConfig
-     */
-    timestamp = process.env.REACT_APP_Timestamp;
-    /**
-     * Node env
-     * @memberof AppConfig
-     */
-    NODE_ENV = process.env.NODE_ENV;
-    /**
-     * 环境
-     * @memberof AppConfig
-     */
-    DEPLOY_ENV = process.env.REACT_APP_ENV;
-    /**
-     * 本地 dev
-     * @memberof AppConfig
-     */
-    get dev() {
-        return this.NODE_ENV === 'development'
-    }
-    /**
-     *生产环境
-     * @memberof AppConfig
-     */
-    get production() {
-        return this.DEPLOY_ENV === 'pro'
-    }
+    readonly userAgent = new UserAgent()
+
     /**
      * 更改配置
      * @param config 
@@ -107,13 +58,7 @@ export class AppConfig {
         $i18n.locale = this.AppSettings.language;
         moment.locale(lodash.get({ 'en': 'en', 'zh': 'zh-cn' }, this.AppSettings.language));
     }
-    /**
-     * 创建 Storage key
-     * @param key 
-     */
-    createStorage(key: string) {
-        return this.storagePrefix + key;
-    }
+
     /**
      * 检查版本信息 
      */
@@ -133,6 +78,10 @@ export class AppConfig {
     }
 }
 lodash.set(Vue, 'AppConfig', new AppConfig())
+Vue.AppConfig.injectClients()
+Vue.Hydrate('AppConfig', Vue.AppConfig).then(() => {
+    Vue.AppConfig.onChangeLanguage()
+})
 Object.defineProperty(Vue.prototype, 'AppConfig', {
     get: function () { return Vue.AppConfig }
 })

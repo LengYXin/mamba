@@ -6,11 +6,15 @@
  * @desc [description]
  */
 import * as Mamba from '@mamba/clients';
+import { message } from 'antd';
 import lodash from 'lodash';
 import NProgress from 'nprogress';
 import React from 'react';
 Mamba.AjaxBasics.onStart = NProgress.start;
 Mamba.AjaxBasics.onEndAll = NProgress.done;
+Mamba.AjaxBasics.onError = (error, AjaxConfig) => {
+    message.error('网络开小差了,请稍后再试~')
+}
 lodash.set(React, '$Mamba', Mamba)
 lodash.set(React, 'BasesController', Mamba.BasesController)
 lodash.set(React, 'BasesDetails', Mamba.BasesDetails)

@@ -18,16 +18,14 @@
 </template>
 
 <script lang="ts">
-import { BasesController } from "@mamba/clients";
-import lodash from "lodash";
-import { Component, Inject, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+import PageController from "../controller";
 import { EnumLocaleLabel } from "../locales";
 @Component({
   components: {},
 })
 export default class PageView extends Vue {
-  @Inject()
-  PageController: BasesController;
+  readonly PageController = PageController;
   get columns() {
     return [
       {

@@ -29,8 +29,8 @@ lengyingxin8966@gmail.com * @create date 2021-03-12 17:20:19 * @modify date
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
 import lodash from "lodash";
+import { Component, Prop, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
@@ -44,6 +44,7 @@ export default class extends Vue {
   @Prop() readonly width;
   /** 弹框类型 */
   @Prop() readonly modalType: "modal" | "drawer";
+
   /** 记录创建 时的 page */
   PageKey = null;
   get visibleKey() {
@@ -92,6 +93,7 @@ export default class extends Vue {
   }
   created() { }
   mounted() {
+    console.log("LENG ~ extends ~ mounted ~ mounted", this)
     this.PageKey = this.$route.name;
   }
 }

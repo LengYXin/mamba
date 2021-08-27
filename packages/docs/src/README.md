@@ -26,6 +26,9 @@ actions:
 ---
 
 ```bash
+# clone --depth=1 不需要提交记录
+git clone https://github.com/LengYXin/mamba.git --depth=1 
+
 # 安装lerna 全局
 npm i -d -g lerna
 

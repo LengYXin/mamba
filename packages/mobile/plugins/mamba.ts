@@ -11,6 +11,9 @@ Mamba.AjaxBasics.onEndAll = () => {
     Toast.clear()
     NProgress.done()
 };
+Mamba.AjaxBasics.onError = (error, AjaxConfig) => {
+    Toast('网络开小差了,请稍后再试~')
+}
 lodash.set(Vue, '$Mamba', Mamba)
 lodash.set(Vue, 'BasesController', Mamba.BasesController)
 lodash.set(Vue, 'BasesDetails', Mamba.BasesDetails)

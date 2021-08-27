@@ -4,66 +4,12 @@ import { BindAll } from 'lodash-decorators';
 import Vue from 'vue';
 import { UserAgent } from './userAgent';
 @BindAll()
-export class AppConfig {
-    constructor() {
-        Mamba.Log.info('AppConfig', this)
-    }
-    /**
-     * api 地址
-     * @memberof AppConfig
-     */
-    target = process.env.target;
+export class AppConfig extends Mamba.ClientsEnv {
     /**
      * 环境设备信息
      * @memberof AppConfig
      */
-    userAgent = new UserAgent()
-    /**
-     *   localStorage  前缀 
-     * @memberof AppConfig
-     */
-    storagePrefix = "_le_";
-    /**
-     * 版本信息
-     * @memberof AppConfig
-     */
-    version = process.env.REACT_APP_VERSION;
-    /**
-     * 构建时间戳
-     * @memberof AppConfig
-     */
-    timestamp = process.env.REACT_APP_Timestamp;
-    /**
-     * Node env
-     * @memberof AppConfig
-     */
-    NODE_ENV = process.env.NODE_ENV;
-    /**
-     * 环境
-     * @memberof AppConfig
-     */
-    DEPLOY_ENV = process.env.REACT_APP_ENV;
-    /**
-     * 本地 dev
-     * @memberof AppConfig
-     */
-    get dev() {
-        return this.NODE_ENV === 'development'
-    }
-    /**
-     *生产环境
-     * @memberof AppConfig
-     */
-    get production() {
-        return this.DEPLOY_ENV === 'pro'
-    }
-    /**
-     * 创建 Storage key
-     * @param key 
-     */
-    createStorage(key: string) {
-        return this.storagePrefix + key;
-    }
+    readonly userAgent = new UserAgent()
     /**
      * 检查版本信息 
      */
@@ -83,6 +29,7 @@ export class AppConfig {
     }
 }
 lodash.set(Vue, 'AppConfig', new AppConfig())
+Vue.AppConfig.injectClients()
 Object.defineProperty(Vue.prototype, 'AppConfig', {
     get: function () { return Vue.AppConfig }
 })

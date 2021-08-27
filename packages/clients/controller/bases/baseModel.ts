@@ -79,7 +79,22 @@ export class BaseModel<T = any> {
                 if (!lodash.isObject(value)) throw new Error("value type not Object");
         }
         this._value = value;
-        return value
+        return this
+    }
+    /**
+     * merge 值
+     * @param value 
+     */
+    @action.bound
+    public merge(value: any) {
+        if (this.type !== 'object') {
+            throw new Error("value type not object");
+        }
+        if (isObservable(value)) {
+            value = toJS(value)
+        }
+        lodash.merge(this._value, value);
+        return this
     }
     /**
      * 创建持久化存储
@@ -87,6 +102,7 @@ export class BaseModel<T = any> {
      */
     private async createHydrate() {
         const { options } = this;
+        const { storageLoading = true } = options;
         try {
             const Hydrate = basesOptions.createHydrate()
             // 模拟慢 几秒
@@ -94,10 +110,10 @@ export class BaseModel<T = any> {
             if (lodash.isEmpty(options.storageKey) && lodash.isEmpty(options.schema)) {
                 this.HydrateSubject.next(this)
                 this.HydrateSubject.complete()
-                this.toggleLoading(false)
+                storageLoading && this.toggleLoading(false)
                 return
             }
-            this.toggleLoading(true);
+            storageLoading && this.toggleLoading(true);
             let schema = {};
             if (options.storageKey) {
                 lodash.merge(schema, {
@@ -121,11 +137,12 @@ export class BaseModel<T = any> {
             this.HydrateSubject.next(this)
             this.HydrateSubject.complete()
             // lodash.invoke(options, 'onSuccess');
-            this.toggleLoading(false);
+            storageLoading && this.toggleLoading(false);
         } catch (error) {
-            this.toggleLoading(false);
             this.HydrateSubject.error(error)
             this.HydrateSubject.complete()
+            storageLoading && this.toggleLoading(false);
+
             // lodash.invoke(options, 'onError', error);
         }
     }
@@ -137,6 +154,7 @@ export class BaseModel<T = any> {
     @action.bound
     public setStorage(key: string, value) {
         lodash.set(this._storage, key, value);
+        return this;
     }
     /**
      * 获取 存储空间的一个 值
@@ -152,7 +170,8 @@ export class BaseModel<T = any> {
      */
     @action.bound
     public clearStorage() {
-        this._storage = {}
+        this._storage = {};
+        return this;
     }
     /**
      * 切换 加载状态
@@ -161,9 +180,10 @@ export class BaseModel<T = any> {
     @action.bound
     public toggleLoading(loading: boolean = !this.loading) {
         if (lodash.eq(this.loading, loading)) {
-            return
+            return this;
         }
         this.loading = loading;
+        return this;
     }
     /**
      * 插入数据 type:Array 有效
@@ -183,7 +203,7 @@ export class BaseModel<T = any> {
         } else {
             value = lodash.concat(value, entitys)
         }
-        this.set(value)
+        return this.set(value);
     }
     /**
      * 修改对象 或者 对象的某个属性 lodash.update
