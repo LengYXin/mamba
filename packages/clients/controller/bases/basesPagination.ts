@@ -201,10 +201,7 @@ export class BasesPagination<T = any> {
                 .pipe(
                     // 过滤过期请求
                     filter(() => lodash.eq(timestamp, this.timestamp)),
-                    // 错误处理
-                    catchError((err) => {
-                        throw err
-                    }),
+                    // 格式化返回数据
                     map<any, any>(response => {
                         const { valueGetter, dataSource, total, current, pageSize } = this.PaginationParams.response;
                         if (lodash.isFunction(valueGetter)) {
@@ -214,7 +211,7 @@ export class BasesPagination<T = any> {
                             current: lodash.get(response, current),
                             pageSize: lodash.get(response, pageSize),
                             total: lodash.get(response, total),
-                            dataSource: lodash.get(response, dataSource),
+                            dataSource: lodash.get(response, dataSource, []),
                         }
                     }),
                     map(this.set)
@@ -241,10 +238,12 @@ export class BasesPagination<T = any> {
         this.Model.setStorage(EnumBasesKeys.response, response);
         const size = lodash.size(response.dataSource);
         this.Model.setStorage(EnumBasesKeys.finished, size < this.pageSize);
-        if (this.options.infinite) {
-            this.Model.insert(response.dataSource);
-        } else {
-            this.Model.set(response.dataSource);
+        if (size) {
+            if (this.options.infinite) {
+                this.Model.insert(response.dataSource);
+            } else {
+                this.Model.set(response.dataSource);
+            }
         }
         this.Model.toggleLoading(false);
         return response

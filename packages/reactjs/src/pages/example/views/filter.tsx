@@ -20,6 +20,8 @@ export default class index extends React.Component {
   initialValues = {
     name: null,
     gender: null,
+    introduce: null,
+    birthday: null,
   }
   onFinish(body) {
     return PageController.onLoad({ body })

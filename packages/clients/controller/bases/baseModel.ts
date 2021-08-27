@@ -15,7 +15,16 @@ import { basesUtils } from './basesUtils';
 export class BaseModel<T = any> {
     constructor(private readonly options: IBaseModelOptions) {
         basesOptions.reactive(this);
-        this.createHydrate()
+        switch (this.type) {
+            case 'list':
+                this.set([])
+                break;
+            case 'map':
+            case 'object':
+                this.set({})
+                break;
+        }
+        this.createHydrate();
     }
     /** 数据类型 */
     get type() {

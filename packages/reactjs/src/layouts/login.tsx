@@ -27,7 +27,7 @@ export default class extends React.Component {
     render() {
         const { loginType } = this.state;
         return (
-            <React.Antd.Spin spinning={this.$Store.System.User.loading}>
+            <React.Antd.Spin spinning={this.$Store.System.User.loading} style={{ height: '100vh', maxHeight: '100vh' }}>
                 <React.Antd.LoginForm
                     title="Github"
                     subTitle="副标题"

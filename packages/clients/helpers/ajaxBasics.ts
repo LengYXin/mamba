@@ -161,40 +161,42 @@ export class AjaxBasics {
      * @param AjaxConfig 
      * @returns 
      */
-    static async requestEnum(AjaxConfig: IAjaxConfig | string, options?: IRequestEnumOptions): Promise<any> {
+    static async requestEnum(AjaxConfig: IAjaxConfig | string, options?: IRequestEnumOptions): Promise<Array<{ label: string, value: any, [key: string]: any }>> {
         if (lodash.isString(AjaxConfig)) {
             AjaxConfig = { url: AjaxConfig }
         }
+        // 生成唯一Key
         const key = Encryption.MD5(AjaxConfig);
-        let request: Promise<Array<{}>>;
+        // 请求
+        let request: Promise<Array<any>>;
+        // 查询缓存
         if (AjaxBasics.Cache.has(key)) {
             request = AjaxBasics.Cache.get(key);
         } else {
-            options = lodash.merge({ separator: ' - ' }, options)
-            const obs = AjaxBasics.requestObservable(AjaxConfig)
-                .pipe(
-                    // 获取 response 对应的数据列表
-                    map(res => {
-                        if (lodash.isArray(res))
-                            return res
-                        if (options?.responseKey)
-                            return lodash.get(res, options.responseKey)
-                    }),
-                    // 转换 list 数据列表
-                    map(data => lodash.map(data, item => {
-                        return lodash.assign(
-                            {
-                                label: lodash.isArray(options.labelKey) ?
-                                    lodash.map(options.labelKey, key => lodash.get(item, key)).join(options.separator) :
-                                    lodash.get(item, options.labelKey),
-                                value: lodash.isArray(options.valueKey) ?
-                                    lodash.map(options.valueKey, key => lodash.get(item, key)).join(options.separator) :
-                                    lodash.get(item, options.valueKey),
-                            },
-                            { original: item }
-                        )
-                    }))
-                );
+            options = lodash.merge({ separator: ' - ' }, options);
+            // 获取 response 对应的数据列表
+            const mapResponse = map(res => {
+                if (lodash.isArray(res))
+                    return res
+                if (options?.responseKey)
+                    return lodash.get(res, options.responseKey)
+            });
+            // 获取对应值
+            const toLabelValue = (item, optionKey) => {
+                if (lodash.isArray(optionKey)) {
+                    return lodash.map(optionKey, key => lodash.get(item, key)).join(options.separator)
+                }
+                return lodash.get(item, optionKey)
+            }
+            // 转换 list 数据列表
+            const mapList = map<any, any>(data => lodash.map(data, item => ({
+                label: toLabelValue(item, options.labelKey),
+                value: toLabelValue(item, options.valueKey),
+                original: item
+            })))
+            const obs = AjaxBasics
+                .requestObservable(AjaxConfig)
+                .pipe(mapResponse, mapList);
             request = AjaxBasics.toPromise(obs);
             AjaxBasics.Cache.set(key, request);
         }

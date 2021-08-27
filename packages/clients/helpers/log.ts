@@ -21,8 +21,9 @@ export class Log {
             console.log(' ')
             console.group(`%c -- ${optiona.message} --`, `color:${optiona.color}`)
             lodash.map(optionalParams, item => console.log(item))
-            console.groupCollapsed(`%c -- [堆栈记录] --`, `color:${optiona.color}`);
+            console.groupCollapsed(`%c -- [堆栈记录] --`, `color:${Log.color.error}`);
             console.trace(); // hidden in collapsed group
+            console.groupEnd();
             console.groupEnd();
             console.log(' ')
         }

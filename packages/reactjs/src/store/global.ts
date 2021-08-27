@@ -40,7 +40,11 @@ export class AppConfig extends Mamba.ClientsEnv {
      */
     @action.bound
     onChangeAppSettings(AppSettings: Partial<AppSettings>) {
-        this.AppSettings = lodash.assign(toJS(this.AppSettings), AppSettings)
+        const AppSettingsJS = toJS(this.AppSettings)
+        if (lodash.isEqual(lodash.pick(AppSettingsJS, lodash.keys(AppSettings)), AppSettings)) {
+            return
+        }
+        this.AppSettings = lodash.assign(AppSettingsJS, AppSettings)
         this.onChangeLanguage()
         React.$Mamba.Log.warning('AppConfig ~ onChangeConfig', this)
     }

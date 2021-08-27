@@ -124,10 +124,6 @@ export class BasesDetails<T = any> {
                 .pipe(
                     // 过滤过期请求
                     filter(() => lodash.eq(timestamp, this.timestamp)),
-                    // 错误处理
-                    catchError((err) => {
-                        throw err
-                    }),
                     map<any, T>(response => {
                         const { valueGetter, dataSource } = this.options.response;
                         if (lodash.isFunction(valueGetter)) {
