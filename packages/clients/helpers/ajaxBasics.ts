@@ -225,8 +225,9 @@ export class AjaxBasics {
                     // 错误处理
                     catchError((err) => {
                         if (err instanceof Error) {
+                            AjaxBasics.ClearQueue(AjaxConfig);
+                            AjaxBasics.onError(err, AjaxConfig);
                             AjaxBasics.onEnd(err, AjaxConfig);
-                            AjaxBasics.ClearQueue(AjaxConfig)
                             throw err
                         }
                         return of(err)
@@ -319,8 +320,8 @@ export class AjaxBasics {
     static filter(AjaxConfig: IAjaxConfig) {
         return <T>(response: AjaxResponse<T> | AjaxError | TimeoutError) => {
             try {
-                AjaxBasics.onEnd(response, AjaxConfig);
                 AjaxBasics.ClearQueue(AjaxConfig);
+                AjaxBasics.onEnd(response, AjaxConfig);
                 if (response instanceof AjaxError || response instanceof TimeoutError) {
                     throw response.message
                 }
@@ -397,7 +398,7 @@ export class AjaxBasics {
      * @param AjaxConfig 
      */
     static onError(error, AjaxConfig: IAjaxConfig) {
-        console.warn("LENG ~  onError", error, AjaxConfig)
+        // console.warn("LENG ~  onError", error, AjaxConfig)
     }
     /**
      * 开始

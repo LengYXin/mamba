@@ -5,6 +5,7 @@ import { action, configure, observable, toJS } from 'mobx';
 import { create, IHydrateResult, persist } from 'mobx-persist';
 import React from 'react';
 import { UserAgent } from './userAgent';
+import * as Mamba from '@mamba/clients';
 configure({ enforceActions: "observed" });
 const Hydrate = create({ storage: window.localStorage, jsonify: true });
 lodash.set(React, 'Hydrate', (key: string, store: any, initialState?: any) => {
@@ -15,14 +16,7 @@ declare type AppSettings = SettingDrawerState & {
     /** 表单弹框类型 */
     formType: 'Modal' | 'Drawer'
 };
-export class AppConfig {
-    constructor() {
-        // makeObservable(this)
-        // this.onInspectVersion();
-        React.Hydrate('AppConfig', this).then(() => {
-            this.onChangeLanguage()
-        })
-    }
+export class AppConfig extends Mamba.ClientsEnv {
     @persist('object')
     @observable
     AppSettings: AppSettings = {
@@ -35,54 +29,11 @@ export class AppConfig {
         return lodash.omit(this.AppSettings, ['formType'])
     }
     /**
-     * api 地址
-     * @memberof AppConfig
-     */
-    target = process.env.target;
-    /**
      * 环境设备信息
      * @memberof AppConfig
      */
-    userAgent = new UserAgent()
-    /**
-     *   localStorage  前缀 
-     * @memberof AppConfig
-     */
-    storagePrefix = "_le_";
-    /**
-     * 版本信息
-     * @memberof AppConfig
-     */
-    version = process.env.REACT_APP_VERSION;
-    /**
-     * 构建时间戳
-     * @memberof AppConfig
-     */
-    timestamp = process.env.REACT_APP_Timestamp;
-    /**
-     * Node env
-     * @memberof AppConfig
-     */
-    NODE_ENV = process.env.NODE_ENV;
-    /**
-     * 环境
-     * @memberof AppConfig
-     */
-    DEPLOY_ENV = process.env.REACT_APP_ENV;
-    /**
-     * 本地 dev
-     * @memberof AppConfig
-     */
-    get dev() {
-        return this.NODE_ENV === 'development'
-    }
-    /**
-     *生产环境
-     * @memberof AppConfig
-     */
-    get production() {
-        return this.DEPLOY_ENV === 'pro'
-    }
+    readonly userAgent = new UserAgent()
+
     /**
      * 更改配置
      * @param config 
@@ -100,13 +51,6 @@ export class AppConfig {
     onChangeLanguage() {
         dayjs.locale(this.AppSettings.language)
         React.$i18n.changeLanguage(this.AppSettings.language)
-    }
-    /**
-     * 创建 Storage key
-     * @param key 
-     */
-    createStorage(key: string) {
-        return this.storagePrefix + key;
     }
     /**
      * 检查版本信息 
@@ -127,6 +71,10 @@ export class AppConfig {
     }
 }
 lodash.set(React, 'AppConfig', new AppConfig())
+React.AppConfig.injectClients()
+React.Hydrate('AppConfig', React.AppConfig).then(() => {
+    React.AppConfig.onChangeLanguage()
+})
 Object.defineProperty(React.Component.prototype, 'AppConfig', {
     get: function () { return React.AppConfig }
 })

@@ -22,6 +22,9 @@ Mamba.AjaxBasics.createAjax = function (AjaxConfig) {
         responseType: AjaxConfig.responseType,
     }))
 };
+Mamba.AjaxBasics.onError = function (error, AjaxConfig) {
+    taro.showToast({ title: '网络开小差了,请稍后再试~', icon: 'none' })
+};
 Mamba.AjaxBasics.onStart = function (AjaxConfig) {
     taro.showLoading({ title: 'Loading...' })
 };

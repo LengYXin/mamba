@@ -5,7 +5,7 @@ export class PageController extends BasesController {
     constructor() {
         super()
         this.reset({
-            target: 'http://127.0.0.1:7001/api/mock',
+            target: '/api/mock',
         })
     }
 }

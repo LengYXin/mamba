@@ -39,7 +39,7 @@ export default class extends Vue {
 }
 </script>
 <style lang="less" scoped>
-body{
+body {
   padding-bottom: constant(safe-area-inset-bottom);
   /*兼容 IOS<11.2*/
   padding-bottom: env(safe-area-inset-bottom);
@@ -51,5 +51,25 @@ body{
   padding-bottom: @tabbar-height + 30;
   min-height: 100vh;
   box-sizing: border-box;
+}
+</style>
+<style lang="less">
+@time: 0.2s;
+.page-enter-active,
+.page-leave-active {
+  transition: opacity @time;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity @time;
+}
+.layout-enter,
+.layout-leave-to {
+  opacity: 0;
 }
 </style>

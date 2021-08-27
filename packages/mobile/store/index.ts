@@ -17,7 +17,7 @@ export default () => {
   return {
     /** 示例 瀑布流 */
     Example: new BasesController<TestEntity>({
-      target: 'http://127.0.0.1:7001/api/mock',
+      target: '/api/mock',
       // 开启瀑布流 无限滚动
       infinite: true,
       // 模型 持久化

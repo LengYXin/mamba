@@ -1,9 +1,13 @@
 import * as Mamba from '@mamba/clients';
+import { message } from 'ant-design-vue';
 import lodash from 'lodash';
 import NProgress from 'nprogress';
 import Vue from 'vue';
 Mamba.AjaxBasics.onStart = NProgress.start;
 Mamba.AjaxBasics.onEndAll = NProgress.done;
+Mamba.AjaxBasics.onError = (error, AjaxConfig) => {
+    message.error('网络开小差了,请稍后再试~')
+}
 lodash.set(Vue, '$Mamba', Mamba)
 lodash.set(Vue, 'BasesController', Mamba.BasesController)
 lodash.set(Vue, 'BasesDetails', Mamba.BasesDetails)

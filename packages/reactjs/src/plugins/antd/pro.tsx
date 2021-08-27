@@ -1,6 +1,6 @@
 import createField from '@ant-design/pro-form/es/BaseForm/createField';
 import ProFormCaptcha from '@ant-design/pro-form/es/components/Captcha';
-import ProFormField from '@ant-design/pro-form/es/components/Field';
+import ProFormField, { ProFormFieldProps } from '@ant-design/pro-form/es/components/Field';
 import ProFormUploadButton from '@ant-design/pro-form/es/components/UploadButton';
 import ProFormUploadDragger from '@ant-design/pro-form/es/components/UploadDragger';
 import DrawerForm from '@ant-design/pro-form/es/layouts/DrawerForm';
@@ -26,7 +26,7 @@ const FormField = React.lazy<typeof ProFormField>(() => import('@ant-design/pro-
  * @param props 
  * @returns 
  */
-function toFieldProps(props: typeof ProFormField.propTypes): any {
+function toFieldProps(props: ProFormFieldProps): any {
     props = lodash.clone(props)
     if (lodash.has(props, 'PageEntity') && props.id) {
         const PageEntity = lodash.get(props, 'PageEntity');

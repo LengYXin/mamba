@@ -5,7 +5,6 @@ import './static'
 import './components'
 import React from 'react'
 import './app.less'
-React.$Mamba.Log.info('React', React)
 class App extends React.Component {
   componentDidMount() { }
 
