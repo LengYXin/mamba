@@ -64,13 +64,13 @@ export class SystemController {
     async onVerify() {
         this.User.toggleLoading(true)
         await this.User.HydrateAsync
-        await of(1).pipe(delay(1500)).toPromise()
         await this.onGetUserInfo()
     }
     async onGetUserInfo() {
         if (lodash.isEmpty(this.AccessToken)) {
-            return
+            return this.User.toggleLoading(false)
         }
+        await of(1).pipe(delay(1500)).toPromise()
         this.User.merge({ username: 'admin' })
         this.User.toggleLoading(false)
     }

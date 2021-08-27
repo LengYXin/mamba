@@ -24,7 +24,6 @@ export class Log {
             console.groupCollapsed(`%c -- [堆栈记录] --`, `color:${optiona.color}`);
             console.trace(); // hidden in collapsed group
             console.groupEnd();
-            console.groupEnd()
             console.log(' ')
         }
     }
