@@ -51,7 +51,7 @@ export default (config: Config) => {
                 file: fileName,
                 fileName: realFileName,
                 // routerName(路由名称)：将 / 转为 - 并去掉 _
-                routerName: realFileName.replace(/\//g, '-').replace(/_/g, ''),
+                routerName: realFileName.replace(/\//g, '-').replace(/_/g, '').replace(/-index/g, ''),
                 // routerComponent(路由异步component的文件路径)：将 ./baseButton.vue 从 . 之后截取
                 routerComponent: fileName.substr(1),
                 // fileLen(文件的层级深度)：通过 / 的数量来判断当前文件的深度
