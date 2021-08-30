@@ -1,11 +1,15 @@
-# `www`
+# umi project
 
-> TODO: description
+## Getting Started
 
-## Usage
+Install dependencies,
 
+```bash
+$ yarn
 ```
-const www = require('www');
 
-// TODO: DEMONSTRATE API
+Start the dev server,
+
+```bash
+$ yarn start
 ```

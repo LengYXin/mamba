@@ -89,6 +89,10 @@ export default class extends Vue {
 }
 </script>
 <style lang="less" scoped>
+
+.app-layout{
+  width: 100vw;
+}
 .app-layout-content {
   // min-height: 100vh;
   box-sizing: border-box;

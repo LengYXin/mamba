@@ -18,15 +18,15 @@ const config = {
   Static: "",
   // 域名
   Domain: {
-    release: 'http://127.0.0.1:7001',
-    trial: 'http://127.0.0.1:7001',
-    develop: "http://127.0.0.1:7001",
+    release: 'http://127.0.0.1:8000',
+    trial: 'http://127.0.0.1:8000',
+    develop: "http://127.0.0.1:8000",
   },
   // api 地址
   Target: {
-    release: 'http://127.0.0.1:7001',
-    trial: "http://127.0.0.1:7001",
-    develop: "http://127.0.0.1:7001",
+    release: 'http://127.0.0.1:8000',
+    trial: "http://127.0.0.1:8000",
+    develop: "http://127.0.0.1:8000",
   },
   // 版本号
   Version: process.env.npm_package_version,

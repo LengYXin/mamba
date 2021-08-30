@@ -2,6 +2,7 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const appConfig = require('./app.config');
 const lodash = require('lodash');
 const path = require('path');
+const cors = require('cors');
 const development = process.env.NODE_ENV === 'development'
 export default lodash.merge({
   server: {
@@ -29,6 +30,7 @@ export default lodash.merge({
   },
   router: {
     middleware: 'before',
+    mode:"hash",
     extendRoutes
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -50,7 +52,18 @@ export default lodash.merge({
 
 function createConfig() {
   return {
-    env: appConfig, 
+    env: appConfig,
+    hooks: {
+      render: {
+        /**
+        * 'render:setupMiddleware'
+        * {@link node_modules/nuxt/lib/core/renderer.js}
+        */
+        setupMiddleware(app) {
+          app.use(cors())
+        }
+      }
+    },
     generate: {
       dir: appConfig.BuildDir,
     },
