@@ -13,7 +13,7 @@ export default class extends React.Component {
     }
     renderPage() {
         if (this.$Store.System.LoginIn)
-            return <BrowserRouter>
+            return <BrowserRouter basename={window.__MICRO_APP_BASE_URL__}>
                 <Layout route={{ routes: Routers.RouterConfig }} >
                     <React.Suspense fallback={<div className="app-content-full"> <React.Antd.Spin /></div>}>
                         {Routers.Routers}

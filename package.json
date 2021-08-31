@@ -8,6 +8,7 @@
     "dev:reactjs": "cd packages/reactjs && npm run dev",
     "dev:vuejs": "cd packages/vuejs && npm run dev",
     "dev:weapp": "cd packages/weapp && npm run dev",
+    "dev:micro": "cd packages/micro && npm run dev",
     "dev:docs": "cd packages/docs && npm run dev",
     "build": "lerna run build --stream",
     "build:server": "cd packages/server && npm run build",
