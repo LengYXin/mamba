@@ -8,8 +8,10 @@
     "serve": "vue-cli-service serve",
     "install:child-vuejs2": "cd examples/vuejs2 && yarn",
     "install:child-vuejs3": "cd examples/vuejs3 && yarn",
+    "install:child-reactjs": "cd examples/reactjs && yarn",
     "dev-child:vuejs2": "cd examples/vuejs2 && npm run dev",
     "dev-child:vuejs3": "cd examples/vuejs3 && npm run dev",
+    "dev-child:reactjs": "cd examples/reactjs && npm run dev",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

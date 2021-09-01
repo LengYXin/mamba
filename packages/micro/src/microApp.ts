@@ -1,5 +1,7 @@
 import microApp from '@micro-zoe/micro-app';
 microApp.start({
+    inline:true,
+    // destory:true,
     lifeCycles: {
         created() {
             console.info('created 全局监听')
@@ -22,8 +24,7 @@ microApp.start({
             reactjs: [{
                 loader(code: string, url: string) {
                     if (code.indexOf('sockjs-node') > -1) {
-                        console.log('react16插件', url)
-                        code = code.replace('window.location.port', '3000')
+                        code = code.replace('window.location.port', '8083')
                     }
                     return code
                 }
