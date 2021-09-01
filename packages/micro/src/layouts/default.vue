@@ -31,39 +31,41 @@ import { Options, Vue, Provide } from "vue-property-decorator";
 import { SystemController } from "@mamba/clients";
 import { reactive, isReactive } from "vue";
 import { reaction } from "mobx";
-// const System = new SystemController()//reactive()
-// reaction(() => System.User._value, (data) => {
-//   console.warn("LENG ~ extends ~ reaction ~ data", data)
-// })
+const System = new SystemController();
+
 @Options({
-  components: {}
+  components: {},
 })
 export default class extends Vue {
   @Provide({ reactive: true })
-  System = { User: {} };
+  System = reactive(System);
   get pageClass() {
     return " xt-page-" + String(this.$route.name);
   }
-  menu = []
+  menu = [];
   tolink(item) {
-    if (item.name === 'login') {
-      return { name: item.name, hash: '#/login' }
+    if (item.name === "login") {
+      return { name: item.name, hash: "#/login" };
     }
-    return { name: item.name }
+    return { name: item.name };
   }
   created() {
-
+    reaction(
+      () => System.User.value,
+      (data) => {
+        this.$forceUpdate();
+      }
+    );
   }
   mounted() {
-
-    console.log("")
-    console.log("")
-    console.log("LENG ~ extends ~ mounted ~ this", this.System)
-    console.log("")
-    console.log("")
+    console.log("");
+    console.log("");
+    console.log("LENG ~ extends ~ mounted ~ this", this.System);
+    console.log("");
+    console.log("");
   }
-  updated() { }
-  destroyed() { }
+  updated() {}
+  destroyed() {}
 }
 </script>
 <style lang="less" scoped>

@@ -11,8 +11,6 @@
   "scripts": {
     "dev": "npm run dev:weapp",
     "build": "npm run build:weapp",
-    "build": "npm run build:weapp",
-    "build": "npm run build:weapp",
     "dev:weapp": "npm run build:weapp -- --watch",
     "dev:swan": "npm run build:swan -- --watch",
     "dev:alipay": "npm run build:alipay -- --watch",
@@ -45,7 +43,7 @@
     "@tarojs/runtime": "3.3.5",
     "@tarojs/taro": "3.3.5",
     "@vant/icons": "^1.7.0",
-    "@vant/weapp": "^1.8.2",
+    "@vant/weapp": "^1.8.3",
     "dayjs": "^1.10.6",
     "lodash": "^4.17.21",
     "lodash-decorators": "^6.0.1",
@@ -64,20 +62,22 @@
     "@tarojs/webpack-runner": "3.3.5",
     "@types/react": "^17.0.19",
     "@types/webpack-env": "^1.16.2",
-    "@typescript-eslint/eslint-plugin": "^4.29.3",
-    "@typescript-eslint/parser": "^4.29.3",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-taro": "3.3.5",
     "classnames": "^2.3.1",
     "eslint": "^6.8.0",
     "eslint-config-taro": "3.3.5",
     "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-react": "^7.25.0",
+    "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "fs-extra": "^10.0.0",
     "stylelint": "9.3.0",
-    "tslib": "~2.1.0",
     "typescript": "^4.4.2",
     "webpack-bundle-analyzer": "^4.4.2"
+  },
+  "resolutions": {
+    "tslib": "^2.1.0"
   }
 }

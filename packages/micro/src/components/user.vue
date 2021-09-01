@@ -2,8 +2,10 @@
   <div class="user">
     <a-space>
       <a-avatar>U</a-avatar>
-      {{System.User.value}}
-      <span v-if="System.User.value">你好</span>
+      {{ System.User.value }}
+      <span v-if="System.User.value.access_token" @click="System.onLoginOut()"
+        >你好</span
+      >
       <span v-else @click="onShowModal">请登录</span>
     </a-space>
     <a-modal :visible="visible" @cancel="onCancel" width="1200px">
@@ -28,50 +30,72 @@
 
 <script lang="ts">
 import { Options, Vue, Inject } from "vue-property-decorator";
-import lodash from 'lodash';
+import lodash from "lodash";
 import { SystemController } from "@mamba/clients";
 import { notification } from "ant-design-vue";
+import { reaction } from "mobx";
 @Options({
-  components: {
-  },
+  components: {},
 })
 export default class Home extends Vue {
   @Inject()
   System: SystemController;
-  spinning = true
-  appData = {}
+  spinning = true;
+  appData = {};
   get visible() {
-    return !!lodash.get(this.$route.query, 'login')
+    return !!lodash.get(this.$route.query, "login");
   }
   onShowModal() {
-    this.$router.replace({ query: { login: 'true' }, hash: '#/login' })
+    this.$router.replace({ query: { login: "true" }, hash: "#/login" });
   }
   onCancel() {
-    this.$router.replace({ query: { login: '' } })
+    this.$router.replace({ query: { login: "" } });
   }
   onDataChange(event) {
-    this.appData = event.detail.data
-    notification.destroy()
-    notification.success({ message: JSON.stringify(event.detail.data, null, 4) })
+    this.appData = event.detail.data;
+    notification.destroy();
+    notification.success({
+      message: JSON.stringify(event.detail.data, null, 4),
+    });
   }
   onCreated(event) {
-    console.log("LENG ~ onCreated", event)
+    console.log("LENG ~ onCreated", event);
   }
   onBeforemount(event) {
-    console.log("LENG ~ onBeforemount", event)
+    console.log("LENG ~ onBeforemount", event);
   }
   onMounted(event) {
-    console.log("LENG ~ onMounted", event)
-    this.spinning = false
+    console.log("LENG ~ onMounted", event);
+    this.spinning = false;
   }
   onUnmount(event) {
-    console.log("LENG ~ onUnmount", event)
+    console.log("LENG ~ onUnmount", event);
   }
   onError(event) {
-    console.log("LENG ~ onError", event)
+    console.log("LENG ~ onError", event);
   }
-  created() {
-    console.log("LENG ~ Home ~ created ~ this.System", this.System)
+  created() {}
+  mounted() {
+    reaction(
+      () => this.System.LoginIn,
+      () => {
+        console.log(
+          "🚀 ~ file: user.vue ~ line 81 ~ Home ~ created ~ this.System.LoginIn",
+          this.System.LoginIn
+        );
+        this.$forceUpdate();
+      }
+    );
+    // reaction(
+    //   () => this.System.User.value,
+    //   () => {
+    //     console.log(
+    //       "🚀 ~ file: user.vue ~ line 81 ~ Home ~ created ~ this.System.LoginIn",
+    //       this.System
+    //     );
+    //     this.$forceUpdate();
+    //   }
+    // );
   }
 }
 </script>

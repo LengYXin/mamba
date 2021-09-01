@@ -62,6 +62,5 @@ module.exports = {
     chainWebpack: config => {
         const mod = path.join(process.cwd(), 'node_modules')
         config.resolve.modules.prepend(mod);
-        console.log("LENG ~ config", config)
     },
 };

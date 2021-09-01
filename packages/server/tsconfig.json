@@ -17,7 +17,6 @@
     "resolveJsonModule": true,
     "pretty": true,
     "declaration": true,
-    "importHelpers": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,

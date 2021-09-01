@@ -49,5 +49,8 @@
     "vconsole-webpack-plugin": "^1.7.1",
     "vue-jest": "^3.0.7",
     "webpack-bundle-analyzer": "^4.4.2"
+  },
+  "resolutions": {
+    "tslib": "^2.1.0"
   }
 }

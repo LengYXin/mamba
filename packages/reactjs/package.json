@@ -11,6 +11,18 @@
     "eject": "react-scripts eject",
     "postinstall": "patch-package"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
     "@ant-design/pro-card": "^1.14.15",
@@ -45,18 +57,6 @@
     "rxjs": "^7.3.0",
     "web-vitals": "^1.1.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@craco/craco": "^6.2.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -79,5 +79,8 @@
     "patch-package": "^6.4.7",
     "typescript": "^4.4.2",
     "webpack-bundle-analyzer": "^4.4.2"
+  },
+  "resolutions": {
+    "tslib": "^2.1.0"
   }
 }
