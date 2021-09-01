@@ -7,6 +7,7 @@ import LoginForm from '@ant-design/pro-form/es/layouts/LoginForm';
 import { Checkbox, message, Space, Tabs } from 'antd';
 import { BindAll } from 'lodash-decorators';
 import React, { CSSProperties } from 'react';
+import { SystemController } from '@mamba/clients';
 const iconStyles: CSSProperties = {
     marginLeft: '16px',
     color: 'rgba(0, 0, 0, 0.2)',
@@ -16,8 +17,37 @@ const iconStyles: CSSProperties = {
 };
 @BindAll()
 export default class extends React.Component {
+    System: SystemController;
     state = {
         loginType: 'account'
+    }
+    dataListener(baseData) {
+        const { System } = baseData;
+        this.System = System;
+        console.log('来自基座应用的数据', baseData)
+    }
+    onSend() {
+        window.microApp?.dispatch({ type: `子应用发送的数据${Date.now()}` })
+    }
+    componentDidMount() {
+        /**
+         * 绑定监听函数
+         * dataListener: 绑定函数
+         * autoTrigger: 在初次绑定监听函数时有缓存数据，是否需要主动触发一次，默认为false
+         * 补充: autoTrigger主要是为子应用提供的，因为子应用是异步渲染的，如果在子应用还没渲染时基座应用发送数据，子应用在初始化后不会触发绑定函数，但这个数据会放入缓存中，此时可以设置autoTrigger为true主动触发一次监听函数来获取数据。
+         */
+        window.microApp?.addDataListener(this.dataListener, true)
+    }
+    async onFinish(formData) {
+        console.log("LENG ~ extends ~ onFinish ~ formData", formData)
+        this.System.onLogin(formData)
+        return true
+    }
+    componentWillUnmount() {
+        // 解除绑定
+        window.microApp?.removeDataListener(this.dataListener)
+        // 清空所有当前应用的绑定函数
+        window.microApp?.clearDataListener()
     }
     onChange(activeKey) {
         this.setState({ loginType: activeKey })
@@ -28,9 +58,7 @@ export default class extends React.Component {
             <LoginForm
                 title="Github"
                 subTitle="副标题"
-                onFinish={async () => {
-                    return true
-                }}
+                onFinish={this.onFinish}
                 actions={
                     <Space>
                         其他登录方式

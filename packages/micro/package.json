@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel dev-child:*  serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --report ",
     "serve": "vue-cli-service serve",
     "install:child-vuejs2": "cd examples/vuejs2 && yarn",
     "install:child-vuejs3": "cd examples/vuejs3 && yarn",
