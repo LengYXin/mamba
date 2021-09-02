@@ -9,7 +9,7 @@
     "dev:vuejs": "cd packages/vuejs && npm run dev",
     "dev:weapp": "cd packages/weapp && npm run dev",
     "dev:micro": "cd packages/micro && npm run serve",
-    "dev:docs": "cd packages/docs && npm run dev",
+    "docs": "cd packages/docs && npm run docs",
     "build": "lerna run build --stream",
     "build:server": "cd packages/server && npm run build",
     "build:mobile": "cd packages/mobile && npm run build",
