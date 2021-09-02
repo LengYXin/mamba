@@ -1,8 +1,8 @@
 diff --git a/node_modules/@ant-design/pro-form/es/BaseForm/index.js b/node_modules/@ant-design/pro-form/es/BaseForm/index.js
-index 0abcfdc..9a2cddc 100644
+index 31891ed..9a39677 100644
 --- a/node_modules/@ant-design/pro-form/es/BaseForm/index.js
 +++ b/node_modules/@ant-design/pro-form/es/BaseForm/index.js
-@@ -190,8 +190,8 @@ function BaseForm(props) {
+@@ -189,8 +189,8 @@ function BaseForm(props) {
    useEffect(function () {
      if (syncToUrl || !props.initialValues || !preInitialValues || rest.request) return;
      var isEqual = isDeepEqualReact(props.initialValues, preInitialValues);

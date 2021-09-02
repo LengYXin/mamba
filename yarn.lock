@@ -1090,12 +1090,12 @@ aproba@^2.0.0:
   integrity sha1-UlILiuW1aSFbNU78DKo/4eRaitw=
 
 are-we-there-yet@~1.1.2:
-  version "1.1.5"
-  resolved "https://registry.nlark.com/are-we-there-yet/download/are-we-there-yet-1.1.5.tgz#4b35c2944f062a8bfcda66410760350fe9ddfc21"
-  integrity sha1-SzXClE8GKov82mZBB2A1D+nd/CE=
+  version "1.1.6"
+  resolved "https://registry.nlark.com/are-we-there-yet/download/are-we-there-yet-1.1.6.tgz?cache=0&sync_timestamp=1630518113844&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fare-we-there-yet%2Fdownload%2Fare-we-there-yet-1.1.6.tgz#bc9101d19670c7bdb1546ed036568a6c9879ee79"
+  integrity sha1-vJEB0ZZwx72xVG7QNlaKbJh57nk=
   dependencies:
     delegates "^1.0.0"
-    readable-stream "^2.0.6"
+    readable-stream "^3.6.0"
 
 array-differ@^3.0.0:
   version "3.0.0"
@@ -3765,9 +3765,9 @@ read-package-json@^3.0.0:
     npm-normalize-package-bin "^1.0.0"
 
 read-package-json@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.nlark.com/read-package-json/download/read-package-json-4.0.1.tgz#da88a38c410344fecb7d840d35f27635e848ea54"
-  integrity sha1-2oijjEEDRP7LfYQNNfJ2NehI6lQ=
+  version "4.1.1"
+  resolved "https://registry.nlark.com/read-package-json/download/read-package-json-4.1.1.tgz#153be72fce801578c1c86b8ef2b21188df1b9eea"
+  integrity sha1-FTvnL86AFXjByGuO8rIRiN8bnuo=
   dependencies:
     glob "^7.1.1"
     json-parse-even-better-errors "^2.3.0"
@@ -3826,7 +3826,7 @@ read@1, read@~1.0.1:
   dependencies:
     mute-stream "~0.0.4"
 
-readable-stream@3, readable-stream@^3.0.0, readable-stream@^3.0.2:
+readable-stream@3, readable-stream@^3.0.0, readable-stream@^3.0.2, readable-stream@^3.6.0:
   version "3.6.0"
   resolved "https://registry.npm.taobao.org/readable-stream/download/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
   integrity sha1-M3u9o63AcGvT4CRCaihtS0sskZg=
@@ -3835,7 +3835,7 @@ readable-stream@3, readable-stream@^3.0.0, readable-stream@^3.0.2:
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
 
-readable-stream@^2.0.6, readable-stream@^2.3.0, readable-stream@^2.3.5, readable-stream@~2.3.6:
+readable-stream@^2.3.0, readable-stream@^2.3.5, readable-stream@~2.3.6:
   version "2.3.7"
   resolved "https://registry.npm.taobao.org/readable-stream/download/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
   integrity sha1-Hsoc9xGu+BTAT2IlKjamL2yyO1c=
