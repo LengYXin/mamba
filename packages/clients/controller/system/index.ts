@@ -10,6 +10,7 @@ import { BindAll } from 'lodash-decorators';
 import { BaseModel } from '../bases/baseModel';
 import { of, delay, Subject } from 'rxjs';
 import { Encryption } from '../../helpers/encryption';
+import { computed } from 'mobx';
 @BindAll()
 export class SystemController {
     constructor() {
@@ -39,6 +40,7 @@ export class SystemController {
      * @readonly
      * @memberof SystemController
      */
+    @computed
     get LoginIn() {
         if (this.User.loading) {
             return false

@@ -2,8 +2,7 @@
   <div class="user">
     <a-space>
       <a-avatar>U</a-avatar>
-      {{ System.User.value }}
-      <span v-if="System.User.value.access_token" @click="System.onLoginOut()"
+      <span v-if="System.LoginIn" @click="System.onLoginOut()"
         >你好</span
       >
       <span v-else @click="onShowModal">请登录</span>
@@ -33,13 +32,13 @@ import { Options, Vue, Inject } from "vue-property-decorator";
 import lodash from "lodash";
 import { SystemController } from "@mamba/clients";
 import { notification } from "ant-design-vue";
-import { reaction } from "mobx";
+import { reaction, autorun, trace } from "mobx";
 @Options({
   components: {},
 })
 export default class Home extends Vue {
-  @Inject()
-  System: SystemController;
+  // @Inject()
+  System=new SystemController();
   spinning = true;
   appData = {};
   get visible() {
@@ -76,16 +75,23 @@ export default class Home extends Vue {
   }
   created() {}
   mounted() {
-    reaction(
-      () => this.System.LoginIn,
-      () => {
-        console.log(
-          "🚀 ~ file: user.vue ~ line 81 ~ Home ~ created ~ this.System.LoginIn",
-          this.System.LoginIn
-        );
-        this.$forceUpdate();
-      }
-    );
+    // autorun(() => {
+    //   console.warn(
+    //     "🚀 ~ file: user.vue ~ line 81 ~ Home ~ created ~ this.System.LoginIn",
+    //     this.System.LoginIn
+    //   );
+    //   trace()
+    // });
+    // reaction(
+    //   () => this.System.LoginIn,
+    //   () => {
+    //     console.log(
+    //       "🚀 ~ file: user.vue ~ line 81 ~ Home ~ created ~ this.System.LoginIn",
+    //       this.System.LoginIn
+    //     );
+    //     this.$forceUpdate();
+    //   }
+    // );
     // reaction(
     //   () => this.System.User.value,
     //   () => {

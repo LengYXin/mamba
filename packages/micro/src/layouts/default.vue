@@ -31,14 +31,13 @@ import { Options, Vue, Provide } from "vue-property-decorator";
 import { SystemController } from "@mamba/clients";
 import { reactive, isReactive } from "vue";
 import { reaction } from "mobx";
-const System = new SystemController();
 
 @Options({
   components: {},
 })
 export default class extends Vue {
-  @Provide({ reactive: true })
-  System = reactive(System);
+  @Provide({ })
+  System = new SystemController();
   get pageClass() {
     return " xt-page-" + String(this.$route.name);
   }
@@ -50,12 +49,7 @@ export default class extends Vue {
     return { name: item.name };
   }
   created() {
-    reaction(
-      () => System.User.value,
-      (data) => {
-        this.$forceUpdate();
-      }
-    );
+  
   }
   mounted() {
     console.log("");
