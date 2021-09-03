@@ -8,8 +8,8 @@
 import lodash from "lodash";
 import { Log } from "../../helpers";
 import { IBasesControllerOptions, IBasesDetailsOptions, IBasesPaginationOptions } from "./basesInterface";
-import { basesOptions, EnumActionKeys } from "./basesOptions";
-export class basesUtils {
+import { BasesOptions, EnumActionKeys } from "./basesOptions";
+export class BasesUtils {
     // static request<T>(options?: string | IAjaxConfig | ((ctr: T) => IAjaxConfig)) {
     //     return function (target: T, propertyKey: string, descriptor: PropertyDescriptor) {
     //         const value = descriptor.value;
@@ -26,17 +26,17 @@ export class basesUtils {
         return lodash.assign({}, lodash.pick(options, ['target', 'dataKey', 'pagination', 'infinite', 'paginationParams', 'listModel']), options.PaginationOptions)
     }
     static log(message: string, ...optionalParams: any[]) {
-        if (!basesOptions.debug) return true;
+        if (!BasesOptions.debug) return true;
         Log.info(`【Base】 ${message}`, ...optionalParams);
         return true;
     }
     static warning(message: string, ...optionalParams: any[]) {
-        if (!basesOptions.debug) return true;
+        if (!BasesOptions.debug) return true;
         Log.warning(`【Base】 ${message}`, ...optionalParams);
         return true;
     }
     static error(obsKey: EnumActionKeys, ...optionalParams: any[]) {
-        if (!basesOptions.debug) return true;
+        if (!BasesOptions.debug) return true;
         Log.error(`【Base】 ${obsKey}`, ...optionalParams);
         return true
     }

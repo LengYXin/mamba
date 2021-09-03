@@ -5,7 +5,7 @@ import { configure } from 'mobx';
 import { IHydrateResult } from 'mobx-persist';
 import React from 'react';
 configure({ enforceActions: "observed" });
-const Hydrate = Mamba.basesOptions.createHydrate();
+const Hydrate = Mamba.BasesOptions.createHydrate();
 lodash.set(React, 'Hydrate', (key: string, store: any, initialState?: any) => {
     const config: AppConfig = store instanceof AppConfig ? store : React.AppConfig;
     return Hydrate(config.createStorageKey(key), store, initialState)

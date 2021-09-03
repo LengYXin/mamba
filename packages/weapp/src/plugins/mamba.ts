@@ -31,7 +31,7 @@ Mamba.AjaxBasics.onStart = function (AjaxConfig) {
 Mamba.AjaxBasics.onEndAll = function () {
     taro.hideLoading()
 };
-Mamba.basesOptions.createStorage = function () {
+Mamba.BasesOptions.createStorage = function () {
     return Storage
 }
 declare module 'react' {

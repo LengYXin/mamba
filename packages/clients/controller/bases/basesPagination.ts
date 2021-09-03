@@ -12,8 +12,8 @@ import { catchError, delay, filter, map } from 'rxjs';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BaseModel } from "./baseModel";
 import { IBasesPaginationIAjaxConfig, IBasesPaginationOptions, IBasesResponse } from './basesInterface';
-import { basesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
-import { basesUtils } from './basesUtils';
+import { BasesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
+import { BasesUtils } from './basesUtils';
 
 /**
  * 基础 分页管理
@@ -36,9 +36,9 @@ export class BasesPagination<T = any> {
      */
     get defaultOptions(): IBasesPaginationOptions {
         return {
-            pagination: basesOptions.pagination,
-            paginationParams: basesOptions.paginationParams,
-            infinite: basesOptions.infinite,
+            pagination: BasesOptions.pagination,
+            paginationParams: BasesOptions.paginationParams,
+            infinite: BasesOptions.infinite,
         }
     };
     /**
@@ -199,7 +199,7 @@ export class BasesPagination<T = any> {
             this.Model.toggleLoading(true);
             this.Model.setStorage(EnumBasesKeys.timestamp, timestamp);
             AjaxConfig = this.createAjaxConfig(AjaxConfig);
-            basesUtils.log(`Pagination onLoad ${timestamp}`, AjaxConfig);
+            BasesUtils.log(`Pagination onLoad ${timestamp}`, AjaxConfig);
             const obs = AjaxBasics
                 .requestObservable<IBasesResponse<T>>(AjaxConfig)
                 .pipe(
@@ -226,7 +226,7 @@ export class BasesPagination<T = any> {
                 this.Model.toggleLoading(false);
                 this.Model.setStorage(EnumBasesKeys.finished, true);
                 this.Model.setStorage(EnumBasesKeys.requestError, true);
-                basesUtils.error(EnumActionKeys.pagination, error);
+                BasesUtils.error(EnumActionKeys.pagination, error);
             }
             // throw error
         }
@@ -237,7 +237,7 @@ export class BasesPagination<T = any> {
      * @memberof BasesPagination
      */
     set(response: IBasesResponse<T>) {
-        basesUtils.log(`Pagination Set ${this.timestamp}`, response);
+        BasesUtils.log(`Pagination Set ${this.timestamp}`, response);
         this.Model.setStorage(EnumBasesKeys.requestError, false);
         this.Model.setStorage(EnumBasesKeys.response, response);
         const size = lodash.size(response.dataSource);
@@ -264,7 +264,7 @@ export class BasesPagination<T = any> {
      * @param selectedRowKeys 
      */
     onSelectChange(selectedRowKeys) {
-        basesUtils.log(`Pagination selectedRowKeys`, selectedRowKeys)
+        BasesUtils.log(`Pagination selectedRowKeys`, selectedRowKeys)
         this.Model.setStorage('selectedRowKeys', selectedRowKeys)
     }
     /**

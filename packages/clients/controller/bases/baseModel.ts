@@ -9,12 +9,12 @@ import lodash from 'lodash';
 import { action, observable, toJS, isObservable, computed } from 'mobx';
 import { IBaseModelOptions } from './basesInterface';
 import { persist } from "mobx-persist";
-import { basesOptions, EnumBasesKeys } from './basesOptions';
+import { BasesOptions, EnumBasesKeys } from './basesOptions';
 import { Subject, firstValueFrom, delay, of } from 'rxjs';
-import { basesUtils } from './basesUtils';
+import { BasesUtils } from './basesUtils';
 export class BaseModel<T = any> {
     constructor(private readonly options: IBaseModelOptions) {
-        basesOptions.reactive(this);
+        BasesOptions.reactive(this);
         switch (this.type) {
             case 'list':
                 this.set([])
@@ -114,7 +114,7 @@ export class BaseModel<T = any> {
         const { options } = this;
         const { storageLoading = true } = options;
         try {
-            const Hydrate = basesOptions.createHydrate()
+            const Hydrate = BasesOptions.createHydrate()
             // 模拟慢 几秒
             // await of(1).pipe(delay(3000)).toPromise()
             if (lodash.isEmpty(options.storageKey) && lodash.isEmpty(options.schema)) {
@@ -143,7 +143,7 @@ export class BaseModel<T = any> {
             }
             persist(schema)(this);
             await Hydrate(options.storageKey, this);
-            basesUtils.warning(`持久化 【 ${options.storageKey} 】`, this)
+            BasesUtils.warning(`持久化 【 ${options.storageKey} 】`, this)
             this.HydrateSubject.next(this)
             this.HydrateSubject.complete()
             // lodash.invoke(options, 'onSuccess');

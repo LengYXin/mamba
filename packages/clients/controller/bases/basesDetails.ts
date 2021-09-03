@@ -11,8 +11,8 @@ import { catchError, filter, map } from 'rxjs';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BaseModel } from './baseModel';
 import { IBasesDetailsOptions } from './basesInterface';
-import { basesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
-import { basesUtils } from './basesUtils';
+import { BasesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
+import { BasesUtils } from './basesUtils';
 import { computed } from 'mobx';
 /**
  * 基础 数据详情
@@ -34,8 +34,8 @@ export class BasesDetails<T = any> {
      * @memberof BasesDetails
      */
     readonly defaultOptions: IBasesDetailsOptions = {
-        dataKey: basesOptions.dataKey,
-        details: basesOptions.details,
+        dataKey: BasesOptions.dataKey,
+        details: BasesOptions.details,
         response: {}
     };
     /**
@@ -70,7 +70,7 @@ export class BasesDetails<T = any> {
         if (lodash.isString(details)) {
             details = { url: this.options.details } as IAjaxConfig
         }
-        return lodash.assign({ target: this.options.target }, basesOptions.details, details)
+        return lodash.assign({ target: this.options.target }, BasesOptions.details, details)
     }
     /**
      * 当前请求的 生成时间戳
@@ -120,7 +120,7 @@ export class BasesDetails<T = any> {
             this.Model.toggleLoading(true);
             this.Model.setStorage(EnumBasesKeys.timestamp, timestamp);
             AjaxConfig = this.createAjaxConfig(body, AjaxConfig);
-            basesUtils.log(`Details onLoad ${timestamp}`, AjaxConfig);
+            BasesUtils.log(`Details onLoad ${timestamp}`, AjaxConfig);
             const obs = AjaxBasics
                 .requestObservable<T>(AjaxConfig)
                 .pipe(
@@ -140,7 +140,7 @@ export class BasesDetails<T = any> {
                 );
             return await AjaxBasics.toPromise<T>(obs)
         } catch (error) {
-            basesUtils.error(EnumActionKeys.details, error);
+            BasesUtils.error(EnumActionKeys.details, error);
             this.Model.setStorage(EnumBasesKeys.requestError, true);
             // throw error
         }
@@ -151,7 +151,7 @@ export class BasesDetails<T = any> {
      * @memberof BasesDetails
      */
     set(response: T): T {
-        basesUtils.log('Details Set', response)
+        BasesUtils.log('Details Set', response)
         this.Model.setStorage(EnumBasesKeys.response, response);
         this.Model.set(response);
         this.Model.toggleLoading(false);
