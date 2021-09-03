@@ -13,6 +13,7 @@ import { IBasesControllerOptions, IBasesPaginationIAjaxConfig } from './basesInt
 import { basesOptions, EnumActionKeys } from './basesOptions';
 import { BasesPagination } from './basesPagination';
 import { basesUtils } from './basesUtils';
+import { computed } from 'mobx';
 /**
  * 基础 控制器
  */
@@ -83,7 +84,7 @@ export class BasesController<T = any>{
      * @readonly
      * @memberof [Pagination.Model.value]
      */
-    // @computed
+    @computed
     get dataSource() {
         return this.Pagination.dataSource
     }
@@ -92,7 +93,7 @@ export class BasesController<T = any>{
      * @readonly
      * @memberof [Model.value]
      */
-    // @computed
+    @computed
     get entity() {
         return this.Details.entity
     }

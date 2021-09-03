@@ -7,7 +7,7 @@
  */
 import lodash from 'lodash';
 import { BindAll } from 'lodash-decorators';
-import { toJS } from 'mobx';
+import { toJS, computed } from 'mobx';
 import { catchError, delay, filter, map } from 'rxjs';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BaseModel } from "./baseModel";
@@ -77,7 +77,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.getStorage(timestamp])]
      */
-    // @computed
+    @computed
     get timestamp() {
         return this.Model.getStorage(EnumBasesKeys.timestamp)
     }
@@ -86,7 +86,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.loading)]
      */
-    // @computed
+    @computed
     get loading() {
         return this.Model.loading
     }
@@ -95,7 +95,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.getStorage(request])]
      */
-    // @computed
+    @computed
     get request() {
         return this.Model.getStorage(EnumBasesKeys.request)
     }
@@ -104,6 +104,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof BasesPagination
      */
+    @computed
     get finished() {
         return !!(this.Model.size && this.Model.getStorage(EnumBasesKeys.finished, false))
     }
@@ -112,6 +113,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof BasesPagination
      */
+    @computed
     get requestError() {
         return this.Model.getStorage(EnumBasesKeys.requestError, false)
     }
@@ -120,7 +122,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.getStorage(response[PaginationParams.response.total])]
      */
-    // @computed
+    @computed
     get total() {
         const PaginationParams = this.PaginationParams;
         return this.Model.getStorage(`${EnumBasesKeys.response}.${PaginationParams.response.total}`, 0)
@@ -130,7 +132,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.getStorage(request.body[PaginationParams.currentKey])]
      */
-    // @computed
+    @computed
     get current() {
         const PaginationParams = this.PaginationParams;
         return this.Model.getStorage(`${EnumBasesKeys.request}.body.${PaginationParams.currentKey}`, PaginationParams.defaultCurrent)
@@ -140,7 +142,7 @@ export class BasesPagination<T = any> {
      * @readonly 
      * @memberof [Model.getStorage(request.body[PaginationParams.pageSizeKey])]
      */
-    // @computed
+    @computed
     get pageSize() {
         const PaginationParams = this.PaginationParams;
         return this.Model.getStorage(`${EnumBasesKeys.request}.body.${PaginationParams.pageSizeKey}`, PaginationParams.defaultPageSize)
@@ -150,15 +152,17 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.value]
      */
-    // @computed
+    @computed
     get dataSource() {
         return this.Model.value
     }
     /** 第一个元素 */
+    @computed
     get firstData() {
         return toJS(lodash.head(this.Model.obsValue));
     }
     /** 最后一个元素 */
+    @computed
     get lastData() {
         return toJS(lodash.last(this.Model.obsValue));
     }

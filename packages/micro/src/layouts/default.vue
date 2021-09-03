@@ -36,7 +36,7 @@ import { reaction } from "mobx";
   components: {},
 })
 export default class extends Vue {
-  @Provide({ })
+  @Provide({ reactive: true })
   System = new SystemController();
   get pageClass() {
     return " xt-page-" + String(this.$route.name);
@@ -49,7 +49,7 @@ export default class extends Vue {
     return { name: item.name };
   }
   created() {
-  
+
   }
   mounted() {
     console.log("");
@@ -58,8 +58,8 @@ export default class extends Vue {
     console.log("");
     console.log("");
   }
-  updated() {}
-  destroyed() {}
+  updated() { }
+  destroyed() { }
 }
 </script>
 <style lang="less" scoped>

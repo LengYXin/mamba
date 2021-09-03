@@ -2,9 +2,8 @@
   <div class="user">
     <a-space>
       <a-avatar>U</a-avatar>
-      <span v-if="System.LoginIn" @click="System.onLoginOut()"
-        >你好</span
-      >
+      {{ System.User.value }}
+      <span v-if="System.LoginIn" @click="System.onLoginOut()">你好</span>
       <span v-else @click="onShowModal">请登录</span>
     </a-space>
     <a-modal :visible="visible" @cancel="onCancel" width="1200px">
@@ -37,8 +36,8 @@ import { reaction, autorun, trace } from "mobx";
   components: {},
 })
 export default class Home extends Vue {
-  // @Inject()
-  System=new SystemController();
+  @Inject()
+  System: SystemController//=new SystemController();
   spinning = true;
   appData = {};
   get visible() {
@@ -73,7 +72,7 @@ export default class Home extends Vue {
   onError(event) {
     console.log("LENG ~ onError", event);
   }
-  created() {}
+  created() { }
   mounted() {
     // autorun(() => {
     //   console.warn(

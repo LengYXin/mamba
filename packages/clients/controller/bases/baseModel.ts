@@ -6,7 +6,7 @@
  * @desc [数据存储]
  */
 import lodash from 'lodash';
-import { action, observable, toJS, isObservable } from 'mobx';
+import { action, observable, toJS, isObservable, computed } from 'mobx';
 import { IBaseModelOptions } from './basesInterface';
 import { persist } from "mobx-persist";
 import { basesOptions, EnumBasesKeys } from './basesOptions';
@@ -61,11 +61,12 @@ export class BaseModel<T = any> {
         return this._value;
     }
     /** 源数据 */
-    // @computed
+    @computed
     public get value(): T {
         return toJS(this._value);
     }
     /** 长度 */
+    @computed
     public get size(): number {
         if (this.type !== 'list') {
             throw new Error("value type not Array");

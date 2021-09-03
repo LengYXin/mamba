@@ -13,6 +13,7 @@ import { BaseModel } from './baseModel';
 import { IBasesDetailsOptions } from './basesInterface';
 import { basesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
 import { basesUtils } from './basesUtils';
+import { computed } from 'mobx';
 /**
  * 基础 数据详情
  */
@@ -53,7 +54,7 @@ export class BasesDetails<T = any> {
      * @readonly
      * @memberof [Model.value]
      */
-    // @computed
+    @computed
     get entity(): T {
         // @ts-ignore
         return this.Model.value || {}
@@ -76,7 +77,7 @@ export class BasesDetails<T = any> {
      * @readonly
      * @memberof [Model.getStorage(timestamp])]
      */
-    // @computed
+    @computed
     get timestamp() {
         return this.Model.getStorage(EnumBasesKeys.timestamp)
     }
@@ -85,6 +86,7 @@ export class BasesDetails<T = any> {
     * @readonly
     * @memberof BasesPagination
     */
+    @computed
     get requestError() {
         return this.Model.getStorage(EnumBasesKeys.requestError, false)
     }
@@ -93,7 +95,7 @@ export class BasesDetails<T = any> {
      * @readonly
      * @memberof [Model.loading)]
      */
-    // @computed
+    @computed
     get loading() {
         return this.Model.loading
     }

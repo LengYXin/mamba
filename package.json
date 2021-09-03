@@ -18,7 +18,7 @@
     "build:weapp": "cd packages/weapp && npm run build",
     "build:docs": "cd packages/docs && npm run build",
     "clean": "lerna clean",
-    "clean:all": "npm run clean && rimraf node_modules **/build **/.nuxt **/dist",
+    "clean:all": "npm run clean && rimraf **/node_modules **/build **/.nuxt **/dist",
     "clean:lock": "rimraf  **/yarn.lock",
     "publish": "lerna publish --skip-npm --no-git-tag-version",
     "postinstall": "lerna bootstrap",
