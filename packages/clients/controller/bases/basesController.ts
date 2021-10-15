@@ -145,7 +145,7 @@ export class BasesController<T = any>{
      * @param AjaxConfig 
      * @returns entity
      */
-    async onFind(body: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
+    async onFind(body?: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
         return this.Details.onLoad(body, AjaxConfig)
     }
     /**
@@ -154,8 +154,8 @@ export class BasesController<T = any>{
      * @param {IAjaxConfig} [AjaxConfig]
      * @returns entity
      */
-    async onEditor(entity: T, AjaxConfig?: IAjaxConfig) {
-        AjaxConfig = lodash.assign({}, AjaxConfig, { body: entity });
+    async onEditor(entity: T | any, AjaxConfig?: IAjaxConfig) {
+        AjaxConfig = lodash.assign({ body: entity }, AjaxConfig);
         if (lodash.get(AjaxConfig.body, this.options.dataKey)) {
             return this.onUpdate(entity, AjaxConfig)
         }
@@ -167,9 +167,9 @@ export class BasesController<T = any>{
      * @param {IAjaxConfig} [AjaxConfig]
      * @returns entity
      */
-    async onInsert(entity: T, AjaxConfig?: IAjaxConfig) {
-        AjaxConfig = this.createAjaxConfig(EnumActionKeys.insert, lodash.assign({}, AjaxConfig, { body: entity }));
-        BasesUtils.warning(EnumActionKeys.insert, AjaxConfig);
+    async onInsert(entity: T | any, AjaxConfig?: IAjaxConfig) {
+        AjaxConfig = this.createAjaxConfig(EnumActionKeys.insert, lodash.assign({ body: entity }, AjaxConfig,));
+        BasesUtils.log(EnumActionKeys.insert, AjaxConfig);
         const response = await AjaxBasics.request<T>(AjaxConfig);
         return this.Pagination.onInsert(response, true)
     }
@@ -179,12 +179,13 @@ export class BasesController<T = any>{
      * @param {IAjaxConfig} [AjaxConfig]
      * @returns entity
      */
-    async onUpdate(entity: T, AjaxConfig?: IAjaxConfig) {
+    async onUpdate(entity: T | any, AjaxConfig?: IAjaxConfig) {
         if (lodash.isEqual(entity, lodash.pick(this.entity, lodash.keys(entity)))) {
-            return BasesUtils.warning(`${EnumActionKeys.update} 无事发生`, entity, this.entity)
+            BasesUtils.warning(`${EnumActionKeys.update} 数据没有更改`, lodash.cloneDeep(entity), this.entity)
+            throw '数据没有更改'
         }
-        AjaxConfig = this.createAjaxConfig(EnumActionKeys.update, lodash.assign({}, AjaxConfig, { body: entity }));
-        BasesUtils.warning(EnumActionKeys.update, AjaxConfig)
+        AjaxConfig = this.createAjaxConfig(EnumActionKeys.update, lodash.assign({ body: entity }, AjaxConfig));
+        BasesUtils.log(EnumActionKeys.update, AjaxConfig)
         const response = await AjaxBasics.request<T>(AjaxConfig);
         this.Pagination.onUpdate(response)
         return response
@@ -197,8 +198,8 @@ export class BasesController<T = any>{
      */
     async onDelete(entitys: string | number | T | Array<any | T>, AjaxConfig?: IAjaxConfig) {
         entitys = this.Pagination.getEntitys(entitys);
-        AjaxConfig = this.createAjaxConfig(EnumActionKeys.delete, lodash.assign({}, AjaxConfig, { body: entitys }));
-        BasesUtils.warning(EnumActionKeys.delete, AjaxConfig)
+        AjaxConfig = this.createAjaxConfig(EnumActionKeys.delete, lodash.assign({ body: entitys }, AjaxConfig));
+        BasesUtils.log(EnumActionKeys.delete, AjaxConfig)
         const response = await AjaxBasics.request<T>(AjaxConfig);
         this.Pagination.onDelete(entitys);
         return response

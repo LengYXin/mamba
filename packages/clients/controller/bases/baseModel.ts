@@ -13,18 +13,25 @@ import { BasesOptions, EnumBasesKeys } from './basesOptions';
 import { Subject, firstValueFrom, delay, of } from 'rxjs';
 import { BasesUtils } from './basesUtils';
 export class BaseModel<T = any> {
-    constructor(private readonly options: IBaseModelOptions) {
-        BasesOptions.reactive(this);
-        switch (this.type) {
-            case 'list':
-                this.set([])
-                break;
-            case 'map':
-            case 'object':
-                this.set({})
-                break;
+    constructor(options?: IBaseModelOptions) {
+        // BasesOptions.reactive(this);
+        this.onInit(options)
+    }
+    readonly options: IBaseModelOptions = {}
+    onInit(options: IBaseModelOptions) {
+        if (!lodash.isEmpty(options)) {
+            lodash.merge(this.options, options)
+            switch (this.type) {
+                case 'list':
+                    this.set([])
+                    break;
+                case 'map':
+                case 'object':
+                    this.set({})
+                    break;
+            }
+            this.createHydrate();
         }
-        this.createHydrate();
     }
     /** 数据类型 */
     get type() {
@@ -49,13 +56,13 @@ export class BaseModel<T = any> {
     loading = false;
     /** 存储空间 */
     @observable
-    private _storage = {};
+    protected _storage = {};
     public get storage() {
         return toJS(this._storage);
     }
     /** 源数据 */
     @observable
-    private _value = undefined;
+    protected _value = undefined;
     /** 原始的 _value */
     public get obsValue(): T {
         return this._value;
@@ -90,6 +97,13 @@ export class BaseModel<T = any> {
         }
         this._value = value;
         return this
+    }
+    /**
+     * 获取 值
+     * @param value 
+     */
+    public get(key: string, defaultValue?: any) {
+        return lodash.get(this._value, key, defaultValue) || defaultValue;
     }
     /**
      * merge 值
@@ -171,7 +185,7 @@ export class BaseModel<T = any> {
      * @param key 
      * @param defaultValue 
      */
-    public getStorage(key: string, defaultValue?: any) {
+    public getStorage<P = any>(key: string, defaultValue?: any): P {
         return lodash.get(this.storage, key, defaultValue) || defaultValue;
     }
     /**

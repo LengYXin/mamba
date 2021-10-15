@@ -19,7 +19,7 @@ export class BasesOptions {
     /** 请求 pagination */
     static pagination: IAjaxConfig = { method: 'get' };
     /** 请求 details */
-    static details: IAjaxConfig = { method: 'get', url: '/{key}' };
+    static details: IAjaxConfig = { method: 'get', url: '/{key}', loading: true };
     /** 请求 insert */
     static insert: IAjaxConfig = { method: 'post' };
     /** 请求 update */

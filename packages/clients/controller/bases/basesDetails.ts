@@ -7,7 +7,7 @@
  */
 import lodash from 'lodash';
 import { BindAll } from 'lodash-decorators';
-import { catchError, filter, map } from 'rxjs';
+import { concatMap, filter, map, of } from 'rxjs';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BaseModel } from './baseModel';
 import { IBasesDetailsOptions } from './basesInterface';
@@ -36,7 +36,7 @@ export class BasesDetails<T = any> {
     readonly defaultOptions: IBasesDetailsOptions = {
         dataKey: BasesOptions.dataKey,
         details: BasesOptions.details,
-        response: {}
+        detailsParams: {}
     };
     /**
      * 配置
@@ -56,8 +56,7 @@ export class BasesDetails<T = any> {
      */
     @computed
     get entity(): T {
-        // @ts-ignore
-        return this.Model.value || {}
+        return this.Model.value
     }
 
     /**
@@ -71,6 +70,14 @@ export class BasesDetails<T = any> {
             details = { url: this.options.details } as IAjaxConfig
         }
         return lodash.assign({ target: this.options.target }, BasesOptions.details, details)
+    }
+    /**
+    * details 参数配置
+    * @readonly
+    * @memberof lodash.assign(...)
+    */
+    get detailsParams() {
+        return lodash.merge({}, this.defaultOptions.detailsParams, this.options.detailsParams)
     }
     /**
      * 当前请求的 生成时间戳
@@ -104,6 +111,9 @@ export class BasesDetails<T = any> {
      * @param options 
      */
     reset(options: IBasesDetailsOptions = lodash.cloneDeep(this.options)) {
+        // if (this.loading) {
+        //     return BasesUtils.warning(`Details reset loading 未完成`);
+        // }
         lodash.assign(this.options, this.defaultOptions, options);
         this.clear()
         return this
@@ -114,35 +124,46 @@ export class BasesDetails<T = any> {
      * @param {IAjaxConfig} [AjaxConfig]
      * @default body:string > { [this.options.dataKey]: body }
      */
-    async onLoad(body: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
+    async onLoad(body?: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
         try {
             const timestamp = Date.now();
             this.Model.toggleLoading(true);
             this.Model.setStorage(EnumBasesKeys.timestamp, timestamp);
             AjaxConfig = this.createAjaxConfig(body, AjaxConfig);
+            lodash.set(AjaxConfig, 'headers.timestamp', timestamp);
             BasesUtils.log(`Details onLoad ${timestamp}`, AjaxConfig);
             const obs = AjaxBasics
                 .requestObservable<T>(AjaxConfig)
                 .pipe(
                     // 过滤过期请求
-                    filter(() => lodash.eq(timestamp, this.timestamp)),
-                    map<any, T>(response => {
-                        const { valueGetter, dataSource } = this.options.response;
+                    filter(() => {
+                        if (lodash.eq(timestamp, this.timestamp)) {
+                            return true
+                        }
+                        BasesUtils.warning(EnumActionKeys.details + ` ${timestamp} 过期 > ${this.timestamp} 最新 `);
+                    }),
+                    concatMap(response => {
+                        const { valueGetter, dataSource } = this.detailsParams;
                         if (lodash.isFunction(valueGetter)) {
-                            return valueGetter(response);
+                            const res = valueGetter(response, AjaxConfig);
+                            if (res instanceof Promise) {
+                                return res
+                            }
+                            return of(res)
                         }
                         if (lodash.isString(dataSource) && lodash.has(response, dataSource)) {
-                            return lodash.get(response, dataSource);
+                            return of(lodash.get(response, dataSource));
                         }
-                        return response
+                        return of(response)
                     }),
-                    map(this.set)
                 );
-            return await AjaxBasics.toPromise<T>(obs)
+            const response = await AjaxBasics.toPromise<T>(obs, AjaxConfig)
+            this.set(response)
+            return response
         } catch (error) {
-            BasesUtils.error(EnumActionKeys.details, error);
+            BasesUtils.error(EnumActionKeys.details, error, this);
             this.Model.setStorage(EnumBasesKeys.requestError, true);
-            // throw error
+            throw error
         }
     }
     /**
@@ -151,9 +172,11 @@ export class BasesDetails<T = any> {
      * @memberof BasesDetails
      */
     set(response: T): T {
-        BasesUtils.log('Details Set', response)
-        this.Model.setStorage(EnumBasesKeys.response, response);
-        this.Model.set(response);
+        if (response) {
+            BasesUtils.log(`Details Set ${this.timestamp}`, response, this);
+            this.Model.setStorage(EnumBasesKeys.response, response);
+            this.Model.set(response);
+        }
         this.Model.toggleLoading(false);
         return response
     }
@@ -173,7 +196,7 @@ export class BasesDetails<T = any> {
         if (!lodash.isObject(body)) {
             body = { [this.options.dataKey]: body }
         }
-        AjaxConfig = lodash.assign({ body }, this.AjaxConfig, AjaxConfig);
+        AjaxConfig = lodash.merge({}, { body }, this.AjaxConfig, AjaxConfig);
         this.Model.setStorage(EnumBasesKeys.request, lodash.cloneDeep(AjaxConfig))
         return AjaxConfig
     }

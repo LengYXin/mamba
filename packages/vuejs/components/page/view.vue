@@ -52,7 +52,7 @@ export default class extends Vue {
   }
   get isModal() {
     const width = window.innerWidth;
-    const modalType = this.modalType || "modal";
+    const modalType = this.modalType || "drawer";
     return lodash.eq(modalType, "modal") && width > 701;
   }
   get query() {

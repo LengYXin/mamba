@@ -20,7 +20,7 @@ export class BasesUtils {
     //     };
     // }
     static getDetailsOptions(options: IBasesControllerOptions): IBasesDetailsOptions {
-        return lodash.assign({}, lodash.pick(options, ['target', 'dataKey', 'details', 'entityModel']), options.DetailsOptions)
+        return lodash.assign({}, lodash.pick(options, ['target', 'dataKey', 'details', 'detailsParams', 'entityModel']), options.DetailsOptions)
     }
     static getPaginationOptions(options: IBasesControllerOptions): IBasesPaginationOptions {
         return lodash.assign({}, lodash.pick(options, ['target', 'dataKey', 'pagination', 'infinite', 'paginationParams', 'listModel']), options.PaginationOptions)
