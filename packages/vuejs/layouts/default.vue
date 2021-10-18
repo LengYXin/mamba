@@ -1,19 +1,9 @@
 <template>
   <div class="app-layout">
     <a-config-provider :locale="getAntdLocale(AppConfig.AppSettings.language)">
-      <ProLayout v-bind="{ ...Layout, ...AppConfig.AppSettings }">
-        <template v-slot:rightContentRender>
-          <a-dropdown>
-            <a class="ant-dropdown-link">
-              <span v-text="$i18n.locale"></span>
-              <a-icon type="down" />
-            </a>
-            <a-menu slot="overlay" @click="onChangeLanguage">
-              <a-menu-item v-for="item in languages" :key="item">
-                <span v-text="item"></span>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+      <ProLayout v-bind="layoutMerge(AppConfig.AppSettings)">
+        <template #rightContentRender>
+          <ViewRight />
         </template>
         <SettingDrawer :settings="AppConfig.AppSettings" @change="AppConfig.onChangeAppSettings" />
         <Nuxt
@@ -30,14 +20,15 @@
 import { Component, Vue } from "vue-property-decorator";
 import lodash from 'lodash';
 import { observer } from "mobx-vue";
+import ViewRight from "./views/rightContentRender.vue";
 @observer
 @Component({
-  components: {}
+  components: { ViewRight }
 })
 export default class extends Vue {
   Layout = {
     menus: [],
-    collapsed: false,
+    collapsed: true,
     autoHideHeader: false,
     fixedHeader: true, // sticky header
     fixSiderbar: true, // sticky siderbar
@@ -48,7 +39,12 @@ export default class extends Vue {
     isMobile: false,
     i18nRender: (event) => { return event },
     handleMediaQuery: (event) => { },
-    handleCollapse: (event) => { },
+    handleCollapse: (event) => {
+      this.Layout.collapsed = event
+    },
+  }
+  layoutMerge(AppSettings) {
+    return lodash.merge({}, this.Layout, AppSettings)
   }
   get pageClass() {
     return " xt-page-" + this.$route.name;
@@ -72,7 +68,7 @@ export default class extends Vue {
     return {
       path: page.path,
       name: page.name,
-      meta: { title: page.name },
+      meta: { title: page.name, icon: 'menu-fold' },
       children: page.children && lodash.map(page.children, this.toMenu)
     }
   }
@@ -92,6 +88,9 @@ export default class extends Vue {
 .app-layout {
   &-content {
     box-sizing: border-box;
+  }
+  .ant-pro-basicLayout-content {
+    margin: 10px;
   }
   .ant-layout-footer {
     display: none;

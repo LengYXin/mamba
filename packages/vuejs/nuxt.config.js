@@ -57,7 +57,7 @@ function createConfig() {
       dir: appConfig.BuildDir,
     },
     // Auto import components: https://go.nuxtjs.dev/config-components
-    components: false,
+    components: [{ path: '~/components', extensions: ['vue'] }],
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
       '@/plugins/index'
@@ -122,6 +122,18 @@ function createConfig() {
         lodash.update(config, 'resolve.modules', modu => lodash.concat([path.join(process.cwd(), 'node_modules')], modu));
         lodash.set(config, 'resolve.alias.lodash-es', require.resolve("lodash").replace('lodash.js', ''));
         lodash.set(config, 'resolve.alias["@ant-design/icons/lib/dist$"]', path.resolve(process.cwd(), 'plugins/vueUse/icon.ts'))
+        lodash.update(config, 'optimization.splitChunks', splitChunks => lodash.merge(splitChunks, {
+          cacheGroups: development ? {} : {
+            lib: {
+              test: /[\\/]node_modules[\\/](vue-.*|mobx.*|core.*|rxjs.*|lodash.*|dayjs.*|bowser.*|query-string.*|i18next.*|bn.*|history.*)[\\/]/,
+              chunks: 'all',
+            },
+            icons: {
+              test: /[\\/]node_modules[\\/](.*icon.*)[\\/]/,
+              chunks: 'all',
+            },
+          }
+        }))
       },
       babel: {
         plugins: [

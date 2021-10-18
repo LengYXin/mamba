@@ -1,5 +1,5 @@
 <template>
-  <page-action :PageController="PageController" :params="params" />
+  <page-action  :params="params" />
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";

@@ -4,7 +4,7 @@
     <ViewAction />
     <a-divider />
     <ViewGrid />
-    <page-view width="1000px">
+    <page-view width="800px">
       <ViewDetails />
     </page-view>
   </page-provider>
@@ -27,6 +27,7 @@ import ViewGrid from "./views/grid.vue";
   },
 })
 export default class extends Vue {
+  // 外部 访问
   static PageController = PageController;
   static PageEntity = PageEntity;
   // 内部 this 访问

@@ -20,19 +20,21 @@ import lodash from "lodash";
 import { observer } from "mobx-vue";
 import { fromEvent, Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
-// import { defineAsyncComponent } from "vue";
 import { Component, Inject, Prop, Ref, Vue, Watch } from "vue-property-decorator";
 import defaultOptions, { getColumnDefsAction, getColumnDefsCheckbox } from "./defaultOptions";
 import framework from "./framework";
-// import GridView from "./grid.vue";
 import Pagination from "./pagination.vue";
+import loading from "./loading.vue";
 const Cache = new Map<string, any>();
 @observer
 @Component({
   components: {
     Pagination,
     // 拆分 包 异步加载
-    GridView: () => import('./grid.vue'),
+    GridView: () => ({
+      component: import('./agGrid.async.vue'),
+      loading,
+    }),
   },
 })
 export default class Grid extends Vue {
@@ -127,7 +129,7 @@ export default class Grid extends Vue {
    */
   onReckon() {
     let height = 500;
-    height = window.innerHeight - this.gridContent.offsetTop - 160;
+    height = window.innerHeight - this.gridContent.offsetTop - 150;
     this.style.height = height + "px";
     if (this.AppConfig.userAgent.isMobile) {
       this.style.height = "70vh";

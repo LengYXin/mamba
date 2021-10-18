@@ -109,6 +109,8 @@ export { default as SettingOutline } from "@ant-design/icons/lib/outline/Setting
 export { default as SettingFill } from "@ant-design/icons/lib/fill/SettingFill";
 export { default as CloudDownloadOutline } from "@ant-design/icons/lib/outline/CloudDownloadOutline";
 export { default as CloudUploadOutline } from "@ant-design/icons/lib/outline/CloudUploadOutline";
+export { default as MenuFoldOutline } from "@ant-design/icons/lib/outline/MenuFoldOutline";
+export { default as MenuUnfoldOutline } from "@ant-design/icons/lib/outline/MenuUnfoldOutline";
 
 
 // export default {}
