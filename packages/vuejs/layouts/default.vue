@@ -48,7 +48,7 @@ export default class extends Vue {
     isMobile: false,
     i18nRender: (event) => { return event },
     handleMediaQuery: (event) => { },
-    handleCollapse: (event) => { }
+    handleCollapse: (event) => { },
   }
   get pageClass() {
     return " xt-page-" + this.$route.name;
@@ -89,28 +89,32 @@ export default class extends Vue {
 }
 </script>
 <style lang="less" scoped>
-.app-layout-content {
-  // min-height: 100vh;
-  box-sizing: border-box;
+.app-layout {
+  &-content {
+    box-sizing: border-box;
+  }
+  .ant-layout-footer {
+    display: none;
+  }
 }
 </style>
 <style lang="less">
-  @time: 0.2s;
-  .page-enter-active,
-  .page-leave-active {
-    transition: opacity @time;
-  }
-  .page-enter,
-  .page-leave-to {
-    opacity: 0;
-  }
-  
-  .layout-enter-active,
-  .layout-leave-active {
-    transition: opacity @time;
-  }
-  .layout-enter,
-  .layout-leave-to {
-    opacity: 0;
-  }
-  </style>
+@time: 0.2s;
+.page-enter-active,
+.page-leave-active {
+  transition: opacity @time;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity @time;
+}
+.layout-enter,
+.layout-leave-to {
+  opacity: 0;
+}
+</style>

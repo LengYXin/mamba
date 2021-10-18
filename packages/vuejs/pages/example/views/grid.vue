@@ -1,18 +1,16 @@
 <template>
-  <page-grid :PageController="PageController" :GridOptions="GridOptions" />
+  <page-grid :GridOptions="GridOptions" />
 </template>
 
 <script lang="ts">
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
 import { Component, Vue } from "vue-property-decorator";
-import PageController from "../controller";
 import { EnumLocaleLabel } from "../locales";
 import RowAction from "./action.vue";
 @Component({
   components: {},
 })
 export default class PageView extends Vue {
-  readonly PageController = PageController;
   columnDefs: (ColDef | ColGroupDef)[] = [
     {
       headerName: EnumLocaleLabel.Name, field: 'name',

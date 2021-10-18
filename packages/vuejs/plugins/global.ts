@@ -8,10 +8,6 @@ import Vue from 'vue';
 import { UserAgent } from './userAgent';
 import * as Mamba from '@mamba/clients';
 const Hydrate = create({ storage: window.localStorage, jsonify: true });
-lodash.set(Vue, 'Hydrate', (key: string, store: any, initialState?: any) => {
-    const config: AppConfig = store instanceof AppConfig ? store : Vue.AppConfig;
-    return Hydrate(config.createStorage(key), store, initialState)
-})
 const AppSettingsDetault = {
     language: 'zh',
     formType: 'Modal',
@@ -31,7 +27,7 @@ const AppSettingsDetault = {
     // production: false
 }
 @BindAll()
-export class AppConfig extends Mamba.ClientsEnv {
+class AppConfig extends Mamba.ClientsEnv {
     @persist('object')
     @observable
     AppSettings = lodash.cloneDeep(AppSettingsDetault);
@@ -58,7 +54,6 @@ export class AppConfig extends Mamba.ClientsEnv {
         $i18n.locale = this.AppSettings.language;
         moment.locale(lodash.get({ 'en': 'en', 'zh': 'zh-cn' }, this.AppSettings.language));
     }
-
     /**
      * 检查版本信息 
      */
@@ -77,20 +72,21 @@ export class AppConfig extends Mamba.ClientsEnv {
         }
     }
 }
-lodash.set(Vue, 'AppConfig', new AppConfig())
-Vue.AppConfig.injectClients()
-Vue.Hydrate('AppConfig', Vue.AppConfig).then(() => {
-    Vue.AppConfig.onChangeLanguage()
-})
-Object.defineProperty(Vue.prototype, 'AppConfig', {
-    get: function () { return Vue.AppConfig }
+export const $AppConfig = new AppConfig();
+Object.defineProperty(Vue.prototype, "AppConfig", {
+    get: lodash.constant($AppConfig),
+});
+Hydrate($AppConfig.createStorage('AppConfig'), $AppConfig).then(() => {
+    $AppConfig.onChangeLanguage()
 })
 declare module 'vue/types/vue' {
     interface Vue {
         AppConfig: AppConfig
     }
-    interface VueConstructor<V extends Vue = Vue> {
-        Hydrate: <T extends Object>(key: string, store: T, initialState?: any) => IHydrateResult<T>;
-        AppConfig: AppConfig
-    }
 }
+// declare module "@nuxt/types" {
+//     interface Context {
+//         /** 全局状态 */
+//         AppConfig: AppConfig;
+//     }
+// }

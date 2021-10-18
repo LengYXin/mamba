@@ -1,6 +1,14 @@
 <template>
-  <a-popconfirm :title="title" :disabled="getDisabled(Pagination.selectedRowKeys)" @confirm="onConfirm">
-    <a-button v-if="isDelete" v-bind="ButtonProps" :disabled="getDisabled(Pagination.selectedRowKeys)">
+  <a-popconfirm
+    :title="getTitle(Pagination.selectedRowKeys)"
+    :disabled="getDisabled(Pagination.selectedRowKeys)"
+    @confirm="onConfirm"
+  >
+    <a-button
+      v-if="isDelete"
+      v-bind="ButtonProps"
+      :disabled="getDisabled(Pagination.selectedRowKeys)"
+    >
       <template v-if="isPageAction">
         <a-icon type="delete" />
       </template>
@@ -9,14 +17,16 @@
   </a-popconfirm>
 </template>
 <script lang="ts">
-import { Vue, Component, Mixins, Prop } from "vue-property-decorator";
-import { BasesController } from "@mamba/clients";
-import { ActionBasics } from "./script";
+import { BasesController, EnumActionType } from "@mamba/clients";
+import lodash from "lodash";
 import { observer } from "mobx-vue";
+import { Component, Mixins, Prop, Inject } from "vue-property-decorator";
+import { ActionBasics } from "./script";
 @observer
 @Component({ components: {} })
 export default class extends Mixins(ActionBasics) {
-  @Prop() readonly PageController: BasesController;
+  /** 页面控制器 */
+  @Inject() readonly PageController: BasesController;
   get $locales() {
     return this.$Enumlocales
   }
@@ -26,8 +36,8 @@ export default class extends Mixins(ActionBasics) {
     }
     return !selectedRowKeys.length;
   }
-  get title() {
-    return this.$t(this.$locales.action_deleteConfirm, { label: this.isRowAction ? 1 : this.Pagination.selectedRowKeys.length })
+  getTitle(selectedRowKeys) {
+    return this.$t(this.$locales.action_deleteConfirm, { label: this.isRowAction ? 1 : selectedRowKeys.length })
   }
   get successMsg() {
     return this.$t(this.$locales.tips_success_operation)

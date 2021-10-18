@@ -3,6 +3,10 @@ import { message } from 'ant-design-vue';
 import lodash from 'lodash';
 import NProgress from 'nprogress';
 import Vue from 'vue';
+import { $AppConfig } from './global';
+Mamba.AjaxBasics.resetDefault({
+    target: $AppConfig.target
+})
 Mamba.AjaxBasics.onStart = NProgress.start;
 Mamba.AjaxBasics.onEndAll = NProgress.done;
 Mamba.AjaxBasics.onError = (error, AjaxConfig) => {
@@ -13,7 +17,11 @@ lodash.set(Vue, 'BasesController', Mamba.BasesController)
 lodash.set(Vue, 'BasesDetails', Mamba.BasesDetails)
 lodash.set(Vue, 'BasesPagination', Mamba.BasesPagination)
 lodash.set(Vue, 'BaseModel', Mamba.BaseModel)
+Vue.prototype.$Mamba = Mamba;
 declare module "vue/types/vue" {
+    interface Vue {
+        $Mamba: typeof Mamba;
+    }
     interface VueConstructor<V extends Vue = Vue> {
         /** Dayjs */
         $Mamba: typeof Mamba;

@@ -39,13 +39,13 @@ export default class AgGrid extends Vue {
     return `ag-theme-${this.theme}`;
   }
   get GridKey() {
-    // return this.$Encryption.MD5(
-    //   this.lodash.assign(
-    //     { __locale: this.$i18n.locale, columnDefs: this.columnDefs },
-    //     this.gridOptions
-    //   )
-    // ); //this.$i18n.locale;
-    return 'GridKey'
+    return this.$Mamba.Encryption.MD5(
+      lodash.assign(
+        { __locale: this.$i18n.locale, columnDefs: this.columnDefs },
+        this.gridOptions
+      )
+    ); //this.$i18n.locale;
+    // return 'GridKey'
   }
   created() {
     this.option.columnDefs = lodash.cloneDeep(this.columnDefs);

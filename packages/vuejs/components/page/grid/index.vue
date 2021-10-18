@@ -21,7 +21,7 @@ import { observer } from "mobx-vue";
 import { fromEvent, Subscription } from "rxjs";
 import { debounceTime } from "rxjs/operators";
 // import { defineAsyncComponent } from "vue";
-import { Component, Prop, Ref, Vue, Watch } from "vue-property-decorator";
+import { Component, Inject, Prop, Ref, Vue, Watch } from "vue-property-decorator";
 import defaultOptions, { getColumnDefsAction, getColumnDefsCheckbox } from "./defaultOptions";
 import framework from "./framework";
 // import GridView from "./grid.vue";
@@ -37,7 +37,7 @@ const Cache = new Map<string, any>();
 })
 export default class Grid extends Vue {
   // static Cache = new Map<string, any>()
-  @Prop({ required: true }) readonly PageController: BasesController;
+  @Inject() readonly PageController: BasesController;
   @Prop({ default: () => ({}) }) readonly GridOptions: GridOptions;
   @Prop({ default: () => true }) readonly CheckboxSelection: boolean;
   @Ref("gridContent") readonly gridContent: HTMLDivElement;
@@ -127,7 +127,7 @@ export default class Grid extends Vue {
    */
   onReckon() {
     let height = 500;
-    height = window.innerHeight - this.gridContent.offsetTop - 200;
+    height = window.innerHeight - this.gridContent.offsetTop - 160;
     this.style.height = height + "px";
     if (this.AppConfig.userAgent.isMobile) {
       this.style.height = "70vh";
@@ -136,6 +136,7 @@ export default class Grid extends Vue {
   }
   @Watch("Pagination.loading")
   onLoading(val, old) {
+    console.log("LENG ~ Grid ~ onLoading ~ val", val)
     if (this.GridApi) {
       if (val) {
         this.GridApi.showLoadingOverlay();

@@ -170,6 +170,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof BasesPagination
      */
+    @computed
     get selectedRowKeys(): Array<T | string> {
         return this.Model.getStorage('selectedRowKeys', [])
     }

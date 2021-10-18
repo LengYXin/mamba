@@ -30,8 +30,8 @@
   </a-space>
 </template>
 <script lang="ts">
-import { EnumActionType } from "@mamba/clients";
-import { Component, Prop, Mixins } from "vue-property-decorator";
+import { EnumActionType, BasesController } from "@mamba/clients";
+import { Component, Prop, Inject, Mixins } from "vue-property-decorator";
 import ActionDelete from "./action_delete.vue";
 import ActionExport from "./action_export.vue";
 import ActionImport from "./action_import.vue";
@@ -51,6 +51,8 @@ import lodash from "lodash";
   },
 })
 export default class extends Mixins(ActionBasics) {
+  /** 页面控制器 */
+  @Inject() readonly PageController: BasesController;
   /** 调试 不鉴权 */
   @Prop({ default: false }) debug;
   /** 包含 */
@@ -65,8 +67,7 @@ export default class extends Mixins(ActionBasics) {
   @Prop({ default: () => [] }) exclude;
   /** 请求参数 */
   @Prop({}) toQuery;
-  /** 页面控制器 */
-  @Prop({ required: true }) readonly PageController;
+
   /**
    * 行 操作需要 aggrid 传入
    * @type {ICellRendererParams}
@@ -90,7 +91,7 @@ export default class extends Mixins(ActionBasics) {
     }
     return lodash.get(
       lodash.head(this.Pagination.selectedRowKeys),
-      this.PageController.key
+      this.PageController.options.dataKey
     );
   }
   onShow(type: EnumActionType) {
@@ -106,6 +107,7 @@ export default class extends Mixins(ActionBasics) {
 .w-action-space {
   width: 100%;
   display: block !important;
+  text-align: right;
   > .ant-space-item {
     display: inline-block !important;
   }

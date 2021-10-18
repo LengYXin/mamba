@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-page-provider">
         <slot />
     </div>
 </template>
@@ -16,6 +16,11 @@ export default class extends Vue {
     mounted() { }
 }
 </script>
-  <style lang="less">
+  <style lang="less" >
+.w-page-provider {
+    .ant-divider-horizontal {
+        margin: 5px 0;
+    }
+}
 </style>
   

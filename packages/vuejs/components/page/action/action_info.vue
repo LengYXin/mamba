@@ -10,12 +10,13 @@
 import { BasesController } from "@mamba/clients";
 import lodash from "lodash";
 import { observer } from "mobx-vue";
-import { Component, Mixins, Prop } from "vue-property-decorator";
+import { Component, Mixins, Prop, Inject } from "vue-property-decorator";
 import { ActionBasics } from "./script";
 @observer
 @Component({ components: {} })
 export default class extends Mixins(ActionBasics) {
-  @Prop() readonly PageController: BasesController;
+  /** 页面控制器 */
+  @Inject() readonly PageController: BasesController;
   /** 请求参数 */
   @Prop({}) toQuery;
   get $locales() {

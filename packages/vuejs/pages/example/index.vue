@@ -18,7 +18,7 @@ import ViewDetails from "./views/details.vue";
 import ViewFilter from "./views/filter.vue";
 import ViewGrid from "./views/grid.vue";
 @Component({
-  meta: EnumPageMeta,
+  head: EnumPageMeta,
   components: {
     ViewAction,
     ViewFilter,

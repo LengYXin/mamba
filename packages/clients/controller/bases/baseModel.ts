@@ -17,7 +17,7 @@ export class BaseModel<T = any> {
         // BasesOptions.reactive(this);
         this.onInit(options)
     }
-    readonly options: IBaseModelOptions = {}
+    readonly options: IBaseModelOptions = { type: 'object' }
     onInit(options: IBaseModelOptions) {
         if (!lodash.isEmpty(options)) {
             lodash.merge(this.options, options)
