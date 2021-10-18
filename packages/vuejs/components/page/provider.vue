@@ -18,9 +18,9 @@ export default class extends Vue {
 </script>
   <style lang="less" >
 .w-page-provider {
-    background: white;
-    padding: 10px;
-    box-sizing: border-box;
+    // background: white;
+    // padding: 10px;
+    // box-sizing: border-box;
     .ant-divider-horizontal {
         margin: 5px 0;
     }

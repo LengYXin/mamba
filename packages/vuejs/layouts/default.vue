@@ -91,6 +91,9 @@ export default class extends Vue {
   }
   .ant-pro-basicLayout-content {
     margin: 10px;
+    background: white;
+    padding: 10px;
+    box-sizing: border-box;
   }
   .ant-layout-footer {
     display: none;

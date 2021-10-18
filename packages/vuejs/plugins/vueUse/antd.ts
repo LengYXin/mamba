@@ -1,9 +1,9 @@
-import { Avatar, Skeleton, Tooltip, Button, Card, Checkbox, Col, ConfigProvider, DatePicker, Divider, Drawer, Dropdown, Empty, FormModel, Icon, Input, InputNumber, List, Menu, message, Modal, notification, Pagination, Popconfirm, Radio, Row, Select, Space, Spin, Statistic, Steps, Switch, Table, Tabs, Transfer, Upload } from 'ant-design-vue';
+import { Avatar, Popover, Skeleton, Tooltip, Button, Card, Checkbox, Col, ConfigProvider, DatePicker, Divider, Drawer, Dropdown, Empty, FormModel, Icon, Input, InputNumber, List, Menu, message, Modal, notification, Pagination, Popconfirm, Radio, Row, Select, Space, Spin, Statistic, Steps, Switch, Table, Tabs, Transfer, Upload } from 'ant-design-vue';
 import Base from 'ant-design-vue/es/base';
 import ProLayout, { SettingDrawer } from '@ant-design-vue/pro-layout';
 import Vue from 'vue';
 import Momentjs from 'moment';
-const components = [Base, Skeleton, Tooltip, Avatar, Button, Card, Checkbox, Col,
+const components = [Base, Popover, Skeleton, Tooltip, Avatar, Button, Card, Checkbox, Col,
     DatePicker, Divider, Dropdown, FormModel, Icon, Input,
     InputNumber, List, Menu, Modal, Pagination, Popconfirm, Radio,
     Row, Select, Spin, Statistic, Steps, Switch, Table, Transfer,
