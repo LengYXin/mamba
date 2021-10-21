@@ -2,7 +2,6 @@
 import './public-path';
 import './plugins';
 import './components';
-import './store';
 import './assets/styles/patch.less';
 import 'nprogress/nprogress.css';
 import React from 'react';

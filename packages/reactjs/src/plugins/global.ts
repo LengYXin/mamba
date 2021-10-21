@@ -74,13 +74,13 @@ export class AppConfig extends Mamba.ClientsEnv {
         }
     }
 }
-lodash.set(React, 'AppConfig', new AppConfig())
-React.AppConfig.injectClients()
+export const $AppConfig = new AppConfig();
+lodash.set(React, 'AppConfig',$AppConfig)
 React.Hydrate('AppConfig', React.AppConfig).then(() => {
     React.AppConfig.onChangeLanguage()
 })
 Object.defineProperty(React.Component.prototype, 'AppConfig', {
-    get: function () { return React.AppConfig }
+    get: lodash.constant($AppConfig),
 })
 declare module 'react' {
     /**

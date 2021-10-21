@@ -22,7 +22,7 @@ import { Observer } from "mobx-vue";
 export default class extends Vue {
     @Prop() dataSource;
     get PageController() {
-        return this.$store.Pagination
+        return this.$Store.Pagination
     }
     async onDelete() {
         await this.$dialog.confirm({ title: '确定删除这条数据么' })

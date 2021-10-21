@@ -17,7 +17,7 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class extends Vue {
   get PageController() {
-    return this.$store.Example.Details
+    return this.$Store.Example.Details
   }
   created() {
     this.PageController.onLoad(this.$route.query)
