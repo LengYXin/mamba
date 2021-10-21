@@ -1,4 +1,4 @@
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+// const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 // const themes = path.join(__dirname, 'src/assets/themes/index.less')
@@ -49,7 +49,7 @@ module.exports = {
         plugins: [
             // new PrerenderSPAPlugin({ staticDir: path.join(__dirname, env.config.dir), routes: routerAuto('./src/pages', true) }),
             new webpack.DefinePlugin({}),
-            new MomentLocalesPlugin({ localesToKeep: ['es-us', 'zh-cn'] }),
+            // new MomentLocalesPlugin({ localesToKeep: ['es-us', 'zh-cn'] }),
             new webpack.BannerPlugin({ banner: `@author 冷 (https://github.com/LengYXin)\n@email lengyingxin8966@gmail.com` })
         ],
         output: {

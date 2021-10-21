@@ -5,7 +5,6 @@
       <a-menu
         theme="dark"
         mode="horizontal"
-        v-model:selectedKeys="[$route.name]"
         :style="{ lineHeight: '64px' }"
       >
         <a-menu-item v-for="item in $router.options.routes" :key="item.name">

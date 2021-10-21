@@ -28,11 +28,10 @@ export class AppConfig extends Mamba.ClientsEnv {
         }
     }
 }
-lodash.set(Vue, 'AppConfig', new AppConfig())
-Vue.AppConfig.injectClients()
-Object.defineProperty(Vue.prototype, 'AppConfig', {
-    get: function () { return Vue.AppConfig }
-})
+export const $AppConfig = new AppConfig();
+Object.defineProperty(Vue.prototype, "AppConfig", {
+    get: lodash.constant($AppConfig),
+});
 declare module 'vue/types/vue' {
     interface Vue {
         AppConfig: AppConfig

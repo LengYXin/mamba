@@ -20,7 +20,7 @@
     "clean": "lerna clean",
     "clean:all": "rimraf **/node_modules **/yarn.lock **/build **/.nuxt **/dist",
     "publish": "lerna publish --skip-npm --no-git-tag-version",
-    "postinstall": "lerna bootstrap --scope=@mamba/clients --scope=vuejs",
+    "postinstall": "lerna bootstrap",
     "test": "cd packages/clients && npm test"
   },
   "dependencies": {
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/crypto-js": "^4.0.2",
     "@types/jest": "^27.0.2",
-    "@types/lodash": "^4.14.175",
+    "@types/lodash": "^4.14.176",
     "commander": "^8.2.0",
     "compressing": "^1.5.1",
     "fs-extra": "^10.0.0",
