@@ -69,6 +69,7 @@ export enum AppValueType {
     // grid = "grid",
     /** 富文本 */
     editor = "editor",
+    codemirror = "codemirror",
     // icons = "icons",
     // radioButton = "radioButton",
     // progress = "progress",

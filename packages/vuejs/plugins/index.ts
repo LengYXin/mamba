@@ -1,6 +1,7 @@
 export * from './mamba'
 export * from './prototype'
 export * from './vueUse/antd'
+export * from './vueUse/use'
 export * from '@/components'
 export * from './locales'
 export * from './global'
