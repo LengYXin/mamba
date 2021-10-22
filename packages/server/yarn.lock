@@ -763,41 +763,41 @@
   resolved "https://registry.nlark.com/@midwayjs/boilerplate-list/download/@midwayjs/boilerplate-list-1.0.10.tgz#e0344c94bae9508c314e7cffc225b9cffe95ce1e"
   integrity sha1-4DRMlLrpUIwxTnz/wiW5z/6Vzh4=
 
-"@midwayjs/bootstrap@^2.11.4", "@midwayjs/bootstrap@^2.12.7", "@midwayjs/bootstrap@^2.13.4":
+"@midwayjs/bootstrap@^2.11.4", "@midwayjs/bootstrap@^2.13.4":
   version "2.13.4"
   resolved "https://registry.npmmirror.com/@midwayjs/bootstrap/download/@midwayjs/bootstrap-2.13.4.tgz?cache=0&sync_timestamp=1634793451892&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40midwayjs%2Fbootstrap%2Fdownload%2F%40midwayjs%2Fbootstrap-2.13.4.tgz#60e42194f6e970bd863efe49754b8335b8802d0d"
   integrity sha1-YOQhlPbpcL2GPv5JdUuDNbiALQ0=
 
-"@midwayjs/cli-plugin-add@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-add/download/@midwayjs/cli-plugin-add-1.2.84.tgz#5397d7fb6d997ad3d086a1b761c344db1e91aa3e"
-  integrity sha1-U5fX+22ZetPQhqG3YcNE2x6Rqj4=
+"@midwayjs/cli-plugin-add@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-add/download/@midwayjs/cli-plugin-add-1.2.85.tgz#6de26f460dae3902e98d9f8ebb73d46e83363460"
+  integrity sha1-beJvRg2uOQLpjZ+Ou3PUboM2NGA=
   dependencies:
     "@midwayjs/boilerplate-list" "^1.0.0"
-    "@midwayjs/command-core" "^1.2.84"
+    "@midwayjs/command-core" "^1.2.85"
     chalk "^4.1.0"
     enquirer "^2.3.6"
     fs-extra "^8.1.0"
     light-generator "^1.6.1"
     light-spinner "^1.0.1"
 
-"@midwayjs/cli-plugin-build@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-build/download/@midwayjs/cli-plugin-build-1.2.84.tgz#4920a55339834708db9e5ccfb7a1390a568e777e"
-  integrity sha1-SSClUzmDRwjbnlzPt6E5ClaOd34=
+"@midwayjs/cli-plugin-build@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-build/download/@midwayjs/cli-plugin-build-1.2.85.tgz#074051839383c806fd035d051596b387cc059d86"
+  integrity sha1-B0BRg5ODyAb9A10FFZazh8wFnYY=
   dependencies:
-    "@midwayjs/command-core" "^1.2.84"
+    "@midwayjs/command-core" "^1.2.85"
     "@midwayjs/faas-code-analysis" "^1.2.82"
     "@midwayjs/hooks-core" "^2.2.4"
     "@midwayjs/mwcc" "^0.7.x"
     fs-extra "^8.1.0"
 
-"@midwayjs/cli-plugin-check@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-check/download/@midwayjs/cli-plugin-check-1.2.84.tgz#64b0315fe5797765449915eba4921da994286407"
-  integrity sha1-ZLAxX+V5d2VEmRXrpJIdqZQoZAc=
+"@midwayjs/cli-plugin-check@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-check/download/@midwayjs/cli-plugin-check-1.2.85.tgz#d58b94a724af1a24789ad1d7df7e8edf7f7e009d"
+  integrity sha1-1YuUpySvGiR4mtHX336O339+AJ0=
   dependencies:
-    "@midwayjs/command-core" "^1.2.84"
+    "@midwayjs/command-core" "^1.2.85"
     "@midwayjs/hooks-core" "^2.2.4"
     "@midwayjs/locate" "^1.0.3"
     "@midwayjs/luckyeye" "^1.0.2"
@@ -805,22 +805,22 @@
     fs-extra "^8.1.0"
     js-yaml "^4.1.0"
 
-"@midwayjs/cli-plugin-clean@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-clean/download/@midwayjs/cli-plugin-clean-1.2.84.tgz#83bcb9ee7f3a119f45cbf7d332d8811291f68dbd"
-  integrity sha1-g7y57n86EZ9Fy/fTMtiBEpH2jb0=
+"@midwayjs/cli-plugin-clean@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-clean/download/@midwayjs/cli-plugin-clean-1.2.85.tgz#96e6423f96a435f6b003cf9875d497ae32b968ed"
+  integrity sha1-luZCP5akNfawA8+YddSXrjK5aO0=
   dependencies:
-    "@midwayjs/command-core" "^1.2.84"
-    "@midwayjs/serverless-spec-builder" "^1.2.84"
+    "@midwayjs/command-core" "^1.2.85"
+    "@midwayjs/serverless-spec-builder" "^1.2.85"
     fs-extra "^8.1.0"
 
-"@midwayjs/cli-plugin-dev@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-dev/download/@midwayjs/cli-plugin-dev-1.2.84.tgz#3d6c5d4dc547cafc93414c41363c07591169e823"
-  integrity sha1-PWxdTcVHyvyTQUxBNjwHWRFp6CM=
+"@midwayjs/cli-plugin-dev@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-dev/download/@midwayjs/cli-plugin-dev-1.2.85.tgz#755243dd9be93085f6a7228f4180f329fa6d0b1a"
+  integrity sha1-dVJD3ZvpMIX2pyKPQYDzKfptCxo=
   dependencies:
     "@koa/router" "^10.0.0"
-    "@midwayjs/command-core" "^1.2.84"
+    "@midwayjs/command-core" "^1.2.85"
     "@midwayjs/debugger" "^1.0.x"
     "@midwayjs/mock" "^2.8.0"
     chalk "^4.1.0"
@@ -834,29 +834,29 @@
     tsconfig-paths "^3.9.0"
     typescript "^4.1.0"
 
-"@midwayjs/cli-plugin-test@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-test/download/@midwayjs/cli-plugin-test-1.2.84.tgz#e400c38d9b09e0763ab9a8ea9d912932d88f1a4c"
-  integrity sha1-5ADDjZsJ4HY6uajqnZEpMtiPGkw=
+"@midwayjs/cli-plugin-test@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli-plugin-test/download/@midwayjs/cli-plugin-test-1.2.85.tgz#a766ca660a15269e1f316dc708e13205e330ee07"
+  integrity sha1-p2bKZgoVJp4fMW3HCOEyBeMw7gc=
   dependencies:
-    "@midwayjs/command-core" "^1.2.84"
+    "@midwayjs/command-core" "^1.2.85"
     globby "^10.0.1"
     jest "^26.4.2"
     ts-jest "^26.0.0"
     ts-node "^9.0.0"
 
-"@midwayjs/cli@^1.2.80":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/cli/download/@midwayjs/cli-1.2.84.tgz#6623823711c0d581ef4f4a3346856fd4f966f783"
-  integrity sha1-ZiOCNxHA1YHvT0ozRoVv1Plm94M=
+"@midwayjs/cli@^1.2.84":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/cli/download/@midwayjs/cli-1.2.85.tgz#87916861c10c62227a110d6d78f12ddbdb3edc2a"
+  integrity sha1-h5FoYcEMYiJ6EQ1tePEt29s+3Co=
   dependencies:
-    "@midwayjs/cli-plugin-add" "^1.2.84"
-    "@midwayjs/cli-plugin-build" "^1.2.84"
-    "@midwayjs/cli-plugin-check" "^1.2.84"
-    "@midwayjs/cli-plugin-clean" "^1.2.84"
-    "@midwayjs/cli-plugin-dev" "^1.2.84"
-    "@midwayjs/cli-plugin-test" "^1.2.84"
-    "@midwayjs/command-core" "^1.2.84"
+    "@midwayjs/cli-plugin-add" "^1.2.85"
+    "@midwayjs/cli-plugin-build" "^1.2.85"
+    "@midwayjs/cli-plugin-check" "^1.2.85"
+    "@midwayjs/cli-plugin-clean" "^1.2.85"
+    "@midwayjs/cli-plugin-dev" "^1.2.85"
+    "@midwayjs/cli-plugin-test" "^1.2.85"
+    "@midwayjs/command-core" "^1.2.85"
     "@midwayjs/debugger" "^1.0.x"
     enquirer "^2.3.4"
     jest-environment-node "^26.6.2"
@@ -864,15 +864,15 @@
     source-map-support "^0.5.19"
     ts-node "^9.0.0"
 
-"@midwayjs/command-core@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/command-core/download/@midwayjs/command-core-1.2.84.tgz#4f5c506ca1a734fa7a910054b3cfbf2dd7775beb"
-  integrity sha1-T1xQbKGnNPp6kQBUs8+/Ldd3W+s=
+"@midwayjs/command-core@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/command-core/download/@midwayjs/command-core-1.2.85.tgz#ba47f97f70be2c860a00634971de49da77699e24"
+  integrity sha1-ukf5f3C+LIYKAGNJcd5J2ndpniQ=
   dependencies:
     light-spinner "^1.0.0"
     minimist "^1.2.5"
 
-"@midwayjs/core@^2.11.4", "@midwayjs/core@^2.12.7", "@midwayjs/core@^2.13.4":
+"@midwayjs/core@^2.11.4", "@midwayjs/core@^2.13.4":
   version "2.13.4"
   resolved "https://registry.npmmirror.com/@midwayjs/core/download/@midwayjs/core-2.13.4.tgz?cache=0&sync_timestamp=1634793458257&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40midwayjs%2Fcore%2Fdownload%2F%40midwayjs%2Fcore-2.13.4.tgz#749f732ba091d104ae378d18c120087f3ef6e8b6"
   integrity sha1-dJ9zK6CR0QSuN40YwSAIfz726LY=
@@ -898,7 +898,7 @@
     ts-node "^9.0.0"
     ws "^7.2.3"
 
-"@midwayjs/decorator@^2.11.1", "@midwayjs/decorator@^2.12.3":
+"@midwayjs/decorator@^2.11.1", "@midwayjs/decorator@^2.13.2":
   version "2.13.2"
   resolved "https://registry.npmmirror.com/@midwayjs/decorator/download/@midwayjs/decorator-2.13.2.tgz#eead8ad05a0d87e1cc287cea4757093b004c262c"
   integrity sha1-7q2K0FoNh+HMKHzqR1cJOwBMJiw=
@@ -995,7 +995,7 @@
     semver "^7.3.4"
     supports-color "^8.1.0"
 
-"@midwayjs/mock@^2.12.7", "@midwayjs/mock@^2.8.0":
+"@midwayjs/mock@^2.13.4", "@midwayjs/mock@^2.8.0":
   version "2.13.4"
   resolved "https://registry.npmmirror.com/@midwayjs/mock/download/@midwayjs/mock-2.13.4.tgz#363609abb23f86ead227b013804ded2e9831cff3"
   integrity sha1-NjYJq7I/hurSJ7ATgE3tLpgxz/M=
@@ -1014,21 +1014,21 @@
     source-map-support "^0.5.16"
     typescript "~4.2.4"
 
-"@midwayjs/serverless-spec-builder@^1.2.84":
-  version "1.2.84"
-  resolved "https://registry.npmmirror.com/@midwayjs/serverless-spec-builder/download/@midwayjs/serverless-spec-builder-1.2.84.tgz#c4ff54471acfbcb03c5a73a2b030d4fbc494b471"
-  integrity sha1-xP9URxrPvLA8WnOisDDU+8SUtHE=
+"@midwayjs/serverless-spec-builder@^1.2.85":
+  version "1.2.85"
+  resolved "https://registry.npmmirror.com/@midwayjs/serverless-spec-builder/download/@midwayjs/serverless-spec-builder-1.2.85.tgz#c2c9908b941ea69ebae806205ea693ab8325c60f"
+  integrity sha1-wsmQi5Qepp666AYgXqaTq4Mlxg8=
   dependencies:
     ejs "^3.1.3"
     js-yaml "^4.1.0"
     mkdirp "^0.5.1"
 
-"@midwayjs/swagger@^1.0.7":
+"@midwayjs/swagger@^1.3.0":
   version "1.3.0"
   resolved "https://registry.npmmirror.com/@midwayjs/swagger/download/@midwayjs/swagger-1.3.0.tgz#8baceaa17538f3c5efca46cf09ed3dbe5e0755c2"
   integrity sha1-i6zqoXU488XvykbPCe09vl4HVcI=
 
-"@midwayjs/web@^2.12.7":
+"@midwayjs/web@^2.13.4":
   version "2.13.4"
   resolved "https://registry.npmmirror.com/@midwayjs/web/download/@midwayjs/web-2.13.4.tgz#b8cdb512f468a8bf1eff1258e58e106e54afa69e"
   integrity sha1-uM21EvRoqL8e/xJY5Y4QblSvpp4=
@@ -1255,7 +1255,7 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/fs-extra@^9.0.12":
+"@types/fs-extra@^9.0.13":
   version "9.0.13"
   resolved "https://registry.nlark.com/@types/fs-extra/download/@types/fs-extra-9.0.13.tgz?cache=0&sync_timestamp=1632250966317&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Ffs-extra%2Fdownload%2F%40types%2Ffs-extra-9.0.13.tgz#7594fbae04fe7f1918ce8b3d213f74ff44ac1f45"
   integrity sha1-dZT7rgT+fxkYzos9IT90/0SsH0U=
@@ -1306,13 +1306,13 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.24":
-  version "26.0.24"
-  resolved "https://registry.nlark.com/@types/jest/download/@types/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
-  integrity sha1-lD0Rl2sWc5GFkToZNuDeDEp9WVo=
+"@types/jest@^27.0.2":
+  version "27.0.2"
+  resolved "https://registry.nlark.com/@types/jest/download/@types/jest-27.0.2.tgz#ac383c4d4aaddd29bbf2b916d8d105c304a5fcd7"
+  integrity sha1-rDg8TUqt3Sm78rkW2NEFwwSl/Nc=
   dependencies:
-    jest-diff "^26.0.0"
-    pretty-format "^26.0.0"
+    jest-diff "^27.0.0"
+    pretty-format "^27.0.0"
 
 "@types/json-schema@^7.0.7":
   version "7.0.9"
@@ -1387,9 +1387,9 @@
   resolved "https://registry.npmmirror.com/@types/node/download/@types/node-10.17.60.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
   integrity sha1-NfPWIT2u2V2n8Pc+dbzGmA6QWXs=
 
-"@types/node@^14.17.12":
+"@types/node@^14.17.27":
   version "14.17.27"
-  resolved "https://registry.npmmirror.com/@types/node/download/@types/node-14.17.27.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.17.27.tgz#5054610d37bb5f6e21342d0e6d24c494231f3b85"
+  resolved "https://registry.npmmirror.com/@types/node/download/@types/node-14.17.27.tgz?cache=0&sync_timestamp=1634814168290&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.17.27.tgz#5054610d37bb5f6e21342d0e6d24c494231f3b85"
   integrity sha1-UFRhDTe7X24hNC0ObSTElCMfO4U=
 
 "@types/normalize-package-data@^2.4.0":
@@ -2738,7 +2738,7 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dayjs@^1.10.6:
+dayjs@^1.10.7:
   version "1.10.7"
   resolved "https://registry.nlark.com/dayjs/download/dayjs-1.10.7.tgz#2cf5f91add28116748440866a0a1d26f3a6ce468"
   integrity sha1-LPX5Gt0oEWdIRAhmoKHSbzps5Gg=
@@ -3215,7 +3215,7 @@ egg-schedule@^3.6.0:
     safe-timers "^1.1.0"
     utility "^1.16.3"
 
-egg-scripts@^2.14.0:
+egg-scripts@^2.15.1:
   version "2.15.1"
   resolved "https://registry.nlark.com/egg-scripts/download/egg-scripts-2.15.1.tgz?cache=0&sync_timestamp=1631688007643&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fegg-scripts%2Fdownload%2Fegg-scripts-2.15.1.tgz#de432935254a1936a17761e4f6a1ee3fabc358ee"
   integrity sha1-3kMpNSVKGTahd2Hk9qHuP6vDWO4=
@@ -3296,7 +3296,7 @@ egg-watcher@^3.1.0:
     sdk-base "^3.5.0"
     wt "^1.2.0"
 
-egg@^2.28.0, egg@^2.30.0:
+egg@^2.28.0, egg@^2.31.0:
   version "2.31.0"
   resolved "https://registry.npmmirror.com/egg/download/egg-2.31.0.tgz#1990f92611df123bbc97bb7fb6f85cf152aa8865"
   integrity sha1-GZD5JhHfEju8l7t/tvhc8VKqiGU=
@@ -5118,7 +5118,7 @@ jest-config@^27.3.1:
     micromatch "^4.0.4"
     pretty-format "^27.3.1"
 
-jest-diff@^26.0.0, jest-diff@^26.6.2:
+jest-diff@^26.6.2:
   version "26.6.2"
   resolved "https://registry.npmmirror.com/jest-diff/download/jest-diff-26.6.2.tgz#1aa7468b52c3a68d7d5c5fdcdfcd5e49bd164394"
   integrity sha1-GqdGi1LDpo19XF/c381eSb0WQ5Q=
@@ -5128,7 +5128,7 @@ jest-diff@^26.0.0, jest-diff@^26.6.2:
     jest-get-type "^26.3.0"
     pretty-format "^26.6.2"
 
-jest-diff@^27.3.1:
+jest-diff@^27.0.0, jest-diff@^27.3.1:
   version "27.3.1"
   resolved "https://registry.npmmirror.com/jest-diff/download/jest-diff-27.3.1.tgz#d2775fea15411f5f5aeda2a5e02c2f36440f6d55"
   integrity sha1-0ndf6hVBH19a7aKl4CwvNkQPbVU=
@@ -5756,7 +5756,7 @@ jest@^26.4.2:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-jest@^27.0.6:
+jest@^27.3.1:
   version "27.3.1"
   resolved "https://registry.npmmirror.com/jest/download/jest-27.3.1.tgz?cache=0&sync_timestamp=1634626718300&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fjest%2Fdownload%2Fjest-27.3.1.tgz#b5bab64e8f56b6f7e275ba1836898b0d9f1e5c8a"
   integrity sha1-tbq2To9WtvfidboYNomLDZ8eXIo=
@@ -7311,7 +7311,7 @@ prettier@^2.1.2:
   resolved "https://registry.nlark.com/prettier/download/prettier-2.4.1.tgz?cache=0&sync_timestamp=1631777167012&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprettier%2Fdownload%2Fprettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
   integrity sha1-Zx4RyJwUpM/Ids5WQQbEpnJsn1w=
 
-pretty-format@^26.0.0, pretty-format@^26.6.2:
+pretty-format@^26.6.2:
   version "26.6.2"
   resolved "https://registry.npmmirror.com/pretty-format/download/pretty-format-26.6.2.tgz#e35c2705f14cb7fe2fe94fa078345b444120fc93"
   integrity sha1-41wnBfFMt/4v6U+geDRbREEg/JM=
@@ -7321,7 +7321,7 @@ pretty-format@^26.0.0, pretty-format@^26.6.2:
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
 
-pretty-format@^27.3.1:
+pretty-format@^27.0.0, pretty-format@^27.3.1:
   version "27.3.1"
   resolved "https://registry.npmmirror.com/pretty-format/download/pretty-format-27.3.1.tgz#7e9486365ccdd4a502061fa761d3ab9ca1b78df5"
   integrity sha1-fpSGNlzN1KUCBh+nYdOrnKG3jfU=
@@ -8366,7 +8366,7 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-swagger-ui-dist@^3.52.0:
+swagger-ui-dist@^3.52.5:
   version "3.52.5"
   resolved "https://registry.npmmirror.com/swagger-ui-dist/download/swagger-ui-dist-3.52.5.tgz#9aa8101a2be751f5145195b9e048bc21b12fac60"
   integrity sha1-mqgQGivnUfUUUZW54Ei8IbEvrGA=
@@ -8600,7 +8600,7 @@ ts-jest@^26.0.0:
     semver "7.x"
     yargs-parser "20.x"
 
-ts-jest@^27.0.5:
+ts-jest@^27.0.7:
   version "27.0.7"
   resolved "https://registry.npmmirror.com/ts-jest/download/ts-jest-27.0.7.tgz?cache=0&sync_timestamp=1634378438442&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fts-jest%2Fdownload%2Fts-jest-27.0.7.tgz#fb7c8c8cb5526ab371bc1b23d06e745652cca2d0"
   integrity sha1-+3yMjLVSarNxvBsj0G50VlLMotA=
@@ -8722,12 +8722,12 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.1.0, typescript@^4.4.2:
+typescript@^4.1.0:
   version "4.4.4"
   resolved "https://registry.npmmirror.com/typescript/download/typescript-4.4.4.tgz?cache=0&sync_timestamp=1634714368149&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Ftypescript%2Fdownload%2Ftypescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
   integrity sha1-LNAaGh8WBwTTEB/VpY/w+fy4Aww=
 
-typescript@~4.2.4:
+typescript@~4.2, typescript@~4.2.4:
   version "4.2.4"
   resolved "https://registry.npmmirror.com/typescript/download/typescript-4.2.4.tgz?cache=0&sync_timestamp=1634714368149&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Ftypescript%2Fdownload%2Ftypescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
   integrity sha1-hhC1l0feAo/aiYqK7w4QPxVtCWE=
