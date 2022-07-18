@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.26">
+    <title>正则 | Mamba</title><meta name="description" content="聚合框架&平台同构解决方案">
+    <link rel="preload" href="/mamba/assets/js/runtime~app.4d2c32ce.js" as="script"><link rel="preload" href="/mamba/assets/css/styles.1a42aff6.css" as="style"><link rel="preload" href="/mamba/assets/js/812.f93ccad6.js" as="script"><link rel="preload" href="/mamba/assets/js/app.76399f1f.js" as="script">
+    <link rel="stylesheet" href="/mamba/assets/css/styles.1a42aff6.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><!--[--><header class="navbar"><div class="toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span><a href="/mamba/" class=""><!----><span class="site-name">Mamba</span></a></span><div class="navbar-links-wrapper" style=""><!--[--><!--]--><nav class="navbar-links can-hide"><!--[--><div class="navbar-links-item"><a href="/mamba/guide/" class="nav-link" aria-label="指南"><!--[--><!--]--> 指南 <!--[--><!--]--></a></div><div class="navbar-links-item"><a href="/mamba/clients/" class="nav-link router-link-active" aria-label="基础类"><!--[--><!--]--> 基础类 <!--[--><!--]--></a></div><div class="navbar-links-item"><a href="/mamba/components/" class="nav-link" aria-label="内置组件"><!--[--><!--]--> 内置组件 <!--[--><!--]--></a></div><div class="navbar-links-item"><a class="nav-link external" href="https://github.com/LengYXin/mamba" rel="noopener noreferrer" target="_blank" aria-label="Git"><!--[--><!--]--> Git <span><svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><!--[--><span class="sr-only">open in new window</span><!--]--></span><!--[--><!--]--></a></div><!--]--></nav><!--[--><!--]--><button class="toggle-dark-button" title="toggle dark mode"><svg style="" class="icon" focusable="false" viewBox="0 0 32 32"><path d="M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6z" fill="currentColor"></path><path d="M5.394 6.813l1.414-1.415l3.506 3.506L8.9 10.318z" fill="currentColor"></path><path d="M2 15.005h5v2H2z" fill="currentColor"></path><path d="M5.394 25.197L8.9 21.691l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 25.005h2v5h-2z" fill="currentColor"></path><path d="M21.687 23.106l1.414-1.415l3.506 3.506l-1.414 1.414z" fill="currentColor"></path><path d="M25 15.005h5v2h-5z" fill="currentColor"></path><path d="M21.687 8.904l3.506-3.506l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 2.005h2v5h-2z" fill="currentColor"></path></svg><svg style="display:none;" class="icon" focusable="false" viewBox="0 0 32 32"><path d="M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3z" fill="currentColor"></path></svg></button><!----></div></header><!--]--><div class="sidebar-mask"></div><!--[--><aside class="sidebar"><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/mamba/guide/" class="nav-link" aria-label="指南"><!--[--><!--]--> 指南 <!--[--><!--]--></a></div><div class="navbar-links-item"><a href="/mamba/clients/" class="nav-link router-link-active" aria-label="基础类"><!--[--><!--]--> 基础类 <!--[--><!--]--></a></div><div class="navbar-links-item"><a href="/mamba/components/" class="nav-link" aria-label="内置组件"><!--[--><!--]--> 内置组件 <!--[--><!--]--></a></div><div class="navbar-links-item"><a class="nav-link external" href="https://github.com/LengYXin/mamba" rel="noopener noreferrer" target="_blank" aria-label="Git"><!--[--><!--]--> Git <span><svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><!--[--><span class="sr-only">open in new window</span><!--]--></span><!--[--><!--]--></a></div><!--]--></nav><!--[--><!--]--><ul class="sidebar-links"><!--[--><!--[--><a href="/mamba/clients/" class="nav-link router-link-active sidebar-heading sidebar-item" aria-label="基础模块"><!--[--><!--]--> 基础模块 <!--[--><!--]--></a><!----><!--]--><!--[--><p class="sidebar-heading sidebar-item">Controller</p><ul class=""><li><!--[--><a href="/mamba/clients/controller/basesOptions.html" class="nav-link sidebar-item" aria-label="配置"><!--[--><!--]--> 配置 <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a href="/mamba/clients/controller/baseModel.html" class="nav-link sidebar-item" aria-label="数据存储"><!--[--><!--]--> 数据存储 <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a href="/mamba/clients/controller/basesController.html" class="nav-link sidebar-item" aria-label="页面控制器"><!--[--><!--]--> 页面控制器 <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a href="/mamba/clients/controller/basesDetails.html" class="nav-link sidebar-item" aria-label="单数据"><!--[--><!--]--> 单数据 <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a href="/mamba/clients/controller/basesPagination.html" class="nav-link sidebar-item" aria-label="列表"><!--[--><!--]--> 列表 <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a href="/mamba/clients/controller/system.html" class="nav-link sidebar-item" aria-label="System"><!--[--><!--]--> System <!--[--><!--]--></a><!----><!--]--></li></ul><!--]--><!--[--><p class="sidebar-heading sidebar-item active">Helpers</p><ul class=""><li><!--[--><a href="/mamba/clients/helpers/ajaxBasics.html" class="nav-link sidebar-item" aria-label="Ajax"><!--[--><!--]--> Ajax <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a href="/mamba/clients/helpers/encryption.html" class="nav-link sidebar-item" aria-label="算法"><!--[--><!--]--> 算法 <!--[--><!--]--></a><!----><!--]--></li><li><!--[--><a aria-current="page" href="/mamba/clients/helpers/regulars.html" class="router-link-active router-link-exact-active nav-link router-link-active sidebar-item active" aria-label="正则"><!--[--><!--]--> 正则 <!--[--><!--]--></a><!----><!--]--></li></ul><!--]--><!--]--></ul><!--[--><!--]--></aside><!--]--><!--[--><main class="page"><!--[--><!--]--><div class="theme-default-content"><!--[--><h1 id="正则" tabindex="-1"><a class="header-anchor" href="#正则" aria-hidden="true">#</a> 正则</h1><details class="custom-container details"><summary>点击查看代码</summary><div class="language-typescript ext-ts line-numbers-mode"><pre class="language-typescript"><code><span class="token doc-comment comment">/**
+ * <span class="token keyword">@author</span> 冷 (https://github.com/LengYXin)
+ * <span class="token keyword">@email</span> [lengyingxin8966@gmail.com]
+ * <span class="token keyword">@create</span> date 2020-07-29 22:38:49
+ * <span class="token keyword">@modify</span> date 2020-07-29 22:38:49
+ * <span class="token keyword">@desc</span> [正则列表]
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Regulars</span> <span class="token punctuation">{</span>
+
+  <span class="token doc-comment comment">/**
+   * 手机号(mobile phone)中国(宽松), 只要是13,14,15,16,17,18,19开头即可
+   * <span class="token keyword">@examples</span>  [&#39;008618311006933&#39;, &#39;+8617888829981&#39;, &#39;19119255642&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> mobile_phone <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:(?:\+|00)86)?1[3-9]\d{9}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 手机号(mobile phone)中国(最宽松), 只要是1开头即可, 如果你的手机号是用来接收短信, 优先建议选择这一条
+   * <span class="token keyword">@examples</span>  [&#39;008618311006933&#39;, &#39;+8617888829981&#39;, &#39;19119255642&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> mobile_phone_easy <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:(?:\+|00)86)?1\d{10}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+  * 手机号(mobile phone)中国(严谨), 根据工信部2019年最新公布的手机号段
+  * <span class="token keyword">@examples</span> [&#39;008618311006933&#39;, &#39;+8617888829981&#39;, &#39;19119255642&#39;]
+  */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> mobile_phone_strict <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[189]))\d{8}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * email(邮箱)
+   * <span class="token keyword">@examples</span> [&#39;90203918@qq.com&#39;, &#39;nbilly@126.com&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> email <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(([^&lt;&gt;()[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 座机(tel phone)电话(国内),如: 0341-86091234
+   * <span class="token keyword">@examples</span> [&#39;0936-4211235&#39;, &#39;89076543&#39;, &#39;010-12345678-1234&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> tel <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * date(日期)
+   * <span class="token keyword">@examples</span> [&#39;1990-12-12&#39;, &#39;1-1-1&#39;,&#39;0000-1-1&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> date <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\d{1,4}(-)(1[0-2]|0?[1-9])\1(0?[1-9]|[1-2]\d|30|31)$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/**
+   * 身份证号, 支持1/2代(15位/18位数字)
+   * <span class="token keyword">@examples</span> [&#39;622223199912051311&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> id_card_no <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(^\d{8}(0\d|10|11|12)([0-2]\d|30|31)\d{3}$)|(^\d{6}(18|19|20)\d{2}(0[1-9]|10|11|12)([0-2]\d|30|31)\d{3}(\d|X|x)$)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 护照（包含香港、澳门）
+   * <span class="token keyword">@examples</span> [&#39;s28233515&#39;, &#39;141234567&#39;, &#39;159203084&#39;, &#39;MA1234567&#39;, &#39;K25345719&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> passport <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(^[EeKkGgDdSsPpHh]\d{8}$)|(^(([Ee][a-fA-F])|([DdSsPp][Ee])|([Kk][Jj])|([Mm][Aa])|(1[45]))\d{7}$)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 统一社会信用代码(宽松匹配)(15位/18位/20位数字/字母)
+   * <span class="token keyword">@examples</span> [&#39;91110108772551611J&#39;, &#39;911101085923662400&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> social_code <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(([0-9A-Za-z]{15})|([0-9A-Za-z]{18})|([0-9A-Za-z]{20}))$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 邮政编码(中国)
+   * <span class="token keyword">@examples</span> [&#39;734500&#39;, &#39;100101&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> postcode <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(0[1-7]|1[0-356]|2[0-7]|3[0-6]|4[0-7]|5[1-7]|6[1-7]|7[0-5]|8[013-6])\d{4}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/******************************************【              链接相关              】******************************************/</span>
+  <span class="token doc-comment comment">/******************************************【              链接相关              】******************************************/</span>
+  <span class="token doc-comment comment">/******************************************【              链接相关              】******************************************/</span>
+
+  <span class="token doc-comment comment">/**
+  * 网址(url,支持端口和&quot;?+参数&quot;和&quot;#+参数)
+  * <span class="token keyword">@examples</span> [&#39;www.qq.com&#39;, &#39;https://baidu.com&#39;, &#39;360.com:8080/vue/#/a=1&amp;b=2&#39;]
+  */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> url <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(((ht|f)tps?):\/\/)?[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * &#39;html标签(宽松匹配)
+   * <span class="token keyword">@examples</span> [&#39;&lt;div id=&quot;app&quot;&gt; 2333 &lt;/div&gt;&#39;, &#39;&lt;input type=&quot;text&quot;&gt;&#39;, &#39;&lt;br&gt;&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> html <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">&lt;(\w+)[^&gt;]*&gt;(.*?&lt;\/\1&gt;)?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 迅雷链接
+   * <span class="token keyword">@examples</span> [&#39;thunder://QUEsICdtYWduZXQ6P3h0PXVybjpidGloOjBCQTE0RTUxRkUwNjU1RjE0Qzc4NjE4RjY4NDY0QjZFNTEyNjcyOUMnWlo=&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> thunderx <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^thunderx?:\/\/[a-zA-Z\d]+=$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * ed2k链接(宽松匹配)
+   * <span class="token keyword">@examples</span> [&#39;ed2k://|file|%E5%AF%84%E7%94%9F%E8%99%AB.PARASITE.2019.HD-1080p.X264.AAC-UUMp4(ED2000.COM).mp4|2501554832|C0B93E0879C6071CBED732C20CE577A3|h=5HTKZPQFYRKORN52I3M7GQ4QQCIHFIBV|/&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> ed2k <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^ed2k:\/\/\|file\|.+\|\/$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 磁力链接(宽松匹配)
+   * <span class="token keyword">@examples</span> [&#39;magnet:?xt=urn:btih:40A89A6F4FB1498A98087109D012A9A851FBE0FC&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> magnet <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^magnet:\?xt=urn:btih:[0-9a-fA-F]{40,}.*$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 子网掩码
+   * <span class="token keyword">@examples</span> [&#39;255.255.255.0&#39;, &#39;255.224.0.0&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> subnet_mask <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])(?:\.(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])){3}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 视频(video)链接地址（视频格式可按需增删）
+   * <span class="token keyword">@examples</span>  [&#39;http://www.abc.com/video/wc.avi&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> video <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^https?:\/\/(.+\/)+.+(\.(swf|avi|flv|mpg|rm|mov|wav|asf|3gp|mkv|rmvb|mp4))$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 图片(image)链接地址（图片格式可按需增删）
+   * <span class="token keyword">@examples</span>  [&#39;https://www.abc.com/logo.png&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> image <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^https?:\/\/(.+\/)+.+(\.(gif|png|jpg|jpeg|webp|svg|psd|bmp|tif))$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * base64格式
+   * <span class="token keyword">@examples</span> [&#39;data:image/gif;base64,xxxx==&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> base64 <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\s*data:(?:[a-z]+\/[a-z0-9-+.]+(?:;[a-z-]+=[a-z0-9-]+)?)?(?:;base64)?,([a-z0-9!<!--vuepress-ssr-app-->amp;&#39;,()*+;=\-._~:@/?%\s]*?)\s*$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/******************************************【              数字相关              】******************************************/</span>
+  <span class="token doc-comment comment">/******************************************【              数字相关              】******************************************/</span>
+  <span class="token doc-comment comment">/******************************************【              数字相关              】******************************************/</span>
+
+  <span class="token doc-comment comment">/**
+   * 小数
+   * <span class="token keyword">@examples</span> [&#39;0.0&#39;, &#39;0.09&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> decimal <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\d+\.\d+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 数字
+   * <span class="token keyword">@examples</span> [12345678]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\d{1,}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 数字和字母组成
+   * <span class="token keyword">@examples</span> [&#39;james666&#39;, &#39;haha233hi&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> number_and_letter <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[A-Za-z0-9]+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 数字/货币金额（支持负数、千分位分隔符）
+   * <span class="token keyword">@examples</span> [100, -0.99, 3, 234.32, -1, 900, 235.09, &#39;12,345,678.90&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> number_negative <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^-?\d+(,\d{3})*(\.\d{1,2})?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 数字/货币金额 (只支持正数、不支持校验千分位分隔符)
+   * <span class="token keyword">@examples</span> [0.99, 8.99, 666]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> number_positive <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?:^[1-9]([0-9]+)?(?:\.[0-9]{1,2})?$)|(?:^(?:0)$)|(?:^[0-9]\.[0-9](?:[0-9])?$)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 银行卡号（10到30位, 覆盖对公/私账户, 参考[微信支付](https://pay.weixin.qq.com/wiki/doc/api/xiaowei.php?chapter=22_1)）
+   * <span class="token keyword">@examples</span> [6234567890, 6222026006705354217]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> bank_card_no <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[1-9]\d{9,29}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/******************************************【              文字字符相关              】******************************************/</span>
+  <span class="token doc-comment comment">/******************************************【              文字字符相关              】******************************************/</span>
+  <span class="token doc-comment comment">/******************************************【              文字字符相关              】******************************************/</span>
+
+  <span class="token doc-comment comment">/**
+   * 帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线组合
+   * <span class="token keyword">@examples</span> [&#39;justin&#39;, &#39;justin1989&#39;, &#39;justin_666&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> account <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[a-zA-Z]\w{4,15}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/**
+   * 英文字母
+   * <span class="token keyword">@examples</span> [&#39;Russel&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> english <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[a-zA-Z]+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 小写英文字母组成
+   * <span class="token keyword">@examples</span> [&#39;russel&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> english_small <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[a-z]+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 大写英文字母
+   * <span class="token keyword">@examples</span> [&#39;ABC&#39;, &#39;KD&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> english_large <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[A-Z]+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+  * 英文姓名
+  * <span class="token keyword">@examples</span> [&#39;James&#39;, &#39;Kevin Wayne Durant&#39;, &#39;Dirk Nowitzki&#39;]
+  */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> english_name <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 密码强度校验，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
+   * <span class="token keyword">@examples</span>  [&#39;Kd@curry666&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> password <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&amp;*? ])\S*$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/**
+   * 密码强度校验， 必须为8-20位  可以设置大写字母、小写字母、数字和部分特殊字符 必须同时包含三种组合以上
+   * <span class="token keyword">@examples</span>  [&#39;123456Zy&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> rulePsw <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?![A-Za-z]+$)(?![A-Z\\d]+$)(?![A-Z\\W]+$)(?![a-z\\d]+$)(?![a-z\\W]+$)(?![\\d\\W]+$)\\S{8,20}$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/**
+   * 16进制颜色
+   * <span class="token keyword">@examples</span>  [&#39;#f00&#39;, &#39;#F90&#39;, &#39;#000&#39;, &#39;#fe9de8&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> color <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 中文/汉字
+   * <span class="token keyword">@examples</span> [&#39;正则&#39;, &#39;前端&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> chinese <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 中文姓名
+   * <span class="token keyword">@examples</span> [&#39;葛二蛋&#39;, &#39;凯文·杜兰特&#39;, &#39;德克·维尔纳·诺维茨基&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> chinese_name <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(?:[\u4e00-\u9fa5·]{2,16})$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+  <span class="token doc-comment comment">/**
+   * 车牌号(新能源)
+   * <span class="token keyword">@examples</span> [&#39;京AD92035&#39;, &#39;甘G23459F&#39;, &#39;京AA92035&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> license_plate_number_new <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z](?:((\d{5}[A-HJK])|([A-HJK][A-HJ-NP-Z0-9][0-9]{4}))|[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳])$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 车牌号(非新能源)
+   * <span class="token keyword">@examples</span> [&#39;京A00599&#39;, &#39;黑D23908&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> license_plate_number_old <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+  <span class="token doc-comment comment">/**
+   * 车牌号(新能源+非新能源)
+   * <span class="token keyword">@examples</span> [&#39;京A12345D&#39;, &#39;京A00599&#39;, &#39;京AD92035&#39;, &#39;甘G23459F&#39;, &#39;京AA92035&#39;]
+   * <span class="token keyword">@counterExamples</span> [&#39;宁AD1234555555&#39;, &#39;浙苏H6F681&#39;]
+   */</span>
+  <span class="token keyword">static</span> <span class="token keyword">readonly</span> license_plate_number <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br><span class="line-number">202</span><br><span class="line-number">203</span><br><span class="line-number">204</span><br><span class="line-number">205</span><br><span class="line-number">206</span><br><span class="line-number">207</span><br><span class="line-number">208</span><br><span class="line-number">209</span><br><span class="line-number">210</span><br><span class="line-number">211</span><br><span class="line-number">212</span><br><span class="line-number">213</span><br><span class="line-number">214</span><br><span class="line-number">215</span><br><span class="line-number">216</span><br><span class="line-number">217</span><br><span class="line-number">218</span><br><span class="line-number">219</span><br><span class="line-number">220</span><br><span class="line-number">221</span><br></div></div></details><!--]--></div><footer class="page-meta"><!----><div class="meta-item last-updated"><span class="meta-item-label">Last Updated: </span><span class="meta-item-info">2021/8/23 09:31:56</span></div><div class="meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: lengyingxin8966@gmail.com">LengYXin</span><!----><!--]--><!--]--></span></div></footer><nav class="page-nav"><p class="inner"><span class="prev"> ← <a href="/mamba/clients/helpers/encryption.html" class="nav-link" aria-label="算法"><!--[--><!--]--> 算法 <!--[--><!--]--></a></span><!----></p></nav><!--[--><!--]--></main><!--]--></div><!----><!--]--></div>
+    <script src="/mamba/assets/js/runtime~app.4d2c32ce.js" defer></script><script src="/mamba/assets/js/812.f93ccad6.js" defer></script><script src="/mamba/assets/js/app.76399f1f.js" defer></script>
+  </body>
+</html>
