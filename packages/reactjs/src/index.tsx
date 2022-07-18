@@ -1,7 +1,7 @@
 // plugins 必须在前面
+import './public-path';
 import './plugins';
 import './components';
-import './store';
 import './assets/styles/patch.less';
 import 'nprogress/nprogress.css';
 import React from 'react';
@@ -15,6 +15,9 @@ ReactDOM.render(
   // </React.StrictMode>
   ,
   document.getElementById('root'), () => {
+    if (window.__MICRO_APP_ENVIRONMENT__) {
+      React.AppConfig.onChangeAppSettings({ headerRender: false, menuRender: false })
+    }
     React.$Mamba.Log.success('App Start', React.AppConfig, Router, React.$i18n, React.$Store)
   }
 );

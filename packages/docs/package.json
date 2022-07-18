@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev src",
+    "docs": "vuepress dev src  -p=3030" ,
     "build": "vuepress build src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

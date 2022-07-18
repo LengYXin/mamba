@@ -25,7 +25,7 @@ export default class extends Vue {
     search = ""
     refreshing = false
     get Pagination() {
-        return this.$store.Pagination.Pagination
+        return this.$Store.Pagination.Pagination
     }
     async onLoad(current?) {
         this.Pagination.onLoad({ current });

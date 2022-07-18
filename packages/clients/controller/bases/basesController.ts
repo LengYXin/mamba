@@ -10,9 +10,10 @@ import { BindAll } from 'lodash-decorators';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BasesDetails } from './basesDetails';
 import { IBasesControllerOptions, IBasesPaginationIAjaxConfig } from './basesInterface';
-import { basesOptions, EnumActionKeys } from './basesOptions';
+import { BasesOptions, EnumActionKeys } from './basesOptions';
 import { BasesPagination } from './basesPagination';
-import { basesUtils } from './basesUtils';
+import { BasesUtils } from './basesUtils';
+import { computed } from 'mobx';
 /**
  * 基础 控制器
  */
@@ -35,13 +36,13 @@ export class BasesController<T = any>{
      */
     get defaultOptions(): IBasesControllerOptions {
         return {
-            dataKey: basesOptions.dataKey,
-            pagination: basesOptions.pagination,
-            insert: basesOptions.insert,
-            update: basesOptions.update,
-            delete: basesOptions.delete,
-            details: basesOptions.details,
-            infinite: basesOptions.infinite,
+            dataKey: BasesOptions.dataKey,
+            pagination: BasesOptions.pagination,
+            insert: BasesOptions.insert,
+            update: BasesOptions.update,
+            delete: BasesOptions.delete,
+            details: BasesOptions.details,
+            infinite: BasesOptions.infinite,
         }
     };
     /**
@@ -57,7 +58,7 @@ export class BasesController<T = any>{
      * @memberof BasesController
      */
     private get DetailsOptions() {
-        return basesUtils.getDetailsOptions(this.options)
+        return BasesUtils.getDetailsOptions(this.options)
     }
     /**
      * Pagination 配置 继承了 当前控制器配置
@@ -66,7 +67,7 @@ export class BasesController<T = any>{
      * @memberof BasesController
      */
     private get PaginationOptions() {
-        return basesUtils.getPaginationOptions(this.options)
+        return BasesUtils.getPaginationOptions(this.options)
     }
     /**
      * Details 对象
@@ -83,7 +84,7 @@ export class BasesController<T = any>{
      * @readonly
      * @memberof [Pagination.Model.value]
      */
-    // @computed
+    @computed
     get dataSource() {
         return this.Pagination.dataSource
     }
@@ -92,7 +93,7 @@ export class BasesController<T = any>{
      * @readonly
      * @memberof [Model.value]
      */
-    // @computed
+    @computed
     get entity() {
         return this.Details.entity
     }
@@ -144,7 +145,7 @@ export class BasesController<T = any>{
      * @param AjaxConfig 
      * @returns entity
      */
-    async onFind(body: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
+    async onFind(body?: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
         return this.Details.onLoad(body, AjaxConfig)
     }
     /**
@@ -153,8 +154,8 @@ export class BasesController<T = any>{
      * @param {IAjaxConfig} [AjaxConfig]
      * @returns entity
      */
-    async onEditor(entity: T, AjaxConfig?: IAjaxConfig) {
-        AjaxConfig = lodash.assign({}, AjaxConfig, { body: entity });
+    async onEditor(entity: T | any, AjaxConfig?: IAjaxConfig) {
+        AjaxConfig = lodash.assign({ body: entity }, AjaxConfig);
         if (lodash.get(AjaxConfig.body, this.options.dataKey)) {
             return this.onUpdate(entity, AjaxConfig)
         }
@@ -166,9 +167,9 @@ export class BasesController<T = any>{
      * @param {IAjaxConfig} [AjaxConfig]
      * @returns entity
      */
-    async onInsert(entity: T, AjaxConfig?: IAjaxConfig) {
-        AjaxConfig = this.createAjaxConfig(EnumActionKeys.insert, lodash.assign({}, AjaxConfig, { body: entity }));
-        basesUtils.warning(EnumActionKeys.insert, AjaxConfig);
+    async onInsert(entity: T | any, AjaxConfig?: IAjaxConfig) {
+        AjaxConfig = this.createAjaxConfig(EnumActionKeys.insert, lodash.assign({ body: entity }, AjaxConfig,));
+        BasesUtils.log(EnumActionKeys.insert, AjaxConfig);
         const response = await AjaxBasics.request<T>(AjaxConfig);
         return this.Pagination.onInsert(response, true)
     }
@@ -178,12 +179,13 @@ export class BasesController<T = any>{
      * @param {IAjaxConfig} [AjaxConfig]
      * @returns entity
      */
-    async onUpdate(entity: T, AjaxConfig?: IAjaxConfig) {
+    async onUpdate(entity: T | any, AjaxConfig?: IAjaxConfig) {
         if (lodash.isEqual(entity, lodash.pick(this.entity, lodash.keys(entity)))) {
-            return basesUtils.warning(`${EnumActionKeys.update} 无事发生`, entity, this.entity)
+            BasesUtils.warning(`${EnumActionKeys.update} 数据没有更改`, lodash.cloneDeep(entity), this.entity)
+            throw '数据没有更改'
         }
-        AjaxConfig = this.createAjaxConfig(EnumActionKeys.update, lodash.assign({}, AjaxConfig, { body: entity }));
-        basesUtils.warning(EnumActionKeys.update, AjaxConfig)
+        AjaxConfig = this.createAjaxConfig(EnumActionKeys.update, lodash.assign({ body: entity }, AjaxConfig));
+        BasesUtils.log(EnumActionKeys.update, AjaxConfig)
         const response = await AjaxBasics.request<T>(AjaxConfig);
         this.Pagination.onUpdate(response)
         return response
@@ -196,8 +198,8 @@ export class BasesController<T = any>{
      */
     async onDelete(entitys: string | number | T | Array<any | T>, AjaxConfig?: IAjaxConfig) {
         entitys = this.Pagination.getEntitys(entitys);
-        AjaxConfig = this.createAjaxConfig(EnumActionKeys.delete, lodash.assign({}, AjaxConfig, { body: entitys }));
-        basesUtils.warning(EnumActionKeys.delete, AjaxConfig)
+        AjaxConfig = this.createAjaxConfig(EnumActionKeys.delete, lodash.assign({ body: entitys }, AjaxConfig));
+        BasesUtils.log(EnumActionKeys.delete, AjaxConfig)
         const response = await AjaxBasics.request<T>(AjaxConfig);
         this.Pagination.onDelete(entitys);
         return response

@@ -95,11 +95,23 @@ export interface IBasesDetailsOptions extends IBasesOptions {
      */
     details?: string | IAjaxConfig;
     /**
-    * 响应值 Key 配置
-    * @type {Object|undefined}
-    * @default undefined
+    * details 参数配置
+    * @type {IBasesDetailsOptions}
     */
-    response?: Pick<IBasesResponseKey, 'dataSource' | 'valueGetter'>;
+    detailsParams?: {
+        /**
+         * 数据值 Response dataSource
+         * @type {string}
+         * @default 'dataSource' > Response.dataSource
+         */
+        dataSource?: string;
+        /**
+        * 响应数据的 自定义 获取
+        * @type {string}
+        * @default null
+        */
+        valueGetter?: (response, AjaxConfig: IAjaxConfig) => any | Promise<any>;
+    }
     /**
      * 详情 Model 配置
      * @type {IBaseModelOptions}
@@ -253,9 +265,9 @@ export interface IBasesResponseKey {
     * @type {string}
     * @default null
     */
-    valueGetter?: (response) => IBasesResponseKey;
+    valueGetter?: (response, AjaxConfig: IAjaxConfig) => IBasesResponse | Promise<IBasesResponse>;
 }
-export interface IBasesResponse<T> {
+export interface IBasesResponse<T = any> {
     current?: number;
     pageSize?: number;
     total?: number;

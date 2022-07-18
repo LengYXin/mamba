@@ -19,7 +19,7 @@ import ViewCard from "./card.vue";
 export default class extends Vue {
     search = ""
     get Pagination() {
-        return this.$store.Example.Pagination
+        return this.$Store.Example.Pagination
     }
     async onLoad(reset?, refreshing?) {
         reset && this.Pagination.reset();

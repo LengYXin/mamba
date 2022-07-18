@@ -23,7 +23,6 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "strict": false,
-    "importHelpers": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "noEmit": true,

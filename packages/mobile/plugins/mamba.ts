@@ -3,6 +3,10 @@ import lodash from 'lodash';
 import NProgress from 'nprogress';
 import { Toast } from 'vant';
 import Vue from 'vue';
+import { $AppConfig } from './global';
+Mamba.AjaxBasics.resetDefault({
+    target: $AppConfig.target
+})
 Mamba.AjaxBasics.onStart = () => {
     NProgress.start()
     Toast.loading({ message: 'Loading...', forbidClick: true, loadingType: 'spinner', })

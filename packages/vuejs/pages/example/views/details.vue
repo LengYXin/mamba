@@ -16,7 +16,7 @@ import PageController from "../controller";
 @Component({ components: {} })
 export default class extends Mixins(PageDetailsBasics) {
   readonly PageController = PageController;
-  @Provide() formState = {
+  @Provide() readonly formState = {
     key: '',
     name: '',
     avatar: '',

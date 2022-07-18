@@ -1,5 +1,4 @@
 import lodash from "lodash";
-import { AjaxBasics, Log } from "./helpers";
 
 export class ClientsEnv {
     /**
@@ -12,6 +11,11 @@ export class ClientsEnv {
      * @memberof AppConfig
      */
     readonly target = process.env.Target;
+    /**
+     * 客服 地址
+     * @memberof AppConfig
+     */
+    readonly customUrl = process.env.CustomUrl;
     /**
      * 版本信息
      * @memberof AppConfig
@@ -26,7 +30,23 @@ export class ClientsEnv {
      * Node env
      * @memberof AppConfig
      */
-    readonly NODE_ENV = process.env.NODE_ENV;
+    // @ts-ignore
+    readonly NODE_ENV: 'development' | 'production' | 'test' = process.env.NODE_ENV;
+    /**
+     * Node env production
+     * @memberof AppConfig
+     */
+    readonly production = lodash.eq(this.NODE_ENV, 'production');
+    /**
+     * Node env development
+     * @memberof AppConfig
+     */
+    readonly development = lodash.eq(this.NODE_ENV, 'development');
+    /**
+     * Node env test
+     * @memberof AppConfig
+     */
+    readonly test = lodash.eq(this.NODE_ENV, 'test');
     /**
      * 环境
      * @memberof AppConfig
@@ -55,13 +75,5 @@ export class ClientsEnv {
     createStorage(key: string) {
         return this.storagePrefix + key;
     }
-    /**
-     * 注入配置
-     * @memberof ClientsEnv
-     */
-    injectClients() {
-        Log.info('AppConfig', this);
-        AjaxBasics.defaultAjaxConfig.target = this.target;
-        Log.warning('Inject target', this.target);
-    }
 }
+export default new ClientsEnv()

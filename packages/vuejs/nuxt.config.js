@@ -1,7 +1,8 @@
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const appConfig = require('./app.config');
+const fs = require('fs-extra');
 const lodash = require('lodash');
 const path = require('path');
+const appConfig = require('./app.config');
 const development = process.env.NODE_ENV === 'development'
 export default lodash.merge({
   server: {
@@ -13,15 +14,16 @@ export default lodash.merge({
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'vuejs',
+    title: '大联想伙伴网',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'zh'
     },
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'version', content: `v${appConfig.Version} - ${appConfig.Timestamp}` },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -55,7 +57,7 @@ function createConfig() {
       dir: appConfig.BuildDir,
     },
     // Auto import components: https://go.nuxtjs.dev/config-components
-    components: false,
+    components: [{ path: '~/components', extensions: ['vue'] }],
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
       '@/plugins/index'
@@ -64,11 +66,13 @@ function createConfig() {
     buildModules: [
       // https://go.nuxtjs.dev/typescript
       '@nuxt/typescript-build',
-      '@nuxtjs/style-resources'
+      '@nuxtjs/style-resources',
+      '@nuxtjs/composition-api/module'
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
+      '@nuxtjs/proxy'
     ],
     loadingIndicator: {
       name: 'circle',
@@ -115,9 +119,22 @@ function createConfig() {
         new MomentLocalesPlugin({ localesToKeep: ['es-us', 'zh-cn'] })
       ],
       extend(config, ctx) {
+        lodash.set(config, 'devtool', 'source-map')
         lodash.update(config, 'resolve.modules', modu => lodash.concat([path.join(process.cwd(), 'node_modules')], modu));
         lodash.set(config, 'resolve.alias.lodash-es', require.resolve("lodash").replace('lodash.js', ''));
-        lodash.set(config, 'resolve.alias["@ant-design/icons/lib/dist$"]', path.resolve(process.cwd(), 'plugins/icon.ts'))
+        lodash.set(config, 'resolve.alias["@ant-design/icons/lib/dist$"]', path.resolve(process.cwd(), 'plugins/vueUse/icon.ts'))
+        lodash.update(config, 'optimization.splitChunks', splitChunks => lodash.merge(splitChunks, {
+          cacheGroups: development ? {} : {
+            lib: {
+              test: /[\\/]node_modules[\\/](vue-.*|mobx.*|core.*|rxjs.*|lodash.*|dayjs.*|bowser.*|query-string.*|i18next.*|bn.*|history.*)[\\/]/,
+              chunks: 'all',
+            },
+            icons: {
+              test: /[\\/]node_modules[\\/](.*icon.*)[\\/]/,
+              chunks: 'all',
+            },
+          }
+        }))
       },
       babel: {
         plugins: [
@@ -134,6 +151,25 @@ function createConfig() {
   }
 }
 function extendRoutes(routes, resolve) {
+  const home = lodash.find(routes, ['name', 'index']);
+  if (home) {
+    home.path = '/'
+  }
   // 删除 非 page 生成的路由
-  const remRoutes = lodash.remove(routes, route => /[\\/](view|views|children)[\\/]|\.(ts)/.test(route.component));
+  lodash.remove(routes, route => /[\\/](view|views|children)[\\/]|\.(ts)/.test(route.component));
+  try {
+    const pages = path.join(process.cwd(), 'plugins', 'pages.ts')
+    fs.ensureFileSync(pages)
+    let scriptStr = fs.readFileSync(pages).toString();
+    const pagesStr = lodash.map(lodash.orderBy(routes, 'name', 'asc'), ({ name, chunkName }) => {
+      return `    /** ${chunkName}  */ \n    ${lodash.capitalize(lodash.snakeCase(name))}:{name:'${name}'}`
+    }).join(',\r\n')
+    const writeStr = `export const PagesEnum={\r\n${pagesStr}\r\n}`;
+    scriptStr = scriptStr.replace(/(\/.*@InjectPages.*\/)(\D*)(\/.*@InjectPages.*\/)/, '/** @InjectPages **/ \n'
+      + writeStr +
+      '\n/** @InjectPages **/')
+    fs.writeFileSync(pages, scriptStr)
+  } catch (error) {
+    console.log("🚀 ~ file: nuxt.config.js ~ line 153 ~ extendRoutes ~ error", error)
+  }
 }

@@ -12,10 +12,8 @@ export default class extends React.Component {
         return this.getAntdLocale(this.AppConfig.AppSettings.language)
     }
     renderPage() {
-        // if (this.$Store.System.User.loading)
-        //     return <div className="app-content-full"> <React.Antd.Spin /></div>
         if (this.$Store.System.LoginIn)
-            return <BrowserRouter>
+            return <BrowserRouter basename={window.__MICRO_APP_BASE_URL__}>
                 <Layout route={{ routes: Routers.RouterConfig }} >
                     <React.Suspense fallback={<div className="app-content-full"> <React.Antd.Spin /></div>}>
                         {Routers.Routers}

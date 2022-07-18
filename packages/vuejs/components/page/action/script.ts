@@ -9,7 +9,7 @@ export class PageActionBasics extends Vue {
     /**
       * 页面控制器
       */
-    readonly PageController: BasesController;
+    declare PageController: BasesController;
     get Pagination() {
         return this.PageController.Pagination;
     }

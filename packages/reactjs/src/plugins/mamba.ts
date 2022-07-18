@@ -10,6 +10,10 @@ import { message } from 'antd';
 import lodash from 'lodash';
 import NProgress from 'nprogress';
 import React from 'react';
+import { $AppConfig } from './global';
+Mamba.AjaxBasics.resetDefault({
+    target: $AppConfig.target
+})
 Mamba.AjaxBasics.onStart = NProgress.start;
 Mamba.AjaxBasics.onEndAll = NProgress.done;
 Mamba.AjaxBasics.onError = (error, AjaxConfig) => {

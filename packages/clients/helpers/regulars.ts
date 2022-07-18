@@ -179,6 +179,13 @@ export class Regulars {
    * @examples  ['Kd@curry666']
    */
   static readonly password = /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
+
+  /**
+   * 密码强度校验， 必须为8-20位  可以设置大写字母、小写字母、数字和部分特殊字符 必须同时包含三种组合以上
+   * @examples  ['123456Zy']
+   */
+  static readonly rulePsw = /^(?![A-Za-z]+$)(?![A-Z\\d]+$)(?![A-Z\\W]+$)(?![a-z\\d]+$)(?![a-z\\W]+$)(?![\\d\\W]+$)\\S{8,20}$/;
+
   /**
    * 16进制颜色
    * @examples  ['#f00', '#F90', '#000', '#fe9de8']

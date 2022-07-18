@@ -1,12 +1,12 @@
 <template>
-  <page-grid :PageController="PageController" :GridOptions="GridOptions" />
+  <page-grid :GridOptions="GridOptions" />
 </template>
 
 <script lang="ts">
 import { ColDef, ColGroupDef, GridOptions } from "ag-grid-community";
 import { Component, Vue } from "vue-property-decorator";
-import PageController from "../controller";
 import { EnumLocaleLabel } from "../locales";
+import PageController from "../controller";
 import RowAction from "./action.vue";
 @Component({
   components: {},

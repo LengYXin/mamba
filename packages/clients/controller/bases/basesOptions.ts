@@ -11,7 +11,7 @@ import { create } from "mobx-persist";
 import { IAjaxConfig } from "../../helpers";
 import { IBasesPaginationParams } from "./basesInterface";
 declare type NoInfer<T> = [T][T extends any ? 0 : never];
-export class basesOptions {
+export class BasesOptions {
     /** 调试日志 */
     static debug = true//process.env.NODE_ENV === 'development';
     /** 数据唯一 Key [标识] */
@@ -19,7 +19,7 @@ export class basesOptions {
     /** 请求 pagination */
     static pagination: IAjaxConfig = { method: 'get' };
     /** 请求 details */
-    static details: IAjaxConfig = { method: 'get', url: '/{key}' };
+    static details: IAjaxConfig = { method: 'get', url: '/{key}', loading: true };
     /** 请求 insert */
     static insert: IAjaxConfig = { method: 'post' };
     /** 请求 update */
@@ -73,7 +73,7 @@ export class basesOptions {
      */
     static createHydrate() {
         return create({
-            storage: basesOptions.createStorage(),
+            storage: BasesOptions.createStorage(),
             jsonify: true,
             // debounce: 500
         })

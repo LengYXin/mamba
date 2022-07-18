@@ -7,12 +7,13 @@
  */
 import lodash from 'lodash';
 import { BindAll } from 'lodash-decorators';
-import { catchError, filter, map } from 'rxjs';
+import { concatMap, filter, map, of } from 'rxjs';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BaseModel } from './baseModel';
 import { IBasesDetailsOptions } from './basesInterface';
-import { basesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
-import { basesUtils } from './basesUtils';
+import { BasesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
+import { BasesUtils } from './basesUtils';
+import { computed } from 'mobx';
 /**
  * 基础 数据详情
  */
@@ -33,9 +34,9 @@ export class BasesDetails<T = any> {
      * @memberof BasesDetails
      */
     readonly defaultOptions: IBasesDetailsOptions = {
-        dataKey: basesOptions.dataKey,
-        details: basesOptions.details,
-        response: {}
+        dataKey: BasesOptions.dataKey,
+        details: BasesOptions.details,
+        detailsParams: {}
     };
     /**
      * 配置
@@ -53,10 +54,9 @@ export class BasesDetails<T = any> {
      * @readonly
      * @memberof [Model.value]
      */
-    // @computed
+    @computed
     get entity(): T {
-        // @ts-ignore
-        return this.Model.value || {}
+        return this.Model.value
     }
 
     /**
@@ -69,14 +69,22 @@ export class BasesDetails<T = any> {
         if (lodash.isString(details)) {
             details = { url: this.options.details } as IAjaxConfig
         }
-        return lodash.assign({ target: this.options.target }, basesOptions.details, details)
+        return lodash.assign({ target: this.options.target }, BasesOptions.details, details)
+    }
+    /**
+    * details 参数配置
+    * @readonly
+    * @memberof lodash.assign(...)
+    */
+    get detailsParams() {
+        return lodash.merge({}, this.defaultOptions.detailsParams, this.options.detailsParams)
     }
     /**
      * 当前请求的 生成时间戳
      * @readonly
      * @memberof [Model.getStorage(timestamp])]
      */
-    // @computed
+    @computed
     get timestamp() {
         return this.Model.getStorage(EnumBasesKeys.timestamp)
     }
@@ -85,6 +93,7 @@ export class BasesDetails<T = any> {
     * @readonly
     * @memberof BasesPagination
     */
+    @computed
     get requestError() {
         return this.Model.getStorage(EnumBasesKeys.requestError, false)
     }
@@ -93,7 +102,7 @@ export class BasesDetails<T = any> {
      * @readonly
      * @memberof [Model.loading)]
      */
-    // @computed
+    @computed
     get loading() {
         return this.Model.loading
     }
@@ -102,6 +111,9 @@ export class BasesDetails<T = any> {
      * @param options 
      */
     reset(options: IBasesDetailsOptions = lodash.cloneDeep(this.options)) {
+        // if (this.loading) {
+        //     return BasesUtils.warning(`Details reset loading 未完成`);
+        // }
         lodash.assign(this.options, this.defaultOptions, options);
         this.clear()
         return this
@@ -112,39 +124,46 @@ export class BasesDetails<T = any> {
      * @param {IAjaxConfig} [AjaxConfig]
      * @default body:string > { [this.options.dataKey]: body }
      */
-    async onLoad(body: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
+    async onLoad(body?: string | number | { [key: string]: any }, AjaxConfig?: IAjaxConfig) {
         try {
             const timestamp = Date.now();
             this.Model.toggleLoading(true);
             this.Model.setStorage(EnumBasesKeys.timestamp, timestamp);
             AjaxConfig = this.createAjaxConfig(body, AjaxConfig);
-            basesUtils.log(`Details onLoad ${timestamp}`, AjaxConfig);
+            lodash.set(AjaxConfig, 'headers.timestamp', timestamp);
+            BasesUtils.log(`Details onLoad ${timestamp}`, AjaxConfig);
             const obs = AjaxBasics
                 .requestObservable<T>(AjaxConfig)
                 .pipe(
                     // 过滤过期请求
-                    filter(() => lodash.eq(timestamp, this.timestamp)),
-                    // 错误处理
-                    catchError((err) => {
-                        throw err
+                    filter(() => {
+                        if (lodash.eq(timestamp, this.timestamp)) {
+                            return true
+                        }
+                        BasesUtils.warning(EnumActionKeys.details + ` ${timestamp} 过期 > ${this.timestamp} 最新 `);
                     }),
-                    map<any, T>(response => {
-                        const { valueGetter, dataSource } = this.options.response;
+                    concatMap(response => {
+                        const { valueGetter, dataSource } = this.detailsParams;
                         if (lodash.isFunction(valueGetter)) {
-                            return valueGetter(response);
+                            const res = valueGetter(response, AjaxConfig);
+                            if (res instanceof Promise) {
+                                return res
+                            }
+                            return of(res)
                         }
                         if (lodash.isString(dataSource) && lodash.has(response, dataSource)) {
-                            return lodash.get(response, dataSource);
+                            return of(lodash.get(response, dataSource));
                         }
-                        return response
+                        return of(response)
                     }),
-                    map(this.set)
                 );
-            return await AjaxBasics.toPromise<T>(obs)
+            const response = await AjaxBasics.toPromise<T>(obs, AjaxConfig)
+            this.set(response)
+            return response
         } catch (error) {
-            basesUtils.error(EnumActionKeys.details, error);
+            BasesUtils.error(EnumActionKeys.details, error, this);
             this.Model.setStorage(EnumBasesKeys.requestError, true);
-            // throw error
+            throw error
         }
     }
     /**
@@ -153,9 +172,11 @@ export class BasesDetails<T = any> {
      * @memberof BasesDetails
      */
     set(response: T): T {
-        basesUtils.log('Details Set', response)
-        this.Model.setStorage(EnumBasesKeys.response, response);
-        this.Model.set(response);
+        if (response) {
+            BasesUtils.log(`Details Set ${this.timestamp}`, response, this);
+            this.Model.setStorage(EnumBasesKeys.response, response);
+            this.Model.set(response);
+        }
         this.Model.toggleLoading(false);
         return response
     }
@@ -175,7 +196,7 @@ export class BasesDetails<T = any> {
         if (!lodash.isObject(body)) {
             body = { [this.options.dataKey]: body }
         }
-        AjaxConfig = lodash.assign({ body }, this.AjaxConfig, AjaxConfig);
+        AjaxConfig = lodash.merge({}, { body }, this.AjaxConfig, AjaxConfig);
         this.Model.setStorage(EnumBasesKeys.request, lodash.cloneDeep(AjaxConfig))
         return AjaxConfig
     }

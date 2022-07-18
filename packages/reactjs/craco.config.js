@@ -5,7 +5,7 @@
  * @modify date 2021-08-06 00:17:45
  * @desc [description]
  */
- const webpack = require('webpack');
+const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const AntdDayjsWebpackPlugin = require("antd-dayjs-webpack-plugin");
 const lodash = require('lodash');
@@ -16,6 +16,17 @@ const development = process.env.NODE_ENV === 'development'
 process.env.REACT_APP_VERSION = process.env.npm_package_version
 process.env.REACT_APP_Timestamp = dayjs().format("YYYY-MM-DD HH:mm")
 module.exports = {
+    devServer: (config) => {
+        return lodash.merge(config, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
+            historyApiFallback: true,
+            hot: false,
+            watchContentBase: false,
+            liveReload: false
+        })
+    },
     plugins: createPlugins(),
     eslint: {
         // enable: false,
@@ -83,6 +94,7 @@ function configure(webpackConfig, { env, paths }) {
     paths.appBuild = lodash.replace(paths.appBuild, 'build', appConfig.BuildDir)
     const mambaSrc = require.resolve("@mamba/clients").replace('index.ts', '')
     lodash.set(webpackConfig, 'output.path', paths.appBuild)
+    lodash.set(webpackConfig, 'output.jsonpFunction', 'webpackJsonp_reactjs')
     lodash.update(webpackConfig, 'resolve.modules', lodash.reverse)
     lodash.update(webpackConfig, 'module.rules[1].oneOf[2].include', include => ([include, mambaSrc]))
     lodash.update(webpackConfig, 'optimization.splitChunks', splitChunks => lodash.merge(splitChunks, {

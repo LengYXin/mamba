@@ -1,9 +1,15 @@
 import { AppEntitiesField, AppValueType } from '@/components';
 import { BasesPagination } from "@mamba/clients";
 import lodash from "lodash";
+import { PagesEnum } from './pages';
 import Vue from "vue";
 import { NavigationFailure } from "vue-router";
+import * as Mamba from '@mamba/clients';
 lodash.set(Vue, 'ValueType', AppValueType)
+lodash.set(Vue, '$Pages', PagesEnum)
+Object.defineProperty(Vue.prototype, "$Pages", {
+    get: lodash.constant(Mamba.Utils.toReadonly(PagesEnum)),
+});
 /**
 * 跳转详情
 * 合并当前页面的 query 追加 detailsVisible 触发显示

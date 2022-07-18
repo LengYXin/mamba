@@ -7,13 +7,13 @@
  */
 import lodash from 'lodash';
 import { BindAll } from 'lodash-decorators';
-import { toJS } from 'mobx';
-import { catchError, delay, filter, map } from 'rxjs';
+import { toJS, computed } from 'mobx';
+import { catchError, concatMap, filter, map, of } from 'rxjs';
 import { AjaxBasics, IAjaxConfig } from "../../helpers";
 import { BaseModel } from "./baseModel";
 import { IBasesPaginationIAjaxConfig, IBasesPaginationOptions, IBasesResponse } from './basesInterface';
-import { basesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
-import { basesUtils } from './basesUtils';
+import { BasesOptions, EnumActionKeys, EnumBasesKeys } from './basesOptions';
+import { BasesUtils } from './basesUtils';
 
 /**
  * 基础 分页管理
@@ -36,9 +36,9 @@ export class BasesPagination<T = any> {
      */
     get defaultOptions(): IBasesPaginationOptions {
         return {
-            pagination: basesOptions.pagination,
-            paginationParams: basesOptions.paginationParams,
-            infinite: basesOptions.infinite,
+            pagination: BasesOptions.pagination,
+            paginationParams: BasesOptions.paginationParams,
+            infinite: BasesOptions.infinite,
         }
     };
     /**
@@ -70,14 +70,14 @@ export class BasesPagination<T = any> {
      * @memberof lodash.assign(...)
      */
     get PaginationParams() {
-        return lodash.assign({}, this.defaultOptions.paginationParams, this.options.paginationParams)
+        return lodash.merge({}, this.defaultOptions.paginationParams, this.options.paginationParams)
     }
     /**
      * 当前请求的 生成时间戳
      * @readonly
      * @memberof [Model.getStorage(timestamp])]
      */
-    // @computed
+    @computed
     get timestamp() {
         return this.Model.getStorage(EnumBasesKeys.timestamp)
     }
@@ -86,7 +86,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.loading)]
      */
-    // @computed
+    @computed
     get loading() {
         return this.Model.loading
     }
@@ -95,7 +95,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.getStorage(request])]
      */
-    // @computed
+    @computed
     get request() {
         return this.Model.getStorage(EnumBasesKeys.request)
     }
@@ -104,14 +104,16 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof BasesPagination
      */
+    @computed
     get finished() {
-        return !!(this.Model.size && this.Model.getStorage(EnumBasesKeys.finished, false))
+        return this.Model.getStorage(EnumBasesKeys.finished, false)
     }
     /**
      * 请求出错
      * @readonly
      * @memberof BasesPagination
      */
+    @computed
     get requestError() {
         return this.Model.getStorage(EnumBasesKeys.requestError, false)
     }
@@ -120,17 +122,16 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.getStorage(response[PaginationParams.response.total])]
      */
-    // @computed
+    @computed
     get total() {
-        const PaginationParams = this.PaginationParams;
-        return this.Model.getStorage(`${EnumBasesKeys.response}.${PaginationParams.response.total}`, 0)
+        return this.Model.getStorage(`${EnumBasesKeys.response}.total`, 0)
     }
     /**
      * 当前请求的 页码索引
      * @readonly
      * @memberof [Model.getStorage(request.body[PaginationParams.currentKey])]
      */
-    // @computed
+    @computed
     get current() {
         const PaginationParams = this.PaginationParams;
         return this.Model.getStorage(`${EnumBasesKeys.request}.body.${PaginationParams.currentKey}`, PaginationParams.defaultCurrent)
@@ -140,7 +141,7 @@ export class BasesPagination<T = any> {
      * @readonly 
      * @memberof [Model.getStorage(request.body[PaginationParams.pageSizeKey])]
      */
-    // @computed
+    @computed
     get pageSize() {
         const PaginationParams = this.PaginationParams;
         return this.Model.getStorage(`${EnumBasesKeys.request}.body.${PaginationParams.pageSizeKey}`, PaginationParams.defaultPageSize)
@@ -150,15 +151,17 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof [Model.value]
      */
-    // @computed
+    @computed
     get dataSource() {
         return this.Model.value
     }
     /** 第一个元素 */
+    @computed
     get firstData() {
         return toJS(lodash.head(this.Model.obsValue));
     }
     /** 最后一个元素 */
+    @computed
     get lastData() {
         return toJS(lodash.last(this.Model.obsValue));
     }
@@ -167,6 +170,7 @@ export class BasesPagination<T = any> {
      * @readonly
      * @memberof BasesPagination
      */
+    @computed
     get selectedRowKeys(): Array<T | string> {
         return this.Model.getStorage('selectedRowKeys', [])
     }
@@ -175,6 +179,9 @@ export class BasesPagination<T = any> {
      * @param options 
      */
     reset(options: IBasesPaginationOptions = lodash.cloneDeep(this.options)) {
+        // if (this.loading) {
+        //     return BasesUtils.warning(`Pagination reset loading 未完成`);
+        // }
         lodash.assign(this.options, this.defaultOptions, options);
         this.clear()
         return this
@@ -195,39 +202,49 @@ export class BasesPagination<T = any> {
             this.Model.toggleLoading(true);
             this.Model.setStorage(EnumBasesKeys.timestamp, timestamp);
             AjaxConfig = this.createAjaxConfig(AjaxConfig);
-            basesUtils.log(`Pagination onLoad ${timestamp}`, AjaxConfig);
+            lodash.set(AjaxConfig, 'headers.timestamp', timestamp);
+            BasesUtils.log(`Pagination onLoad ${timestamp}`, AjaxConfig);
             const obs = AjaxBasics
                 .requestObservable<IBasesResponse<T>>(AjaxConfig)
                 .pipe(
                     // 过滤过期请求
-                    filter(() => lodash.eq(timestamp, this.timestamp)),
-                    // 错误处理
-                    catchError((err) => {
-                        throw err
+                    filter(() => {
+                        if (lodash.eq(timestamp, this.timestamp)) {
+                            return true
+                        }
+                        BasesUtils.warning(EnumActionKeys.pagination + ` ${timestamp} 过期 > ${this.timestamp} 最新 `);
                     }),
-                    map<any, any>(response => {
+                    // 格式化返回数据
+                    concatMap(response => {
                         const { valueGetter, dataSource, total, current, pageSize } = this.PaginationParams.response;
                         if (lodash.isFunction(valueGetter)) {
-                            return valueGetter(response);
+                            const res = valueGetter(response, AjaxConfig);
+                            if (res instanceof Promise) {
+                                return res
+                            }
+                            return of(res)
                         }
-                        return {
+                        return of({
                             current: lodash.get(response, current),
                             pageSize: lodash.get(response, pageSize),
                             total: lodash.get(response, total),
-                            dataSource: lodash.get(response, dataSource),
-                        }
-                    }),
-                    map(this.set)
+                            dataSource: lodash.isArray(response) ? response : lodash.get(response, dataSource, []),
+                        })
+                    })
                 );
-            return await AjaxBasics.toPromise<IBasesResponse<T>>(obs)
+            const response = await AjaxBasics.toPromise<IBasesResponse<T>>(obs, AjaxConfig)
+            this.set(response)
+            return response
         } catch (error) {
             if (!lodash.includes(['loading', 'finished'], error)) {
                 this.Model.toggleLoading(false);
                 this.Model.setStorage(EnumBasesKeys.finished, true);
                 this.Model.setStorage(EnumBasesKeys.requestError, true);
-                basesUtils.error(EnumActionKeys.pagination, error);
+                BasesUtils.error(EnumActionKeys.pagination, error, this);
+                throw error
+            } else {
+                console.warn(error, this)
             }
-            // throw error
         }
     }
     /**
@@ -236,15 +253,22 @@ export class BasesPagination<T = any> {
      * @memberof BasesPagination
      */
     set(response: IBasesResponse<T>) {
-        basesUtils.log(`Pagination Set ${this.timestamp}`, response);
-        this.Model.setStorage(EnumBasesKeys.requestError, false);
-        this.Model.setStorage(EnumBasesKeys.response, response);
-        const size = lodash.size(response.dataSource);
-        this.Model.setStorage(EnumBasesKeys.finished, size < this.pageSize);
-        if (this.options.infinite) {
-            this.Model.insert(response.dataSource);
-        } else {
-            this.Model.set(response.dataSource);
+        if (response) {
+            BasesUtils.log(`Pagination Set ${this.timestamp}`, response, this);
+            this.Model.setStorage(EnumBasesKeys.requestError, false);
+            this.Model.setStorage(EnumBasesKeys.response, response);
+            const size = lodash.size(response.dataSource);
+            this.Model.setStorage(EnumBasesKeys.finished, size < this.pageSize);
+            if (size) {
+                if (this.options.infinite) {
+                    this.Model.insert(response.dataSource);
+                } else {
+                    this.Model.set(response.dataSource);
+                }
+            }
+            if (!this.finished && response.total) {
+                this.Model.setStorage(EnumBasesKeys.finished, lodash.eq(this.total, this.Model.size));
+            }
         }
         this.Model.toggleLoading(false);
         return response
@@ -253,6 +277,7 @@ export class BasesPagination<T = any> {
     * 清理数据
     */
     clear() {
+        this.Model.toggleLoading(false)
         this.Model.set([])
         this.Model.clearStorage()
     }
@@ -261,8 +286,25 @@ export class BasesPagination<T = any> {
      * @param selectedRowKeys 
      */
     onSelectChange(selectedRowKeys) {
-        basesUtils.log(`Pagination selectedRowKeys`, selectedRowKeys)
+        BasesUtils.log(`Pagination selectedRowKeys`, selectedRowKeys)
         this.Model.setStorage('selectedRowKeys', selectedRowKeys)
+    }
+    /**
+     * 对比请求参数是否相同请求参数
+     * @param {*} other
+     * @return {*} 
+     * @memberof BasesPagination
+     */
+    eqRequestBody(other) {
+        let body = lodash.get(this.request, 'body', {});
+        if (lodash.isEmpty(body) || this.Model.size === 0) {
+            return false
+        }
+        if (this.PaginationParams.filterKey) {
+            body = lodash.get(body, this.PaginationParams.filterKey)
+        }
+        body = lodash.pick(body, lodash.keys(other))
+        return lodash.isEqual(body, other)
     }
     /**
      * 创建 onLoad AjaxConfig
@@ -274,6 +316,7 @@ export class BasesPagination<T = any> {
         AjaxConfig = lodash.merge({}, this.AjaxConfig, AjaxConfig);
         let currentKey = `body.${this.PaginationParams.currentKey}`,
             pageSizeKey = `body.${this.PaginationParams.pageSizeKey}`,
+            filterKey = `body.${this.PaginationParams.filterKey}`,
             current = lodash.head(lodash.compact([
                 // body 中的 current
                 lodash.get(AjaxConfig, currentKey),
@@ -304,10 +347,25 @@ export class BasesPagination<T = any> {
                 current += 1;
             }
         }
-        lodash.set(AjaxConfig, currentKey, lodash.toInteger(current));
-        lodash.set(AjaxConfig, pageSizeKey, lodash.toInteger(pageSize));
+        if (current) {
+            lodash.set(AjaxConfig, currentKey, lodash.toInteger(current));
+        }
+        if (pageSize) {
+            lodash.set(AjaxConfig, pageSizeKey, lodash.toInteger(pageSize));
+        }
         lodash.unset(AjaxConfig, 'current');
         lodash.unset(AjaxConfig, 'pageSize');
+        if (this.PaginationParams.filterKey) {
+            const body = lodash.cloneDeep(AjaxConfig.body);
+            lodash.set(AjaxConfig, 'body', lodash.pick(body, [
+                this.PaginationParams.currentKey,
+                this.PaginationParams.pageSizeKey]
+            ));
+            lodash.set(AjaxConfig, filterKey, lodash.omit(body, [
+                this.PaginationParams.currentKey,
+                this.PaginationParams.pageSizeKey]
+            ));
+        }
         this.Model.setStorage(EnumBasesKeys.request, lodash.cloneDeep(AjaxConfig))
         return AjaxConfig
     }
@@ -352,6 +410,9 @@ export class BasesPagination<T = any> {
      * @returns entity
      */
     onInsert(entitys: T | Array<T>, first: boolean = false) {
+        if (lodash.isEmpty(entitys) || !lodash.isObject(entitys)) {
+            return entitys
+        }
         this.Model.insert(entitys, first);
         return entitys
     }
@@ -363,6 +424,9 @@ export class BasesPagination<T = any> {
      */
     onUpdate(entity: T, assign = true) {
         const path = lodash.findIndex(this.Model.obsValue, this.getDataKey(entity, true))
+        if (lodash.eq(path, -1)) {
+            return
+        }
         return this.Model.update(old => {
             if (assign)
                 return lodash.assign(old, entity)

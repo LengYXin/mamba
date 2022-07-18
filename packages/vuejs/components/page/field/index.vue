@@ -40,6 +40,7 @@ import Field_switch from "./views/switch.vue";
 import Field_transfer from "./views/transfer.vue";
 // import Field_image from "./views/image.vue";
 import Field_upload from "./views/upload.vue";
+import Field_codemirror from "./views/codemirror.vue";
 // import Field_grid from "./views/grid/index.vue";
 // import Field_editor from "./views/editor.vue";
 // import Field_icons from "./views/icons.vue";
@@ -63,6 +64,7 @@ import lodash from "lodash";
     Field_transfer,
     // Field_image,
     Field_upload,
+    Field_codemirror
     // Field_grid,
     // Field_editor,
     // Field_icons

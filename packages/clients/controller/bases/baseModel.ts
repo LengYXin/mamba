@@ -6,16 +6,32 @@
  * @desc [数据存储]
  */
 import lodash from 'lodash';
-import { action, observable, toJS, isObservable } from 'mobx';
+import { action, observable, toJS, isObservable, computed } from 'mobx';
 import { IBaseModelOptions } from './basesInterface';
 import { persist } from "mobx-persist";
-import { basesOptions, EnumBasesKeys } from './basesOptions';
+import { BasesOptions, EnumBasesKeys } from './basesOptions';
 import { Subject, firstValueFrom, delay, of } from 'rxjs';
-import { basesUtils } from './basesUtils';
+import { BasesUtils } from './basesUtils';
 export class BaseModel<T = any> {
-    constructor(private readonly options: IBaseModelOptions) {
-        basesOptions.reactive(this);
-        this.createHydrate()
+    constructor(options?: IBaseModelOptions) {
+        // BasesOptions.reactive(this);
+        this.onInit(options)
+    }
+    readonly options: IBaseModelOptions = { type: 'object' }
+    onInit(options: IBaseModelOptions) {
+        if (!lodash.isEmpty(options)) {
+            lodash.merge(this.options, options)
+            switch (this.type) {
+                case 'list':
+                    this.set([])
+                    break;
+                case 'map':
+                case 'object':
+                    this.set({})
+                    break;
+            }
+            this.createHydrate();
+        }
     }
     /** 数据类型 */
     get type() {
@@ -40,23 +56,24 @@ export class BaseModel<T = any> {
     loading = false;
     /** 存储空间 */
     @observable
-    private _storage = {};
+    protected _storage = {};
     public get storage() {
         return toJS(this._storage);
     }
     /** 源数据 */
     @observable
-    private _value = undefined;
+    protected _value = undefined;
     /** 原始的 _value */
     public get obsValue(): T {
         return this._value;
     }
     /** 源数据 */
-    // @computed
+    @computed
     public get value(): T {
         return toJS(this._value);
     }
     /** 长度 */
+    @computed
     public get size(): number {
         if (this.type !== 'list') {
             throw new Error("value type not Array");
@@ -82,6 +99,13 @@ export class BaseModel<T = any> {
         return this
     }
     /**
+     * 获取 值
+     * @param value 
+     */
+    public get(key: string, defaultValue?: any) {
+        return lodash.get(this._value, key, defaultValue) || defaultValue;
+    }
+    /**
      * merge 值
      * @param value 
      */
@@ -104,7 +128,7 @@ export class BaseModel<T = any> {
         const { options } = this;
         const { storageLoading = true } = options;
         try {
-            const Hydrate = basesOptions.createHydrate()
+            const Hydrate = BasesOptions.createHydrate()
             // 模拟慢 几秒
             // await of(1).pipe(delay(3000)).toPromise()
             if (lodash.isEmpty(options.storageKey) && lodash.isEmpty(options.schema)) {
@@ -133,7 +157,7 @@ export class BaseModel<T = any> {
             }
             persist(schema)(this);
             await Hydrate(options.storageKey, this);
-            basesUtils.warning(`持久化 【 ${options.storageKey} 】`, this)
+            BasesUtils.warning(`持久化 【 ${options.storageKey} 】`, this)
             this.HydrateSubject.next(this)
             this.HydrateSubject.complete()
             // lodash.invoke(options, 'onSuccess');
@@ -161,7 +185,7 @@ export class BaseModel<T = any> {
      * @param key 
      * @param defaultValue 
      */
-    public getStorage(key: string, defaultValue?: any) {
+    public getStorage<P = any>(key: string, defaultValue?: any): P {
         return lodash.get(this.storage, key, defaultValue) || defaultValue;
     }
     /**

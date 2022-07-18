@@ -10,6 +10,7 @@ import { BindAll } from 'lodash-decorators';
 import { BaseModel } from '../bases/baseModel';
 import { of, delay, Subject } from 'rxjs';
 import { Encryption } from '../../helpers/encryption';
+import { computed } from 'mobx';
 @BindAll()
 export class SystemController {
     constructor() {
@@ -39,6 +40,7 @@ export class SystemController {
      * @readonly
      * @memberof SystemController
      */
+    @computed
     get LoginIn() {
         if (this.User.loading) {
             return false
@@ -56,6 +58,7 @@ export class SystemController {
         await of(1).pipe(delay(1500)).toPromise()
         this.User.merge({ access_token: Encryption.MD5(formData) })
         await this.onGetUserInfo()
+        return true
     }
     /**
      * 校验登陆状态

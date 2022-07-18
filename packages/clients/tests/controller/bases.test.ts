@@ -1,4 +1,4 @@
-import { AjaxBasics, BasesController, basesOptions } from '../../'
+import { AjaxBasics, BasesController, BasesOptions } from '../../'
 import lodash from 'lodash'
 type entity = {
     key: string;
@@ -28,7 +28,7 @@ it('onDelete', async () => {
     // 随机数据
     const data = lodash.sampleSize(controller.dataSource, size);
     const dels = await controller.onDelete(data);
-    expect(lodash.size(controller.dataSource)).toEqual(basesOptions.paginationParams.defaultPageSize - size)
+    expect(lodash.size(controller.dataSource)).toEqual(BasesOptions.paginationParams.defaultPageSize - size)
     expect(lodash.isEqual(lodash.sortBy(data, 'key'), lodash.sortBy(dels, 'key'))).toBe(true)
 });
 it('onUpdate', async () => {

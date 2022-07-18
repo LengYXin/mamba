@@ -1,0 +1,56 @@
+{
+  "name": "micro",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --report ",
+    "init": "npm-run-all --parallel install:child* ",
+    "install:child-vuejs2": "cd examples/vuejs2 && yarn",
+    "install:child-vuejs3": "cd examples/vuejs3 && yarn",
+    "install:child-reactjs": "cd examples/reactjs && yarn",
+    "dev-child": "npm-run-all --parallel dev-child:*",
+    "dev-child:vuejs2": "cd examples/vuejs2 && npm run dev",
+    "dev-child:vuejs3": "cd examples/vuejs3 && npm run dev",
+    "dev-child:reactjs": "cd examples/reactjs && npm run dev",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@ant-design-vue/pro-layout": "3.1.0-beta.6",
+    "@ant-design/icons-vue": "^6.0.1",
+    "@mamba/clients": "^0.0.1",
+    "@micro-zoe/micro-app": "^0.4.0",
+    "ant-design-vue": "^3.0.0-alpha.4",
+    "bowser": "^2.11.0",
+    "core-js": "^3.18.3",
+    "crypto-js": "^4.1.1",
+    "file-saver": "^2.0.5",
+    "lodash": "^4.17.21",
+    "lodash-decorators": "^6.0.1",
+    "mobx": "^5.15.7",
+    "mobx-persist": "^0.4.1",
+    "nprogress": "^0.2.0",
+    "query-string": "^7.0.1",
+    "rxjs": "^7.4.0",
+    "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-rc.1",
+    "vue-property-decorator": "^10.0.0-rc.3",
+    "vue-router": "^4.0.0-rc.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.14",
+    "@vue/cli-plugin-router": "~4.5.14",
+    "@vue/cli-plugin-typescript": "~4.5.14",
+    "@vue/cli-service": "~4.5.14",
+    "@vue/compiler-sfc": "^3.2.20",
+    "babel-plugin-import": "^1.13.3",
+    "less": "^3.13.1",
+    "less-loader": "^7.3.0",
+    "moment-locales-webpack-plugin": "^1.2.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "~4.2"
+  },
+  "resolutions": {
+    "tslib": "^2.1.0"
+  }
+}

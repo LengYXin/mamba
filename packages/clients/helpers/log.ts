@@ -7,7 +7,7 @@
  */
 import lodash from 'lodash';
 export class Log {
-    static assert = false;
+    static group = true;
     // https://ant.design/docs/spec/colors-cn
     static color = {
         info: '#1890ff',
@@ -16,15 +16,23 @@ export class Log {
         warning: '#fadb14',
     }
     static log(optiona: { message: string, color: string } | string, ...optionalParams: any[]) {
-        optiona = lodash.isString(optiona) ? { message: optiona, color: Log.color.info } : optiona;
-        if (console && console.log && console.group && console.groupEnd) {
-            console.log(' ')
-            console.group(`%c -- ${optiona.message} --`, `color:${optiona.color}`)
-            lodash.map(optionalParams, item => console.log(item))
-            console.groupCollapsed(`%c -- [堆栈记录] --`, `color:${optiona.color}`);
-            console.trace(); // hidden in collapsed group
-            console.groupEnd();
-            console.log(' ')
+        try {
+            optiona = lodash.isString(optiona) ? { message: optiona, color: Log.color.info } : optiona;
+            if (console && console.log) {
+                console.log(' ')
+                Log.group ? console?.groupCollapsed(`%c -- ${optiona.message} --`, `color:${optiona.color}`) :
+                    console.log(`%c -- ${optiona.message} --`, `color:${optiona.color}`)
+                lodash.map(optionalParams, item => console.log(item))
+                if (process.env.APP_ENV !== 'release') {
+                    console?.groupCollapsed(`%c -- [堆栈记录] --`, `color:${Log.color.error}`);
+                    console?.trace(); // hidden in collapsed group
+                }
+                console?.groupEnd();
+                console?.groupEnd();
+                console.log(' ')
+            }
+        } catch (error) {
+            console.error("LENG ~ Log ~ error", error)
         }
     }
     static info(message: string, ...optionalParams: any[]) {
